@@ -280,3 +280,8 @@ button svg {
     display: grid;
     margin: 20px; /* Agregar margen */
 }
+
+#status {
+        color: navy; /* Color del texto */
+        font-weight: bold; /* Para hacer el texto más llamativo */
+}
