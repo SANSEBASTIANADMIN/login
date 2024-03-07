@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">  
+	<link rel="stylesheet" href="css/estilos.css">
+	<title>Inicio de sesión Privada San Sebastian</title>
+</head>
+<body>
+	<div id="home" class="contenedor21">
+		<div class="columna-izquierda">
+			<div class="registro activo" id="registro">
+				<div class="row">
+					<div class="columna-izquierda2">
+						<img src="Logo.jpg" alt="Descripción de la imagen">
+					</div>
+					<div class="header">
+						<h1>¡Privada San Sebastian!</h1>
+						<p>Ingresa sesión</p>
+					</div>
+				</div>
+				<form class="formulario" id="formulario">
+					<label for="nombre">Usuario</label>
+					<div class="contenedor-input">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+						</svg>
+						<input type="text" id="nombre" name="nombre" placeholder="Correo electrónico">
+					</div>
+		
+					<label for="Contraseña">Contraseña</label>
+					<div class="contenedor-input">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+							<path d="M4 7V5a4 4 0 0 1 8 0v2h.5a2.5 2.5 0 0 1 2.5 2.5V13a2.5 2.5 0 0 1-2.5 2.5H2.5A2.5 2.5 0 0 1 0 13v-3.5A2.5 2.5 0 0 1 2.5 7H4zM3 7h10V5a3 3 0 0 0-6 0v2H3z"/>
+						  </svg>													
+						<input type="text" id="contrasena" name="correo" placeholder="*********">
+					</div>
+					
+					<div class="contenedor-boton">
+						<button type="submit">
+							Iniciar sesión
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+								<path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+							</svg>
+						</button>
+					</div>
+				</form>
+			</div>
+
+			<div class="header exito" id="exito">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+					<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+					<path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+				</svg>
+				<h1>Bienvenido!</h1>
+				<p></p>
+
+			
+			</div>
+		</div>
+	</div>
+
+	<div id="inicio" class="container mt-5 oculto">
+		<div class="contenedor">
+			<div>
+				<div>
+					<div class="row">
+						<div class="columna-izquierda2">
+							<img src="Logo.jpg" alt="Descripción de la imagen">
+						</div>
+						<div class="columna-derecha2">
+							<h1>¡Bienvenido(a)!</h1>
+							<p></p>
+							<p><span id="propietario"></span></p>
+							<p><span id="domicilio"></span></p>
+							<p><span id="correo"></span></p>
+						</div>
+					</div>
+
+					<div class="contenedor2">
+						<div>
+								<div class="columna-derecha">
+									<td><svg xmlns="http://www.w3.org/2000/svg" width="47" height="47" fill="currentColor" class="bi bi-key-fill text-primary" viewBox="0 0 16 16"> <!-- Icono de una llave de  Bootstrap -->
+										<path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/></svg>
+									</td> 
+									<p>TAG ID del domicilio</p>
+								<div class="columna-izquierda">
+									<table class="table table-borderless" id="tags" class="table table-bordered">
+										<tr>
+											<td><span id="tag1"></span></td>
+										</tr>
+										<tr>
+											<td><span id="tag2"></span></td>
+										</tr>
+										<tr>
+											<td><span id="tag3"></span></td>
+										</tr>
+										<tr>
+											<td><span id="tag4"></span></td>
+										</tr>
+										<tr>
+											<td><span id="tag5"></span></td>
+										</tr>
+										<tr>
+											<td><span id="tag6"></span></td>
+										</tr>
+									</table>
+								</div>	
+							</div>
+						</div>
+					</div>
+					<div class="contenedor2">
+						<div class="text-center">	
+							<p>Estatus de mantenimiento: <span id="status"></span></p>
+							<p>Consulta tu historico de pagos</p>
+							<select id="selectYear" onchange="updatePaymentHistory()" class="form-select">
+								<option value="0">Seleciona un año</option>
+								<option value="2023">2023</option>
+								<option value="2024">2024</option>
+							</select>
+						</div>
+						<div class="contenedor3">
+							<div>
+								<table id="paymentHistory2024" style="display: none;" class="table-custom table-custom-highlight">
+									<tr>
+										<td>Enero</td>
+										<td><span id="ene2024"></span></td>
+										</tr>
+									<tr>
+										<td>Febrero</td>
+										<td><span id="feb2024"></span></td>
+									</tr>
+									<tr>
+										<td>Marzo</td>
+										<td><span id="mar2024"></span></td>
+									</tr>
+									<tr>
+										<td>Abril</td>
+										<td><span id="abr2024"></span></td>
+									</tr>
+									<tr>
+										<td>Mayo</td>
+										<td><span id="may2024"></span></td>
+									</tr>
+									<tr>
+										<td>Junio</td>
+										<td><span id="jun2024"></span></td>
+									</tr>
+									<tr>
+										<td>Julio</td>
+										<td><span id="jul2024"></span></td>
+									</tr>
+									<tr>
+										<td>Agosto</td>
+										<td><span id="ago2024"></span></td>
+									</tr>
+									<tr>
+										<td>Septiembre</td>
+										<td><span id="sep2024"></span></td>
+									</tr>
+									<tr>
+										<td>Octubre</td>
+										<td><span id="oct2024"></span></td>
+									</tr>
+									<tr>
+										<td>Noviembre</td>
+										<td><span id="nov2024"></span></td>
+									</tr>
+									<tr>
+										<td>Diciembre</td>
+										<td><span id="dic2024"></span></td>
+									</tr>
+								</table>
+							</div>
+							<div>
+								<table id="paymentHistory2023" style="display: none;" class="table-custom table-custom-highlight">
+									<tr>
+										<td>Enero</td>
+										<td><span id="ene2023"></span></td>
+									</tr>
+									<tr>
+										<td>Febrero</td>
+										<td><span id="feb2023"></span></td>
+									</tr>
+									<tr>
+										<td>Marzo</td>
+										<td><span id="mar2023"></span></td>
+									</tr>
+									<tr>
+										<td>Abril</td>
+										<td><span id="abr2023"></span></td>
+									</tr>
+									<tr>
+										<td>Mayo</td>
+										<td><span id="may2023"></span></td>
+									</tr>
+									<tr>
+										<td>Junio</td>
+										<td><span id="jun2023"></span></td>
+									</tr>
+									<tr>
+										<td>Julio</td>
+										<td><span id="jul2023"></span></td>
+									</tr>
+									<tr>
+										<td>Agosto</td>
+										<td><span id="ago2023"></span></td>
+									</tr>
+									<tr>
+										<td>Septiembre</td>
+										<td><span id="sep2023"></span></td>
+									</tr>
+									<tr>
+										<td>Octubre</td>
+										<td><span id="oct2023"></span></td>
+									</tr>
+									<tr>
+										<td>Noviembre</td>
+										<td><span id="nov2023"></span></td>
+									</tr>
+									<tr>
+										<td>Diciembre</td>
+										<td><span id="dic2023"></span></td>
+									</tr>
+								</table>
+							</div>
+						</div>		
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<script src="js/app.js"></script>
+</body>
+</html>
