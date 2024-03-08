@@ -3,168 +3,157 @@
 	--secundario: #000;
 }
 
+body {
+    background: #fff;
+    font-family: 'Quicksand', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 * {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
 }
 
-body {
-	background: #F0F4F3;
-	font-family: 'Quicksand', sans-serif;
-
-	min-height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
 .contenedor {
     width: 100%;
-    max-width: 450px;
+    max-width: 800px;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: rgb(52 167 241 / 32%) 1px 20px 20px 0px;
     background: #fff;
-    min-height: 60vh;
+    min-height: 10vh;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    margin: 20px; /* Agregar margen */
+}
+
+@media screen and (max-width: 150px) {
+    .contenedor {
+        max-width: 50%;
+    }
 }
 
 .columna-izquierda {
-	padding: 40px;
+    padding: 5px;
+    min-height: 10vh;
+}
+.row {
+	display: flex;
+	/*justify-content: space-between;*/
+	justify-content: flex-start;
+	/*align-items: flex-start;*/
+	align-items: center;
+
+}
+.row h1,
+.row p,
+.row span {
+    margin: 0 auto;
 }
 
-
-.header {
-	margin-bottom: 40px;
+.titulo {
+    color: rgb(37, 150, 190);
 }
-
-.header h1 {
-	color: var(--primario);
+.columna-izquierda2,
+.columna-derecha2 {
+	width: 60%; /* Ajusta el ancho según tus necesidades */
 }
-
-.header p {
-	color: var(--secundario);
-}
-
-label {
-	margin-bottom: 10px;
-	display: block;
-	font-weight: 500;
-	color: var(--secundario);
-	font-size: 14px;
+.columna-izquierda2 img {
+	max-width: 90%; /* Asegura que la imagen no sobrepase su contenedor */
+	height: auto;
 }
 
 .contenedor-input {
 	position: relative;
 }
 
-.registro {
-	display: none;
+.header {
+    margin-bottom: 40px;
 }
 
-.registro.activo {
-	display: block;
+.header h1 {
+    color: #013E6A;
 }
 
-.exito {
-	display: none;
-	height: 100%;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 20px;
+.header p {
+    color: #000;
 }
 
-.exito.activo {
-	display: flex;
+label {
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #000;
+    font-size: 14px;
 }
-
-.exito svg {
-	width: 50px;
-	height: 50px;
-	color: var(--primario);
-}
-
 
 input {
-	height: 50px;
-	line-height: 50px;
-	font-size: 16px;
-	width: 100%;
-	border: none;
-	border-radius: 5px;
-	padding: 0 20px 0 45px;
-	margin-bottom: 20px;
-	background: #f4f8f7;
-	color: var(--primario);
-	font-family: 'Quicksand', sans-serif;
-	border: 2px solid transparent;
-	transition: .3s ease all;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px 0 45px;
+    margin-bottom: 20px;
+    background: #f4f8f7;
+    color: #013E6A;
+    font-family: 'Quicksand', sans-serif;
+    border: 2px solid transparent;
+    transition: .3s ease all;
 }
 
 input:focus {
-	outline: none;
-	border: 2px solid var(--primario);
+    outline: none;
+    border: 2px solid #013E6A;
 }
 
 .contenedor-input svg {
-	position: absolute;
-	color: var(--primario);
-	top: 17px;
-	left: 17px;
-} 
-
-.contenedor-boton {
-	display: flex;
-	justify-content: center;
+    position: absolute;
+    color: #013E6A;
+    top: 17px;
+    left: 17px;
 }
 
 button {
-	font-family: 'Quicksand', sans-serif;
-	font-size: 16px;
-	border-radius: 5px;
-	margin-top: 20px;
-	background: none;
-	height: 50px;
-	color: var(--primario);
-	padding: 0 50px;
-	display: flex;
-	align-items: center;
-	justify-content: end;
-	border: 2px solid var(--primario);
-	cursor: pointer;
-	transition: .3s ease all;
-	outline: none;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 20px;
+    background: none;
+    height: 50px;
+    color: #013E6A;
+    padding: 0 50px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    border: 2px solid #013E6A;
+    cursor: pointer;
+    transition: .3s ease all;
+    outline: none;
 }
 
 button:hover {
-	background: var(--primario);
-	color: #fff;
+    background: #013E6A;
+    color: #fff;
 }
 
 button svg {
-	margin-left: 10px;
-	width: 20px;
-	height: 20px;
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
 }
 
 .columna-derecha img {
-	max-width: 100%; /* Establece el ancho máximo al 100% del contenedor */
-	justify-content: center; /* Centra horizontalmente */
-	align-items: center; /* Centra verticalmente */
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 .columna-derecha {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-}
-
-
-.oculto {
-    display: none;
+    justify-content: center;
+    align-items: center;
 }
 
 .contenedor2 {
@@ -174,114 +163,61 @@ button svg {
     overflow: hidden;
     background: #fff;
     min-height: 10vh;
-    display: grid;
-    margin: 20px; /* Agregar margen */
+    margin: 20px;
 }
-
 
 .form-select {
     font-family: Arial, sans-serif;
     font-size: 14px;
     color: #333;
-    background-color: #f8f9fa; /* Color de fondo */
-    border: 1px solid #ced4da; /* Borde */
-    border-radius: 5px; /* Bordes redondeados */
-    padding: 12px 16px; /* Espaciado interno */
-    cursor: pointer; /* Cursor de puntero al pasar por encima */
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Transiciones suaves */
-    width: 350px; /* Ancho del selector */
-    margin-right: 10px; /* Margen derecho */
-    box-sizing: border-box; /* La anchura y altura incluyen el padding y el borde */
-}
-
-.form-select:hover {
-    background-color: #e9ecef; /* Cambio de color al pasar por encima */
-}
-
-.form-select:focus {
-    outline: none; /* Quita el contorno al enfocar */
-    border-color: #4e89ff; /* Borde resaltado al enfocar */
-    box-shadow: 0 0 0 0.2rem rgba(78, 137, 255, 0.25); /* Sombra al enfocar */
-}
-
-/* Otras propiedades adicionales */
-.form-select option {
-    font-size: 12px; /* Tamaño de fuente para las opciones */
-}
-
-.form-select:disabled {
-    opacity: 0.5; /* Opacidad reducida para opciones deshabilitadas */
-    cursor: not-allowed; /* Cursor no permitido */
-}
-
-.row {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-}
-
-.columna-izquierda2,
-.columna-derecha2 {
-	width: 78%; /* Ajusta el ancho según tus necesidades */
-}
-
-.columna-izquierda2 img {
-	max-width: 100%; /* Asegura que la imagen no sobrepase su contenedor */
-	height: auto;
-}
-
-.contenedor3 {
-	display: flex;
-	justify-content: flex-start; /* Alinear las tablas a la izquierda */
-	overflow-x: hidden; /* Evitar el desplazamiento horizontal */
-}
-
-.contenedor3 > div {
-	width: 50%; /* Ancho fijo para cada tabla */
-	margin-right: 0; /* Eliminar el margen derecho */
-
-}
-
-/* Estilos para las tablas */
-.table-custom {
-	border-collapse: collapse;
-	width: 100%; /* Ancho al 100% del contenedor */
-	border: none; /* Elimina los bordes de la tabla */
-}
-
-/* Estilo para resaltar */
-.table-custom-highlight td {
-	background-color: rgba(0, 0, 128, 0);
-	color: rgb(93, 93, 93);
-}
-
-
-.contenedor01 {
-    width: 55%;
-    max-width: 800px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: rgb(52 167 241 / 32%) 1px 20px 20px 0px;
-    background: #fff;
-    min-height: 60vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: 0 auto; /* Centra horizontalmente el contenedor */
-}
-
-
-.contenedor21 {
-    width: 100%;
-    max-width: 800px;
-    border-radius: 10px;
-    overflow: hidden;
-    background: #fff;
-    min-height: 10vh;
-    display: grid;
-    margin: 20px; /* Agregar margen */
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition:
 }
 
 #status {
-	color: navy; /* Color del texto */
+	color: rgb(65, 113, 226); /* Color del texto */
 	font-weight: bold; /* Para hacer el texto más llamativo */
 }
+
+/* Estilos para el contenedor de botones */
+.button-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+  }
+  
+  /* Estilos para los botones */
+  .btn {
+	width: 200px; /* Maintains the desired width */
+	height: 40px; /* Maintains the desired height */
+	min-width: 150px; /* Maintains the minimum width */
+	margin: 2px; /* Maintains the margin */
+	padding: 10px 20px; /* Maintains the padding for button comfort */
+	text-align: left; /* Aligns the text to the left */
+	border-radius: 5px; /* Maintains the border radius */
+	font-size: 12px; /* Reduces the font size to 12px */
+	font-weight: 500; /* Maintains the font weight */
+	transition: all 0.3s ease; /* Maintains the transition effect */
+	outline: none; /* Maintains the removal of outline */
+  }
+
+  .textbtn {
+	text-align: left; /* Aligns the text to the left */
+	font-size: 12px; /* Reduces the font size to 12px */
+  }
+  
+  table {
+	margin: 0;
+	border-collapse: collapse;
+	text-align: left;
+  }
+
+  td {
+	padding: 5px;
+	font-size: 12px;
+  }
