@@ -36,11 +36,41 @@ const oct2023Span = document.getElementById("oct2023");
 const nov2023Span = document.getElementById("nov2023");
 const dic2023Span = document.getElementById("dic2023");
 const selectYear = document.getElementById("selectYear"); // Cambiado de value a selectYear
-const paymentHistory2023 = document.getElementById("paymentHistory2023");
+const tags = document.getElementById("tags");
 const paymentHistory2024 = document.getElementById("paymentHistory2024");
+const homepage = document.getElementById("homepage");
+
+const botones = document.getElementById("botones");
+const divbotonhistorico = document.getElementById("divbotonhistorico");
+const divbotonpago = document.getElementById("divbotonpago");
+const divbotonreservar = document.getElementById("divbotonreservar");
+const divbotonvisitas = document.getElementById("divbotonvisitas");
+const divregreso = document.getElementById("divregreso");
+
+
+
+
+document.getElementById("divbotonpago").addEventListener("click", redireccionarPagos);
+document.getElementById("divregreso").addEventListener("click", regresar);
+
 var loggedIn = true
 
-// Definición de la función updatePaymentHistory fuera del ámbito del evento submit
+
+function regresar() {
+    paymentHistory2024.style.display = "none";
+    tags.style.display = "block";
+    divbotonhistorico.style.display = "block";
+    divbotonpago.style.display = "block";
+    divbotonreservar.style.display = "block";
+    divbotonvisitas.style.display = "block";
+    divregreso.style.display = "none";
+}
+
+function redireccionarPagos() {
+    window.location.href = "https://sites.google.com/view/sansebastianprivada/mantenimiento/pagos";
+  }
+  
+
 function updatePaymentHistory() {
     const domicilio = domicilioSpan.textContent;
     const usuarioInput = correoSpan.textContent; // Utiliza el correo mostrado
@@ -75,23 +105,14 @@ function updatePaymentHistory() {
             nov2024Span.textContent = data[indice].nov2024;
             dic2024Span.textContent = data[indice].dic2024;
 
-            // Otras asignaciones de datos omitidas para brevedad
+            paymentHistory2024.style.display = "block";
+            tags.style.display = "none";
+            divbotonhistorico.style.display = "none";
+            divbotonpago.style.display = "none";
+            divbotonreservar.style.display = "none";
+            divbotonvisitas.style.display = "none";
+            divregreso.style.display = "block";
 
-            if (selectYear.value === "2023") { // Usar selectYear.value en lugar de selectedYear
-                paymentHistory2023.style.display = "block";
-                paymentHistory2024.style.display = "none";
-                console.log("Selecion 2023");
-                console.log(dic2023);
-
-            } else if (selectYear.value === "2024") {
-                paymentHistory2023.style.display = "none";
-                paymentHistory2024.style.display = "block";
-                console.log("Selecion 2024")
-                console.log(ene2024);
-            } else {
-                paymentHistory2023.style.display = "none";
-                paymentHistory2024.style.display = "none";
-            }
         })
         .catch((error) => {
             console.error(error);
@@ -101,7 +122,7 @@ function updatePaymentHistory() {
 formulario.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const usuarioInput = document.getElementById("nombre").value;
+    const usuarioInput = document.getElementById("username").value;
     const contraseñaInput = document.getElementById("contrasena").value;
 
     fetch("https://sheet.best/api/sheets/e2001717-5bc2-4628-b943-edb102107a49")
@@ -113,12 +134,16 @@ formulario.addEventListener("submit", (e) => {
             const indice = correos.findIndex((correo) => correo === usuarioInput);
             if (indice !== -1 && contraseñas[indice] === contraseñaInput) {
                 console.log("Inicio de sesión exitoso");
-                home.classList.toggle("oculto");
-                inicio.classList.toggle("oculto");
 
                 const cliente = data[indice].Cliente; // Accede directamente al cliente en lugar de usar map
+                console.log(cliente);
+
                 const domicilio = data[indice].dom; // Accede directamente al domicilio en lugar de usar map
+                console.log(domicilio);
+
                 const tag1 = data[indice].tag1
+                console.log(tag1);
+
                 const tag2 = data[indice].tag2
                 const tag3 = data[indice].tag3
                 const tag4 = data[indice].tag4
@@ -137,12 +162,13 @@ formulario.addEventListener("submit", (e) => {
                 tag6Span.textContent = tag6
                 statusSpan.textContent = status
 
-                var homeElement = document.getElementById("home");
-                if (homeElement) {
-                    homeElement.style.display = "none";
-                }
+                homepage.style.display = "none";
+                tags.style.display = "block";
+                inicio.style.display = "block";
+                botones.style.display = "block";
+                botonhistoricodepagos.style.display = "block";
+                retorno.style.display="retorno";
 
-                updatePaymentHistory(); // Llama a la función updatePaymentHistory después de actualizar los datos
             } else {
                 alert("Usuario o contraseña incorrectos");
             }
@@ -151,3 +177,4 @@ formulario.addEventListener("submit", (e) => {
             console.error(error);
         });
 });
+
