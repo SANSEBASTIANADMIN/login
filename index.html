@@ -33,7 +33,7 @@
 								<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 								<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 							</svg>
-							<input type="text" id="username" name="nombre" placeholder="Correo electrónico">
+							<input type="text" id="username" name="nombre" placeholder="Correo electrónico" autocomplete="new-password">
 						</div>
 			
 						<label for="Contraseña">Contraseña</label>
@@ -41,7 +41,7 @@
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
 								<path d="M4 7V5a4 4 0 0 1 8 0v2h.5a2.5 2.5 0 0 1 2.5 2.5V13a2.5 2.5 0 0 1-2.5 2.5H2.5A2.5 2.5 0 0 1 0 13v-3.5A2.5 2.5 0 0 1 2.5 7H4zM3 7h10V5a3 3 0 0 0-6 0v2H3z"/>
 							</svg>													
-							<input type="text" id="contrasena" name="correo" placeholder="*********">
+							<input type="text" id="contrasena" name="correo" placeholder="*********" autocomplete="current-password">
 						</div>
 						
 						<div class="contenedor-boton">
@@ -230,7 +230,7 @@
 						<input type="text" id="namevisita" placeholder="Nombre de visita o proveedor" required>
 					</div>
 					<div class="contenedor-fecha">
-						<input type="date" id="fechavisita" required>  
+						<input type="date" id="fechavisita" placeholder="Ingresa fecha" required>  
 						<select id="tipo" required>
 							<option value="">Selecciona el tipo de visita...</option>
 							<option value="familiar-amigo">Familiar o Amigo</option>
@@ -247,13 +247,20 @@
 				</form>
 				<div id="confirmacion" style="display: none;">
 					<div class="contenedor">
-						<p>Por favor verifica la información:</p>
+						<p>Por favor confirma la información:</p>
+						<p></p>
+						<p></p>
 						<p class="titulo">Nombre:<p1></p1>
 						<span id="namevisita2"></span>
+						<p></p>
 						<p class="titulo">Fecha:<p1></p1>
 						<span id="fechavisita2"></span>
+						<p></p>
 						<p class="titulo">Tipo:<p1></p1>
 						<span id="tipo2"></span>
+						<p></p>
+						<p></p>
+						<p></p>
 						<div id="datoscorrectosvisitas">
 							<button type="button" onclick="" class="btn">Confirmar</button>
 						</div>
@@ -282,7 +289,7 @@
 				</div>
 				<div id="divbotonvisitas">	
 					<button type="submit" onclick="" class="btn">
-						Autorizar a visitas o proveedores
+						Visitas y proveedores
 					</button>
 				</div>
 				<div id="divregreso">	
@@ -290,7 +297,11 @@
 					Regresar
 					</button>
 				</div>
-
+				<div id="segurichat">    
+					<button type="submit" class="btn" onclick="window.location.href = 'https://web.whatsapp.com/send?phone=527713598364';">
+						Contacto Policia Municipal
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
