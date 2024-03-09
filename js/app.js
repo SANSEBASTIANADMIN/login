@@ -46,14 +46,117 @@ const divbotonpago = document.getElementById("divbotonpago");
 const divbotonreservar = document.getElementById("divbotonreservar");
 const divbotonvisitas = document.getElementById("divbotonvisitas");
 const divregreso = document.getElementById("divregreso");
+const divingresos = document.getElementById("divingresos");
+const btnenviaringreso = document.getElementById("btnenviaringreso");
+const confirmacion = document.getElementById("confirmacion");
+const formulario2 = document.getElementById("formulario2");
 
 
 
 
+
+document.getElementById("divbotonhistorico").addEventListener("click", updatePaymentHistory);
 document.getElementById("divbotonpago").addEventListener("click", redireccionarPagos);
 document.getElementById("divregreso").addEventListener("click", regresar);
+document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
+document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
+
+
+
+document.getElementById("btnenviaringreso").addEventListener("click", enviarsdei);
+
 
 var loggedIn = true
+
+function borrarElementos() {
+    const namevisita2Span = document.getElementById("namevisita2");
+    const fechavisita2Span = document.getElementById("fechavisita2");
+    const tipo2Span = document.getElementById("tipo2");
+
+    // Eliminar el contenido de los elementos
+    namevisita2Span.textContent = "";
+    fechavisita2Span.textContent = "";
+    tipo2Span.textContent = "";
+
+
+    formulario2.style.display = "block";
+    divingresos.style.display = "block";
+    paymentHistory2024.style.display = "none";
+    tags.style.display = "none";
+    divbotonhistorico.style.display = "none";
+    divbotonpago.style.display = "none";
+    divbotonreservar.style.display = "none";
+    divbotonvisitas.style.display = "none";
+    confirmacion.style.display = "none"
+    // También puedes reiniciar el valor de los campos de entrada si es necesario
+    // Por ejemplo, si 'fechavisita' es un campo de entrada, podrías hacer lo siguiente:
+    // document.getElementById("fechavisita").value = "";
+
+    // O si 'tipo' es un campo de selección, podrías restablecerlo de esta manera:
+    // document.getElementById("tipo").selectedIndex = 0;
+}
+
+
+
+function enviarsdei() {
+    const namevisitaSpan = document.getElementById("namevisita").value;
+    const tipoSpan = document.getElementById("tipo").value;
+    const fechavisitaSpan = document.getElementById("fechavisita").value;
+
+    // Verificar si los campos están vacíos
+    if (namevisitaSpan.trim() === "" || tipoSpan.trim() === "" || fechavisitaSpan.trim() === "") {
+        alert("Por favor, complete todos los campos.");
+        return; // Detener la ejecución si algún campo está vacío
+    }
+
+    const namevisita2Span = document.getElementById("namevisita2");
+    const fechavisita2Span = document.getElementById("fechavisita2");
+    const tipo2Span = document.getElementById("tipo2");
+
+    const domicilio = domicilioSpan.textContent;
+    const correo = correoSpan.textContent;
+    const status = statusSpan.textContent;
+
+    // Obtener la fecha actual
+    const fecha = new Date();
+
+    // Función para obtener el nombre del mes en español
+    function obtenerNombreMes(mes) {
+        const nombresMeses = [
+            "enero", "febrero", "marzo", "abril", "mayo", "junio",
+            "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+        ];
+        return nombresMeses[mes];
+    }
+
+    // Función para agregar un cero delante si el número es menor que 10
+    function agregarCero(numero) {
+        return numero < 10 ? '0' + numero : numero;
+    }
+
+    // Formatear la fecha
+    const fechaFormateada = `${agregarCero(fecha.getDate())} de ${obtenerNombreMes(fecha.getMonth())} de ${fecha.getFullYear()}`;
+
+    // Asignar la fecha formateada al elemento HTML
+    fechavisita2Span.value = fechaFormateada;
+
+    if (status === "Al Corriente") {
+        console.log(namevisitaSpan);
+        console.log(fechaFormateada); // Mostrar la fecha formateada
+        console.log(tipoSpan);
+
+        confirmacion.style.display = "block";
+        formulario2.style.display = "none";
+
+        namevisita2Span.textContent = namevisitaSpan;
+        fechavisita2Span.textContent = fechaFormateada;
+        tipo2Span.textContent = tipoSpan;
+
+    } else {
+        alert("Domicilio con adeudo, actualmente no tiene derecho al ingreso de visitas o proveedores");
+    }
+}
+
 
 
 function regresar() {
@@ -63,8 +166,19 @@ function regresar() {
     divbotonpago.style.display = "block";
     divbotonreservar.style.display = "block";
     divbotonvisitas.style.display = "block";
-    divregreso.style.display = "none";
+    divingresos.style.display = "none";
 }
+
+function ingresos() {
+    divingresos.style.display = "block";
+    paymentHistory2024.style.display = "none";
+    tags.style.display = "none";
+    divbotonhistorico.style.display = "none";
+    divbotonpago.style.display = "none";
+    divbotonreservar.style.display = "none";
+    divbotonvisitas.style.display = "none";
+}
+
 
 function redireccionarPagos() {
     window.location.href = "https://sites.google.com/view/sansebastianprivada/mantenimiento/pagos";
@@ -178,3 +292,6 @@ formulario.addEventListener("submit", (e) => {
         });
 });
 
+
+
+  
