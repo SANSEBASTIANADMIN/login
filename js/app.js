@@ -39,7 +39,6 @@ const selectYear = document.getElementById("selectYear"); // Cambiado de value a
 const tags = document.getElementById("tags");
 const paymentHistory2024 = document.getElementById("paymentHistory2024");
 const homepage = document.getElementById("homepage");
-
 const botones = document.getElementById("botones");
 const divbotonhistorico = document.getElementById("divbotonhistorico");
 const divbotonpago = document.getElementById("divbotonpago");
@@ -50,9 +49,12 @@ const divingresos = document.getElementById("divingresos");
 const btnenviaringreso = document.getElementById("btnenviaringreso");
 const confirmacion = document.getElementById("confirmacion");
 const formulario2 = document.getElementById("formulario2");
+const segurichat = document.getElementById("segurichat");
 
 
 
+var today = new Date().toISOString().split('T')[0];
+document.getElementById('fechavisita').setAttribute('min', today);
 
 
 document.getElementById("divbotonhistorico").addEventListener("click", updatePaymentHistory);
@@ -60,23 +62,76 @@ document.getElementById("divbotonpago").addEventListener("click", redireccionarP
 document.getElementById("divregreso").addEventListener("click", regresar);
 document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
 document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
-
-
-
 document.getElementById("btnenviaringreso").addEventListener("click", enviarsdei);
+document.getElementById("datoscorrectosvisitas").addEventListener("click", confirmacionvyp);
 
 
 var loggedIn = true
+
+function confirmacionvyp (){
+    const domicilio = domicilioSpan.textContent;
+    const propietario = propietarioSpan.textContent;
+    const namevisitaSpan = document.getElementById("namevisita").value;
+    const fechavisita2Span = document.getElementById("fechavisita2").value;
+    const fechaHoraActual = new Date();
+    const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+
+
+    const tipoSpan = document.getElementById("tipo").value;
+    console.log(domicilio, propietario, namevisitaSpan, tipoSpan, fechavisita2Span, tipoSpan)
+
+    const datos = {
+        propietario: propietario,
+        domicilio: domicilio,
+        namevisita: namevisitaSpan,
+        fecha: fechavisita2Span,
+        tipo: tipoSpan,
+        fechaHoraRegistro: fechaHoraFormateada
+
+    };
+
+    const url = "https://sheet.best/api/sheets/ef7150db-3f89-42e9-8abd-790a804eab30";
+
+    const opciones = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datos)
+    };
+
+    // Enviar los datos a la hoja de cálculo
+    fetch(url, opciones)
+        .then((response) => response.json())
+        .then((data) => {
+        })
+
+        alert("Tu solicitud para el ingreso de " + namevisitaSpan + " el " + fechavisita2Span + " fue enviada")
+
+        borrarElementos(); // Llamar a la función para borrar elementos
+        regresar() // Llamar a la función para regresar
+        
+        .catch((error) => {
+            console.error("Error al enviar los datos a la hoja de cálculo", error);
+        });
+
+}
 
 function borrarElementos() {
     const namevisita2Span = document.getElementById("namevisita2");
     const fechavisita2Span = document.getElementById("fechavisita2");
     const tipo2Span = document.getElementById("tipo2");
+    const namevisitaSpan = document.getElementById("namevisita");
+    const fechavisitaSpan = document.getElementById("fechavisita");
+    const tipoSpan = document.getElementById("tipo");
 
     // Eliminar el contenido de los elementos
-    namevisita2Span.textContent = "";
-    fechavisita2Span.textContent = "";
-    tipo2Span.textContent = "";
+    namevisita2Span.value = "";
+    fechavisita2Span.value = "";
+    tipo2Span.value = 0;
+    namevisitaSpan.value = "";
+    fechavisitaSpan.value = "";
+    tipoSpan.value = 0;
 
 
     formulario2.style.display = "block";
@@ -95,8 +150,6 @@ function borrarElementos() {
     // O si 'tipo' es un campo de selección, podrías restablecerlo de esta manera:
     // document.getElementById("tipo").selectedIndex = 0;
 }
-
-
 
 function enviarsdei() {
     const namevisitaSpan = document.getElementById("namevisita").value;
@@ -140,6 +193,7 @@ function enviarsdei() {
     // Asignar la fecha formateada al elemento HTML
     fechavisita2Span.value = fechaFormateada;
 
+
     if (status === "Al Corriente") {
         console.log(namevisitaSpan);
         console.log(fechaFormateada); // Mostrar la fecha formateada
@@ -152,12 +206,11 @@ function enviarsdei() {
         fechavisita2Span.textContent = fechaFormateada;
         tipo2Span.textContent = tipoSpan;
 
+
     } else {
         alert("Domicilio con adeudo, actualmente no tiene derecho al ingreso de visitas o proveedores");
     }
 }
-
-
 
 function regresar() {
     paymentHistory2024.style.display = "none";
@@ -167,6 +220,8 @@ function regresar() {
     divbotonreservar.style.display = "block";
     divbotonvisitas.style.display = "block";
     divingresos.style.display = "none";
+    segurichat.style.display = "block";
+
 }
 
 function ingresos() {
@@ -177,13 +232,13 @@ function ingresos() {
     divbotonpago.style.display = "none";
     divbotonreservar.style.display = "none";
     divbotonvisitas.style.display = "none";
-}
+    segurichat.style.display = "none";
 
+}
 
 function redireccionarPagos() {
     window.location.href = "https://sites.google.com/view/sansebastianprivada/mantenimiento/pagos";
-  }
-  
+}
 
 function updatePaymentHistory() {
     const domicilio = domicilioSpan.textContent;
@@ -226,6 +281,8 @@ function updatePaymentHistory() {
             divbotonreservar.style.display = "none";
             divbotonvisitas.style.display = "none";
             divregreso.style.display = "block";
+            segurichat.style.display = "none";
+
 
         })
         .catch((error) => {
@@ -291,6 +348,8 @@ formulario.addEventListener("submit", (e) => {
             console.error(error);
         });
 });
+
+
 
 
 
