@@ -219,56 +219,81 @@
 				</div>
 			</div>
 		</div>
+		<div clas="contenedorformulario" id="divingresos" style="display: none;">
+			<div>
+				<form class="formulario2" id="formulario2">
+					<div class="contenedor-input">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+						</svg>
+						<input type="text" id="namevisita" placeholder="Nombre de visita o proveedor" required>
+					</div>
+					<div class="contenedor-fecha">
+						<input type="date" id="fechavisita" required>  
+						<select id="tipo" required>
+							<option value="">Selecciona el tipo de visita...</option>
+							<option value="familiar-amigo">Familiar o Amigo</option>
+							<option value="proveedor">Proveedor</option>
+						</select>
+					</div>
+					<div class="contenedor">
+					</div>					
+					<div class="contenedor">
+						<div id="btnenviaringreso">
+							<button type="button" onclick="" class="btn">Enviar</button>
+						</div>
+					</div>	
+				</form>
+				<div id="confirmacion" style="display: none;">
+					<div class="contenedor">
+						<p>Por favor verifica la información:</p>
+						<p class="titulo">Nombre:<p1></p1>
+						<span id="namevisita2"></span>
+						<p class="titulo">Fecha:<p1></p1>
+						<span id="fechavisita2"></span>
+						<p class="titulo">Tipo:<p1></p1>
+						<span id="tipo2"></span>
+						<div id="datoscorrectosvisitas">
+							<button type="button" onclick="" class="btn">Confirmar</button>
+						</div>
+						<div id="btnenborrar">
+							<button type="button" onclick="borrarElementos()" class="btn">Borrar</button>
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
 		<div id="botones"  style="display: none;">	
 			<div class="contenedor2 button-container">
-				<div id="divbotonhistorico" class="text-center">	
-					<button type="submit" onclick="updatePaymentHistory()" class="btn">
-						Histórico de Pagos
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-							<path fill-rule="evenodd" d="M10.5 6a.5.5 0 0 0 .5.5v3.9l4.5 4.5a.5.5 0 0 0 .708-.708l-4.5-4.5V6.5a.5.5 0 0 0-.5-.5zM6 6a.5.5 0 0 0 .5.5v3.9l4.5 4.5a.5.5 0 0 0 .708-.708l-4.5-4.5V6.5a.5.5 0 0 0-.5-.5z"/>
-						  </svg>
-					</button>
-				</div>
-				<div id="divbotonpago" class="text-center">	
+				<div id="divbotonhistorico">	
 					<button type="submit" onclick="" class="btn">
-						Realizar pago
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-plus">
-							<path fill-rule="evenodd" d="M8 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1H8zm3 2a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5h3zM8 6a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5V6a.5.5 0 0 1 .5-.5h3zM+8 8a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5h-5a1.5 1.5 0 0 1-1.5-1.5v-5a1.5 1.5 0 0 1 1.5-1.5h5z"/>
-						</svg>
+					Historico de Pagos
+				</div>
+				<div id="divbotonpago">	
+					<button type="submit" onclick="" class="btn">
+					Realizar pago
 					</button>
 				</div>
 				<div id="divbotonreservar">	
 					<button type="submit" onclick="" class="btn">
 						Reservar amenidades
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-swimming">
-							<path fill-rule="evenodd" d="M2.017 4.004a.5.5 0 0 1-.5-.836v-.395c0-.307.127-.595.336-.805a.708.708 0 1 1 1.022.397h-.039l.822-.79-1.69-.842c-.075-.077-.173-.12-.27-.12a.634.634 0 0 0-.708.688V2.004h1.008v.996zM8 16A6 6 0 1 1 8 0a6 6 0 0 1 0 16zm0-3.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-						</svg>
 					</button>
 				</div>
-				<div id="divbotonvisitas" class="text-center">	
+				<div id="divbotonvisitas">	
 					<button type="submit" onclick="" class="btn">
-						Autoriza visitas a proveedores
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open">
-							<path d="M8.5 10c-.293-.51-.563-1.032-.813-1.566a10.013 10.013 0 0 1 1.626-1.594c.54-.337 1.114-.623 1.713-.847l.667.333a1.524 1.524 0 0 1 .375.222c.133.102.24.237.333.393v1.5a.5.5 0 0 1-.342.474L9.342 13H6.5a.5.5 0 0 1-.342-.474V11.5a.5.5 0 0 1 .342-.474l1.5-1.5a.5.5 0 0 1 .474-.342h2.342a.5.5 0 0 1 .474.342l1.5 1.5a.5.5 0 0 1 .342.474v1.5a.5.5 0 0 1-.342.474L10.842 13H8.5zM1 13.5a.5.5 0 0 1-.5-.5V11H.5a.5.5 0 0 1 0-1h11v-1.5a.5.5 0 0 1 1 0V12h1.5a.5.5 0 0 1 .5.5z"/>
-						  </svg>
+						Autorizar a visitas o proveedores
 					</button>
 				</div>
-				<div id="divregreso" class="text-center">	
-					<button type="submit" onclick="" class="btn">
-						Regresar
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open">
-							<path d="M8.5 10c-.293-.51-.563-1.032-.813-1.566a10.013 10.013 0 0 1 1.626-1.594c.54-.337 1.114-.623 1.713-.847l.667.333a1.524 1.524 0 0 1 .375.222c.133.102.24.237.333.393v1.5a.5.5 0 0 1-.342.474L9.342 13H6.5a.5.5 0 0 1-.342-.474V11.5a.5.5 0 0 1 .342-.474l1.5-1.5a.5.5 0 0 1 .474-.342h2.342a.5.5 0 0 1 .474.342l1.5 1.5a.5.5 0 0 1 .342.474v1.5a.5.5 0 0 1-.342.474L10.842 13H8.5zM1 13.5a.5.5 0 0 1-.5-.5V11H.5a.5.5 0 0 1 0-1h11v-1.5a.5.5 0 0 1 1 0V12h1.5a.5.5 0 0 1 .5.5z"/>
-						  </svg>
+				<div id="divregreso">	
+					<button type="submit" class="btn">
+					Regresar
 					</button>
 				</div>
 
 			</div>
 		</div>
-		<div id="reservaciones">
-
-
-		</div>
-	</div>	
+	</div>
 	
 	<script src="js/app.js"></script>
 </body>
