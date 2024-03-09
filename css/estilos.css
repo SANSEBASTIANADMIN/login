@@ -115,18 +115,19 @@ input:focus {
     left: 17px;
 }
 
+
 button {
     font-family: 'Quicksand', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 5px;
     margin-top: 20px;
-    background: none;
+    background: #013e6a;
     height: 50px;
-    color: #013E6A;
+    color: #ffffff;
     padding: 0 50px;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-start;
     border: 2px solid #013E6A;
     cursor: pointer;
     transition: .3s ease all;
@@ -185,11 +186,13 @@ button svg {
 
 /* Estilos para el contenedor de botones */
 .button-container {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
-  }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+}
   
   /* Estilos para los botones */
   .btn {
@@ -198,9 +201,9 @@ button svg {
 	min-width: 150px; /* Maintains the minimum width */
 	margin: 2px; /* Maintains the margin */
 	padding: 10px 20px; /* Maintains the padding for button comfort */
-	text-align: left; /* Aligns the text to the left */
+	text-align: start; /* Aligns the text to the left */
 	border-radius: 5px; /* Maintains the border radius */
-	font-size: 12px; /* Reduces the font size to 12px */
+	font-size: 13px; /* Reduces the font size to 12px */
 	font-weight: 500; /* Maintains the font weight */
 	transition: all 0.3s ease; /* Maintains the transition effect */
 	outline: none; /* Maintains the removal of outline */
@@ -221,3 +224,137 @@ button svg {
 	padding: 5px;
 	font-size: 12px;
   }
+
+  .contenedor-divs {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+  }
+  .contenedor-divs {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+	grid-template-rows: 1fr;
+  }
+  
+  .div-vertical {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100px;
+	height: 100px;
+  }
+  
+  .div-vertical:nth-child(1) {
+	top: 0;
+  }
+  
+  .div-vertical:nth-child(2) {
+	top: 100px;
+  }
+  
+  .div-vertical:nth-child(3) {
+	top: 200px;
+  }
+  
+  .formulario2 {
+	display: flex; /* Activate flexbox for the form */
+	flex-direction: column; /* Stack elements vertically */
+	border: 35px;
+  }
+  
+  .contenedor-input, .contenedor-fecha {
+	margin-bottom: 10px; /* Optional spacing between elements */
+  }
+  
+
+  .contenedorx1-input {
+	width: calc(100vw - 40px); /* Ajusta el ancho según tu diseño */
+	margin: 0 auto;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: #fff;
+	border: 2px solid #013E6A; /* Azul claro */
+  }
+  
+  #tipo-visita {
+	font-size: 16px; /* Ajusta el tamaño de letra */
+	width: 100%;
+	padding: 5px 10px;
+	border: none;
+	border-radius: 4px;
+	outline: none;
+	font-family: 'Quicksand', sans-serif; /* Agrega la fuente Quicksand */
+  }
+
+  /* Estilos para el contenedor personalizado del selector */
+  .custom-select {
+    position: relative;
+}
+
+.custom-select .select-selected {
+    /* Estilos para el selector personalizado */
+    padding: 10px 15px; /* Ajusta el espaciado interno */
+    background-color: var(--primario); /* Color de fondo */
+    color: var(--secundario); /* Color del texto */
+    border: 2px solid var(--primario); /* Borde */
+    border-radius: 5px; /* Borde redondeado */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.custom-select .select-selected:hover {
+    /* Estilos al pasar el mouse sobre el selector personalizado */
+    background-color: var(--secundario); /* Cambia el color de fondo */
+    color: var(--primario); /* Cambia el color del texto */
+}
+
+.custom-select .select-items {
+    /* Estilos para el contenedor de opciones */
+    position: absolute; 
+    background-color: var(--primario); /* Color de fondo */
+    color: var(--secundario); /* Color del texto */
+    border: 2px solid var(--primario); /* Borde */
+    border-top: none; /* Elimina el borde superior */
+    border-radius: 0 0 5px 5px; /* Borde redondeado solo en la parte inferior */
+    z-index: 1; /* Asegura que las opciones aparezcan sobre otros elementos */
+    width: 100%; /* Ancho completo del contenedor */
+    display: none; /* Inicialmente oculto */
+    cursor: pointer; /* Cursor de puntero al pasar sobre las opciones */
+}
+
+.custom-select .select-items div {
+    /* Estilos para las opciones */
+    padding: 10px 15px; /* Ajusta el espaciado interno */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.custom-select .select-items div:hover {
+    /* Estilos al pasar el mouse sobre las opciones */
+    background-color: var(--secundario); /* Cambia el color de fondo */
+    color: var(--primario); /* Cambia el color del texto */
+}
+
+/* Estilos para el elemento select */
+select {
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    width: 100%;
+    padding: 20px 5px;
+    border: 5%;
+    border-radius: 6px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: auto;
+    background-color: 2px solid #013e6af6;;
+    color: rgb(5 5 5);
+    transition: border-color 0.3s ease;
+}
+
+/* Estilos al enfocar el elemento select */
+select:focus {
+    /* Borde */ 
+    border-color: #013E6A;
+    /* Elimina el estilo de selección nativo */
+    outline: none;
+}
+
