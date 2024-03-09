@@ -105,7 +105,7 @@ input {
 
 input:focus {
     outline: none;
-    border: 2px solid #013E6A;
+    border: rgba(60, 192, 255, 0.3);
 }
 
 .contenedor-input svg {
@@ -135,7 +135,8 @@ button {
 }
 
 button:hover {
-    background: #013E6A;
+    background: rgb(37, 150, 190);
+    border: rgb(37, 150, 190);
     color: #fff;
 }
 
@@ -168,7 +169,7 @@ button svg {
 }
 
 .form-select {
-    font-family: Arial, sans-serif;
+    font-family: 'Quicksand', sans-serif;
     font-size: 14px;
     color: #333;
     background-color: #f8f9fa;
@@ -336,25 +337,29 @@ button svg {
 
 /* Estilos para el elemento select */
 select {
-    font-size: 16px;
-    font-family: 'Quicksand', sans-serif;
-    width: 100%;
-    padding: 20px 5px;
-    border: 5%;
-    border-radius: 6px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: auto;
-    background-color: 2px solid #013e6af6;;
-    color: rgb(5 5 5);
-    transition: border-color 0.3s ease;
+  font-size: 16px;
+  font-family: 'Quicksand', sans-serif;
+  width: 100%;
+  padding: 20px 35px;
+  border: 25px;
+  border-radius: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: auto;
+  background-color: rgba(231,240,254,255); /* Corrección aquí */
+  color: rgb(5, 5, 5); /* Añadí coma entre los valores de color */
+  transition: border-color 0.3s ease;
 }
 
 /* Estilos al enfocar el elemento select */
 select:focus {
     /* Borde */ 
-    border-color: #013E6A;
+    background-color: rgba(231,240,254,255);
     /* Elimina el estilo de selección nativo */
     outline: none;
 }
 
+* {
+  padding: 1px;
+  box-sizing: border-box;
+}
