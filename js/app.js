@@ -50,6 +50,13 @@ const btnenviaringreso = document.getElementById("btnenviaringreso");
 const confirmacion = document.getElementById("confirmacion");
 const formulario2 = document.getElementById("formulario2");
 const segurichat = document.getElementById("segurichat");
+const divqr = document.getElementById("divqr");
+const iniciodatos = document.getElementById("iniciodatos");
+const datoscorrectosvisitas  = document.getElementById("datoscorrectosvisitas");
+const btnenborrar  = document.getElementById("btnenborrar");
+const divnuevoregistro  = document.getElementById("nuevoregistro");
+
+
 
 
 
@@ -64,11 +71,38 @@ document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
 document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
 document.getElementById("btnenviaringreso").addEventListener("click", enviarsdei);
 document.getElementById("datoscorrectosvisitas").addEventListener("click", confirmacionvyp);
+document.getElementById("nuevoregistro").addEventListener("click", nuevoregistro);
+
+
 
 
 var loggedIn = true
 
-function confirmacionvyp (){
+
+function nuevoregistro(){
+    divqr.style.display = "none";
+    divnuevoregistro.style.display = "none";
+    paymentHistory2024.style.display = "none";
+    tags.style.display = "block";
+    divbotonhistorico.style.display = "block";
+    divbotonpago.style.display = "block";
+    divbotonreservar.style.display = "block";
+    divbotonvisitas.style.display = "block";
+    divingresos.style.display = "none";
+    segurichat.style.display = "none";
+    divnuevoregistro.style.display = "none";
+
+
+    borrarElementos();
+}
+
+function confirmacionvyp() {
+    confirmacion.style.display = "none";
+    divqr.style.display = "block";  
+    datoscorrectosvisitas.style.display = "block"; 
+    divnuevoregistro.style.display = "block";
+
+
     const domicilio = domicilioSpan.textContent;
     const propietario = propietarioSpan.textContent;
     const namevisitaSpan = document.getElementById("namevisita").value;
@@ -76,9 +110,8 @@ function confirmacionvyp (){
     const fechaHoraActual = new Date();
     const fechaHoraFormateada = fechaHoraActual.toLocaleString();
 
-
     const tipoSpan = document.getElementById("tipo").value;
-    console.log(domicilio, propietario, namevisitaSpan, tipoSpan, fechavisita2Span, tipoSpan)
+    console.log(domicilio, propietario, namevisitaSpan, tipoSpan, fechavisita2Span, tipoSpan);
 
     const datos = {
         propietario: propietario,
@@ -87,7 +120,13 @@ function confirmacionvyp (){
         fecha: fechavisita2Span,
         tipo: tipoSpan,
         fechaHoraRegistro: fechaHoraFormateada
+    };
 
+    const qrData = {
+        Casa: domicilio,
+        Nombre: namevisitaSpan,
+        Fecha: fechavisita2Span,
+        Tipo: tipoSpan,
     };
 
     const url = "https://sheet.best/api/sheets/ef7150db-3f89-42e9-8abd-790a804eab30";
@@ -104,18 +143,32 @@ function confirmacionvyp (){
     fetch(url, opciones)
         .then((response) => response.json())
         .then((data) => {
+            // Alerta de éxito después de enviar los datos
+            alert("Tu solicitud para el ingreso de " + namevisitaSpan + " el " + fechavisita2Span + " fue enviada");
+            
+            // Generar el contenido para el QR
+            const qrContent = JSON.stringify(qrData);
+            
+            // Generar el código QR y mostrarlo en la página
+            new QRCode(qrElement, qrContent);
+            
+            // Obtener el contenedor donde se desea agregar el código QR
+            const contenedorQR = document.getElementById('qrElement');
+            
+            // Agregar el código QR al contenedor
+            contenedorQR.appendChild(qrElement);
+
+
+
+            // Llamar a las funciones para borrar elementos y regresar
+            //borrarElementos();
+            //regresar();
         })
-
-        alert("Tu solicitud para el ingreso de " + namevisitaSpan + " el " + fechavisita2Span + " fue enviada")
-
-        borrarElementos(); // Llamar a la función para borrar elementos
-        regresar() // Llamar a la función para regresar
-        
         .catch((error) => {
             console.error("Error al enviar los datos a la hoja de cálculo", error);
         });
-
 }
+
 
 function borrarElementos() {
     const namevisita2Span = document.getElementById("namevisita2");
@@ -124,6 +177,7 @@ function borrarElementos() {
     const namevisitaSpan = document.getElementById("namevisita");
     const fechavisitaSpan = document.getElementById("fechavisita");
     const tipoSpan = document.getElementById("tipo");
+    const contenedorQR = document.getElementById('qrElement');
 
     // Eliminar el contenido de los elementos
     namevisita2Span.value = "";
@@ -132,6 +186,10 @@ function borrarElementos() {
     namevisitaSpan.value = "";
     fechavisitaSpan.value = "";
     tipoSpan.value = 0;
+    contenedorQR.innerHTML = '';
+
+
+
 
 
     formulario2.style.display = "block";
@@ -221,6 +279,8 @@ function regresar() {
     divbotonvisitas.style.display = "block";
     divingresos.style.display = "none";
     segurichat.style.display = "block";
+    divnuevoregistro.style.display = "none";
+
 
 }
 
@@ -350,6 +410,10 @@ formulario.addEventListener("submit", (e) => {
 });
 
 
+
+
+
+  
 
 
 
