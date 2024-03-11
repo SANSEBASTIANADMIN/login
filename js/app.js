@@ -310,6 +310,8 @@ function ingresos() {
     divbotonreservar.style.display = "none";
     divbotonvisitas.style.display = "none";
     segurichat.style.display = "none";
+    divcalendario.style.display = "none";
+
 
 }
 
