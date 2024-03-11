@@ -297,6 +297,8 @@ function regresar() {
     divingresos.style.display = "none";
     segurichat.style.display = "block";
     divnuevoregistro.style.display = "none";
+    divcalendario.style.display = "none";
+
 
 
 }
