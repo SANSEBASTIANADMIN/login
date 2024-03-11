@@ -377,3 +377,11 @@ select:focus {
   margin: 0 auto;
   text-align: center;
 }
+
+
+#divcalendario iframe {
+  width: 500px;
+  height: 1000px;
+  border: 20px solid rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
