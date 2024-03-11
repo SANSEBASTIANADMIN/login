@@ -363,3 +363,17 @@ select:focus {
   padding: 1px;
   box-sizing: border-box;
 }
+
+#qrElement {
+  padding: 10px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+
+#tiutlo2 {
+  padding: 10px;
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
