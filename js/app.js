@@ -55,6 +55,8 @@ const iniciodatos = document.getElementById("iniciodatos");
 const datoscorrectosvisitas  = document.getElementById("datoscorrectosvisitas");
 const btnenborrar  = document.getElementById("btnenborrar");
 const divnuevoregistro  = document.getElementById("nuevoregistro");
+const divcalendario  = document.getElementById("divcalendario");
+
 
 
 
@@ -72,12 +74,27 @@ document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
 document.getElementById("btnenviaringreso").addEventListener("click", enviarsdei);
 document.getElementById("datoscorrectosvisitas").addEventListener("click", confirmacionvyp);
 document.getElementById("nuevoregistro").addEventListener("click", nuevoregistro);
+document.getElementById("divbotonreservar").addEventListener("click", calendario);
+
 
 
 
 
 var loggedIn = true
 
+function calendario(){
+    divingresos.style.display = "none";
+    paymentHistory2024.style.display = "none";
+    tags.style.display = "none";
+    divbotonhistorico.style.display = "none";
+    divbotonpago.style.display = "none";
+    divbotonreservar.style.display = "none";
+    divbotonvisitas.style.display = "none";
+    segurichat.style.display = "none";
+    divcalendario.style.display = "block";
+
+
+}
 
 function nuevoregistro(){
     divqr.style.display = "none";
@@ -412,6 +429,12 @@ formulario.addEventListener("submit", (e) => {
 
 
 
+
+  
+
+
+
+  
 
   
 
