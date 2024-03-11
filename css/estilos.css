@@ -381,7 +381,7 @@ select:focus {
 
 
 #divcalendario iframe {
-  width: 280px;
+  width: 300px;
   height: 1000px;
   border: 20px solid rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
