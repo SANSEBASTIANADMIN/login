@@ -60,7 +60,7 @@
 
 
 	<div id="inicio" style="display: none;">
-		<div>
+		<div id="iniciodatos" class="contenedor">
 			<div class="contenedor">
 				<div class="row">
 					<div>
@@ -68,14 +68,12 @@
 						<p></p>
 						<p><span id="propietario"></span></p>
 						<p><span id="domicilio"></span></p>
-						<p><span id="correo"></span></p>
+						<p><span id="correo"></span></p>	
+						<p>Estatus:  <span id="status"></span></p>		
 					</div>
 					<div class="columna-izquierda2">
 						<img src="Logo.jpg" alt="Descripción de la imagen">
 					</div>
-				</div>
-				<div >	
-					<p>Estatus de mantenimiento: <span id="status"></span></p>		
 				</div>
 			</div>
 		</div>
@@ -269,6 +267,13 @@
 						</div>						
 					</div>
 				</div>
+				<div id="divqr" style="display: none;">	
+					<div id="qrElement">
+						<p class="titulo">Comparte este QR con tu visita o proveedor</p>
+						<img id="codigoQR" src="">
+					</div>	
+				</div>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	
 			</div>
 		</div>
 		<div id="botones"  style="display: none;">	
@@ -303,9 +308,17 @@
 					</button>
 				</div>
 			</div>
+			<div class="contenedor2 button-container">
+				<div id="nuevoregistro" style="display: none;">	
+					<button type="submit" class="btn" onclick="nuevoregistro()">
+					Nuevo registro
+					</button>
+				</div>
+			</div>
+
 		</div>
 	</div>
-	
-	<script src="js/app.js"></script>
+	<script src="js/app.js"></script>	
+
 </body>
 </html>
