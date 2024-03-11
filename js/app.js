@@ -56,6 +56,8 @@ const datoscorrectosvisitas  = document.getElementById("datoscorrectosvisitas");
 const btnenborrar  = document.getElementById("btnenborrar");
 const divnuevoregistro  = document.getElementById("nuevoregistro");
 const divcalendario  = document.getElementById("divcalendario");
+const divreservar  = document.getElementById("divreservar");
+const confirmarreserca  = document.getElementById("confirmarreserca");
 
 
 
@@ -82,6 +84,9 @@ document.getElementById("divbotonreservar").addEventListener("click", calendario
 
 var loggedIn = true
 
+
+
+
 function calendario(){
     divingresos.style.display = "none";
     paymentHistory2024.style.display = "none";
@@ -92,6 +97,8 @@ function calendario(){
     divbotonvisitas.style.display = "none";
     segurichat.style.display = "none";
     divcalendario.style.display = "block";
+    divreservar.style.display = "block";
+    confirmarreserca.style.display = "block";
 
 
 }
@@ -108,6 +115,8 @@ function nuevoregistro(){
     divingresos.style.display = "none";
     segurichat.style.display = "none";
     divnuevoregistro.style.display = "none";
+    divcalendario.style.display = "none";
+
 
 
     borrarElementos();
@@ -297,7 +306,12 @@ function regresar() {
     divingresos.style.display = "none";
     segurichat.style.display = "block";
     divnuevoregistro.style.display = "none";
+    divnuevoregistro.style.display = "none";
     divcalendario.style.display = "none";
+    divreservar.style.display = "none";
+    confirmarreserca.style.display = "none";
+
+
 
 
 
@@ -312,7 +326,7 @@ function ingresos() {
     divbotonreservar.style.display = "none";
     divbotonvisitas.style.display = "none";
     segurichat.style.display = "none";
-    divcalendario.style.display = "none";
+    divreservar.style.display = "none";
 
 
 }
@@ -437,6 +451,8 @@ formulario.addEventListener("submit", (e) => {
   
 
 
+
+  
 
   
 
