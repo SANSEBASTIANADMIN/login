@@ -1,0 +1,55 @@
+* Estilos para los detalles (menús desplegables) */
+:root {
+	--primario: #013E6A;
+	--secundario: #000;
+}
+
+body {
+    background: #fff;
+    font-family: 'Quicksand', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+details {
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos para el resumen (título) de cada detalle */
+  summary {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 350px; 
+    color: white;
+    background-color:  #013E6A
+  }
+  
+  /* Estilos para el contenido de cada detalle */
+  .calle-registros {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 5px 5px;;
+    width: 350px; 
+
+  }
+  
+  /* Estilos para el contenedor de los detalles */
+  .calle-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Estilos para los elementos de los registros dentro de cada detalle */
+.calle-registros .registro-item {
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 12px;
+  }
