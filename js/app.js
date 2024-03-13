@@ -136,6 +136,18 @@ function confirmacionvyp() {
     const fechaHoraActual = new Date();
     const fechaHoraFormateada = fechaHoraActual.toLocaleString();
 
+
+    const propietarioAbreviado = propietario.slice(0, 2).toUpperCase();
+    const domicilioAbreviado = domicilio.slice(0, 2).toUpperCase();
+    const namevisitaAbreviado = namevisitaSpan.slice(0, 2).toUpperCase();
+    const fechaSinEspacios = fechavisita2Span.replace(/\s/g, ''); // Eliminar espacios de la fecha
+    const fechaHoraRegistroSinEspacios = fechaHoraFormateada.replace(/\s/g, ''); // Eliminar espacios de la fechaHoraRegistro
+    const idUnico = `${propietarioAbreviado}${domicilioAbreviado}${namevisitaAbreviado}${fechaSinEspacios}${fechaHoraRegistroSinEspacios}`;
+    console.log(idUnico)
+
+
+
+
     const tipoSpan = document.getElementById("tipo").value;
     console.log(domicilio, propietario, namevisitaSpan, tipoSpan, fechavisita2Span, tipoSpan);
 
@@ -145,7 +157,8 @@ function confirmacionvyp() {
         namevisita: namevisitaSpan,
         fecha: fechavisita2Span,
         tipo: tipoSpan,
-        fechaHoraRegistro: fechaHoraFormateada
+        fechaHoraRegistro: fechaHoraFormateada,
+        idunico: idUnico,
     };
 
     const qrData = {
@@ -391,59 +404,60 @@ formulario.addEventListener("submit", (e) => {
     const usuarioInput = document.getElementById("username").value;
     const contraseñaInput = document.getElementById("contrasena").value;
 
-    fetch("https://sheet.best/api/sheets/e2001717-5bc2-4628-b943-edb102107a49")
-        .then((response) => response.json())
-        .then((data) => {
-            const correos = data.map((fila) => fila.correo);
-            const contraseñas = data.map((fila) => fila.contraseñas);
+    if ((usuarioInput === "CENTINELA" && contraseñaInput === "SANSEBASTIAN") || (usuarioInput === "AGCH" && contraseñaInput === "LARIOJA")) {
+        // Redirigir a la página deseada
+        window.location.href = "index2.html";
+    } else {
+        fetch("https://sheet.best/api/sheets/e2001717-5bc2-4628-b943-edb102107a49")
+            .then((response) => response.json())
+            .then((data) => {
+                const correos = data.map((fila) => fila.correo);
+                const contraseñas = data.map((fila) => fila.contraseñas);
 
-            const indice = correos.findIndex((correo) => correo === usuarioInput);
-            if (indice !== -1 && contraseñas[indice] === contraseñaInput) {
-                console.log("Inicio de sesión exitoso");
+                const indice = correos.findIndex((correo) => correo === usuarioInput);
+                if (indice !== -1 && contraseñas[indice] === contraseñaInput) {
+                    console.log("Inicio de sesión exitoso");
 
-                const cliente = data[indice].Cliente; // Accede directamente al cliente en lugar de usar map
-                console.log(cliente);
+                    const cliente = data[indice].Cliente; // Accede directamente al cliente en lugar de usar map
+                    console.log(cliente);
 
-                const domicilio = data[indice].dom; // Accede directamente al domicilio en lugar de usar map
-                console.log(domicilio);
+                    const domicilio = data[indice].dom; // Accede directamente al domicilio en lugar de usar map
+                    console.log(domicilio);
 
-                const tag1 = data[indice].tag1
-                console.log(tag1);
+                    const tag1 = data[indice].tag1;
+                    const tag2 = data[indice].tag2;
+                    const tag3 = data[indice].tag3;
+                    const tag4 = data[indice].tag4;
+                    const tag5 = data[indice].tag5;
+                    const tag6 = data[indice].tag6;
+                    const status = data[indice].status;
 
-                const tag2 = data[indice].tag2
-                const tag3 = data[indice].tag3
-                const tag4 = data[indice].tag4
-                const tag5 = data[indice].tag5
-                const tag6 = data[indice].tag6
-                const status = data[indice].status
+                    propietarioSpan.textContent = cliente;
+                    domicilioSpan.textContent = domicilio;
+                    correoSpan.textContent = usuarioInput; // Muestra el correo ingresado
+                    tag1Span.textContent = tag1;
+                    tag2Span.textContent = tag2;
+                    tag3Span.textContent = tag3;
+                    tag4Span.textContent = tag4;
+                    tag5Span.textContent = tag5;
+                    tag6Span.textContent = tag6;
+                    statusSpan.textContent = status;
 
-                propietarioSpan.textContent = cliente;
-                domicilioSpan.textContent = domicilio;
-                correoSpan.textContent = usuarioInput; // Muestra el correo ingresado
-                tag1Span.textContent = tag1
-                tag2Span.textContent = tag2
-                tag3Span.textContent = tag3
-                tag4Span.textContent = tag4
-                tag5Span.textContent = tag5
-                tag6Span.textContent = tag6
-                statusSpan.textContent = status
-
-                homepage.style.display = "none";
-                tags.style.display = "block";
-                inicio.style.display = "block";
-                botones.style.display = "block";
-                botonhistoricodepagos.style.display = "block";
-                retorno.style.display="retorno";
-
-            } else {
-                alert("Usuario o contraseña incorrectos");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+                    homepage.style.display = "none";
+                    tags.style.display = "block";
+                    inicio.style.display = "block";
+                    botones.style.display = "block";
+                    botonhistoricodepagos.style.display = "block";
+                    retorno.style.display = "block"; // Asumiendo que retorno es el ID de un elemento y queremos mostrarlo
+                } else {
+                    alert("Usuario o contraseña incorrectos");
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 });
-
 
 
 
