@@ -390,4 +390,11 @@ select:focus {
 }
 
 
+.registro-item {
+  border: 1px solid #013E6A; /* Marco de 1px de grosor y color gris claro */
+  padding: 10px; /* Espaciado interior de 10px */
+  font-size: 12px; /* Tamaño de fuente de 12px */
+  margin-bottom: 10px; /* Margen inferior de 10px */
+  border-radius: 8px; /* Esquinas ligeramente ovaladas */
+}
 
