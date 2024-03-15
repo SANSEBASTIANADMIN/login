@@ -274,32 +274,51 @@
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	
 			</div>
 		</div>
-		<div id="divcalendario" style="display: none;">
-			<iframe src="https://calendar.google.com/calendar/embed?src=37177ba39d333f7ac9edfc4ae9571b75e2562da9e2887771191bab6db82b5aee%40group.calendar.google.com&ctz=America%2FMexico_City" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-		</div>
-		<div clas="contenedorformulario" id="divreservar" style="display: none;">
-			<div class="contenedor">
-				<label for="fechadereserva">Selecionar fecha:</label>
-				<input type="date" id="fechareserva" placeholder="Ingresa fecha" required></input>
-				<label for="horaInicio">Hora de inicio:</label>
-				<input type="time" id="horaInicio" name="horaInicio" required>
-				<label for="horaFin">Hora de fin:</label>
-				<input type="time" id="horaFin" name="horaFin" required>
-				<select id="tiporeserva" required>
-					<option value="">Selecciona que desea reservar...</option>
-					<option value="Casa Club">Casa Club</option>
-					<option value="Asador">Asador</option>
-					<option value="Alberca">Alberca</option>
-				</select>
-			</div>
+		<div id="divamenidades" class="contenedor" style="display: none;">
+			<div class="formulario2">	
+				<details id="divcalendario" class="dropdown">
+					<summary onclick="toggleCalendar()" class="dropdown-title">Mostrar Calendario</summary>
+					<ul id="divcalendario" class="dropdown-content">
+						<li>
+							<iframe src="https://calendar.google.com/calendar/embed?src=37177ba39d333f7ac9edfc4ae9571b75e2562da9e2887771191bab6db82b5aee%40group.calendar.google.com&ctz=America%2FMexico_City" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+						</li>
+					</ul>
+				</details>			
+				<details id="divreservar" class="dropdown">
+					<summary class="dropdown-title">Reservar</summary>
+					<div class="dropdown-content">
+						<div class="contenedorformulario">
+							<div class="contenedor">
+								<label for="fechadereserva">Seleccionar fecha:</label>
+								<input type="date" id="fechareserva" placeholder="Ingresa fecha" required></input>
+								<label for="horaInicio">Hora de inicio:</label>
+								<input type="time" id="horaInicio" name="horaInicio" required>
+								<label for="horaFin">Hora de fin:</label>
+								<input type="time" id="horaFin" name="horaFin" required>
+								<select id="tiporeserva" required>
+									<option value="">Selecciona qué desea reservar...</option>
+									<option value="Casa Club">Casa Club</option>
+									<option value="Asador">Asador</option>
+									<option value="Alberca">Alberca</option>
+								</select>
+							</div>
+							<div class="btnreservar" id="confirmarreserca">	
+								<button type="submit" class="btn">
+									Enviar solicitud
+								</button>
+							</div>
+						</div>
+					</div>
+				</details>					
+				<details id="misreservsas" class="dropdown">
+					<summary class="dropdown-title" onclick="toggleMisReservas()">Mis Reservaciones</summary>
+					<div class="dropdown-content" id="divmisreservas">
+					</div>
+				</details>
+			</div>	
 		</div>
 		<div id="botones"  style="display: none;">	
 			<div class="contenedor2 button-container">
-				<div id="confirmarreserca" style="display: none;">	
-					<button type="submit" class="btn">
-						Confirmar Reservación
-					</button>
-				</div>
 				<div id="divbotonhistorico">	
 					<button type="submit" onclick="" class="btn">
 						Historico de Pagos
@@ -345,7 +364,6 @@
 
 </body>
 </html>
-
   
 
 
