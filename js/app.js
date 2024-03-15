@@ -55,19 +55,13 @@ const iniciodatos = document.getElementById("iniciodatos");
 const datoscorrectosvisitas  = document.getElementById("datoscorrectosvisitas");
 const btnenborrar  = document.getElementById("btnenborrar");
 const divnuevoregistro  = document.getElementById("nuevoregistro");
-const divcalendario  = document.getElementById("divcalendario");
+const divamenidades  = document.getElementById("divamenidades");
 const divreservar  = document.getElementById("divreservar");
 const confirmarreserca  = document.getElementById("confirmarreserca");
-
-
-
-
-
+const divmisreservas  = document.getElementById("divmisreservas");
 
 var today = new Date().toISOString().split('T')[0];
 document.getElementById('fechavisita').setAttribute('min', today);
-
-
 document.getElementById("divbotonhistorico").addEventListener("click", updatePaymentHistory);
 document.getElementById("divbotonpago").addEventListener("click", redireccionarPagos);
 document.getElementById("divregreso").addEventListener("click", regresar);
@@ -77,16 +71,153 @@ document.getElementById("btnenviaringreso").addEventListener("click", enviarsdei
 document.getElementById("datoscorrectosvisitas").addEventListener("click", confirmacionvyp);
 document.getElementById("nuevoregistro").addEventListener("click", nuevoregistro);
 document.getElementById("divbotonreservar").addEventListener("click", calendario);
-
-
+document.getElementById("confirmarreserca").addEventListener("click", registrarReserva);
 
 
 
 var loggedIn = true
 
+function registrarReserva() {
+    const domicilio = domicilioSpan.textContent;
+    const propietario = propietarioSpan.textContent;
+    const status = statusSpan.textContent;
+    const fechareserva = document.getElementById("fechareserva").value;
+    const horaInicio = document.getElementById("horaInicio").value;
+    const horaFin = document.getElementById("horaFin").value;
+    const tiporeserva = document.getElementById("tiporeserva").value;
+    
+    const datos = {
+        registro: new Date(),
+        dom: domicilio,
+        nombre: propietario,
+        fecha: fechareserva,
+        amenidad: tiporeserva,
+        inicio: horaInicio,
+        fin: horaFin,
+    };
+
+    if (status === "Al Corriente") {
+        
+        const url = "https://sheet.best/api/sheets/ef7150db-3f89-42e9-8abd-790a804eab30/tabs/reservaciones";
+        const opciones = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(datos)
+        };
+
+        // Verificar disponibilidad antes de enviar los datos
+        verificarDisponibilidad(fechareserva, tiporeserva)
+            .then(disponible => {
+                if (disponible) {
+                    // Enviar los datos a la hoja de cálculo
+                    fetch(url, opciones)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            // Alerta de éxito después de enviar los datos
+                            alert("Tu reservación para usar " + tiporeserva + " el " + fechareserva + " fue enviada");
+
+                            // Limpiar los campos del formulario después de enviar los datos
+                            document.getElementById("fechareserva").value = "";
+                            document.getElementById("horaInicio").value = "";
+                            document.getElementById("horaFin").value = "";
+                            document.getElementById("tiporeserva").value = "";
+                        })
+                        .catch((error) => {
+                            console.error("Error al enviar los datos a la hoja de cálculo", error);
+                        });
+                } else {
+                    alert("Sin disponibilidad para reservar " + tiporeserva + " en la fecha seleccionada.");
+                }
+            })
+            .catch(error => {
+                console.error("Error al verificar disponibilidad:", error);
+            });
+    } else {
+        alert("Domicilio tiene adeudo, actualmente no tiene derecho al reservar amenidades");
+    }
+}
+
+function verificarDisponibilidad(fecha, tiporeserva) {
+    const url = "https://sheet.best/api/sheets/ef7150db-3f89-42e9-8abd-790a804eab30/tabs/reservaciones";
+    
+    // Realizar una consulta para obtener los registros en la misma fecha y amenidad
+    return fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const registrosMismaFecha = data.filter(registro => registro.fecha === fecha && registro.amenidad === tiporeserva);
+            const cantidadRegistros = registrosMismaFecha.length;
+
+            // Verificar disponibilidad según la cantidad de registros
+            if (tiporeserva === "Asador") {
+                return cantidadRegistros < 4; // Devuelve true si hay disponibilidad, de lo contrario, false
+            } else if (tiporeserva === "Casa Club") {
+                return cantidadRegistros < 1; // Devuelve true si hay disponibilidad, de lo contrario, false
+            } else if (tiporeserva === "Alberca") {
+                // La alberca siempre está disponible
+                return true;
+            }
+        })
+        .catch(error => {
+            console.error("Error al verificar disponibilidad:", error);
+            throw error;
+        });
+}
 
 
 
+
+
+
+function toggleMisReservas() {
+    console.log("actualizándose")
+    const domicilio = domicilioSpan.textContent;
+    fetch("https://sheet.best/api/sheets/ef7150db-3f89-42e9-8abd-790a804eab30/tabs/reservaciones")
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(domicilio);
+
+            // Filtrar los registros que coinciden con domicilioSpan
+            const registrosFiltrados = data.filter((registro) => registro.dom.startsWith(domicilio));
+            console.log(registrosFiltrados);
+
+
+            // Procesar los datos filtrados y agregarlos a los contenedores de calle
+            agregarRegistros("divmisreservas", registrosFiltrados);
+
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
+
+function agregarRegistros(divmisreservas, registros) {
+    const contenedor = document.getElementById(divmisreservas);
+    contenedor.innerHTML = ''; // Limpiar el contenido del contenedor
+
+    const fechaActual = new Date(); // Obtener la fecha y hora actual
+    const fechaAyer = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() - 1); // Obtener la fecha de ayer
+
+    registros.forEach((registro, index) => {
+        // Convertir la fecha de la reserva a un objeto Date
+        const fechaReserva = new Date(registro.fecha);
+        
+        // Verificar si la fecha de la reserva está entre hoy y ayer (sin hora)
+        if (fechaReserva >= fechaAyer) {
+            const registroHTML = `<div class="registro-item">
+                <p><strong>Amenidad:</strong>${registro.amenidad}</p>
+                <p><strong>Fecha:</strong>${registro.fecha}</p>
+                <p><strong>Estatus:</strong>${registro.estatus}</p>
+            </div>`;
+    
+            contenedor.insertAdjacentHTML('beforeend', registroHTML);
+        }
+    });
+}
+
+ 
 function calendario(){
     divingresos.style.display = "none";
     paymentHistory2024.style.display = "none";
@@ -96,10 +227,8 @@ function calendario(){
     divbotonreservar.style.display = "none";
     divbotonvisitas.style.display = "none";
     segurichat.style.display = "none";
-    divcalendario.style.display = "block";
+    divamenidades.style.display = "block";
     divreservar.style.display = "block";
-    confirmarreserca.style.display = "block";
-
 
 }
 
@@ -115,7 +244,7 @@ function nuevoregistro(){
     divingresos.style.display = "none";
     segurichat.style.display = "none";
     divnuevoregistro.style.display = "none";
-    divcalendario.style.display = "none";
+    divamenidades.style.display = "none";
 
 
 
@@ -208,7 +337,6 @@ function confirmacionvyp() {
         });
 }
 
-
 function borrarElementos() {
     const namevisita2Span = document.getElementById("namevisita2");
     const fechavisita2Span = document.getElementById("fechavisita2");
@@ -248,7 +376,7 @@ function borrarElementos() {
     // document.getElementById("tipo").selectedIndex = 0;
 }
 
-function enviarsdei() {
+function enviarsdei() { //grabala infor en el html
     const namevisitaSpan = document.getElementById("namevisita").value;
     const tipoSpan = document.getElementById("tipo").value;
     const fechavisitaSpan = document.getElementById("fechavisita").value;
@@ -320,9 +448,8 @@ function regresar() {
     segurichat.style.display = "block";
     divnuevoregistro.style.display = "none";
     divnuevoregistro.style.display = "none";
-    divcalendario.style.display = "none";
+    divamenidades.style.display = "none";
     divreservar.style.display = "none";
-    confirmarreserca.style.display = "none";
 
 
 
@@ -447,8 +574,8 @@ formulario.addEventListener("submit", (e) => {
                     tags.style.display = "block";
                     inicio.style.display = "block";
                     botones.style.display = "block";
-                    botonhistoricodepagos.style.display = "block";
-                    retorno.style.display = "block"; // Asumiendo que retorno es el ID de un elemento y queremos mostrarlo
+                    //botonhistoricodepagos.style.display = "block";
+                    //retorno.style.display = "block"; // Asumiendo que retorno es el ID de un elemento y queremos mostrarlo
                 } else {
                     alert("Usuario o contraseña incorrectos");
                 }
@@ -467,8 +594,6 @@ formulario.addEventListener("submit", (e) => {
 
 
   
-  
-
 
 
   
