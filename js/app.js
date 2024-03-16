@@ -502,6 +502,8 @@ function updatePaymentHistory() {
             divbotonvisitas.style.display = "none";
             divregreso.style.display = "none";
             segurichat.style.display = "none";
+            divregreso.style.display = "block";
+
 
 
         })
