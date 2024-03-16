@@ -229,6 +229,8 @@ function calendario(){
     segurichat.style.display = "none";
     divamenidades.style.display = "block";
     divreservar.style.display = "block";
+    divregreso.style.display = "block";
+
 
 }
 
@@ -251,17 +253,20 @@ function nuevoregistro(){
     borrarElementos();
 }
 
+
 function confirmacionvyp() {
     confirmacion.style.display = "none";
     divqr.style.display = "block";  
     datoscorrectosvisitas.style.display = "block"; 
     divnuevoregistro.style.display = "block";
+    divregreso.style.display = "none";
+
 
 
     const domicilio = domicilioSpan.textContent;
     const propietario = propietarioSpan.textContent;
     const namevisitaSpan = document.getElementById("namevisita").value;
-    const fechavisita2Span = document.getElementById("fechavisita2").value;
+    const fechavisitaSpan = document.getElementById("fechavisita").value;
     const fechaHoraActual = new Date();
     const fechaHoraFormateada = fechaHoraActual.toLocaleString();
 
@@ -269,22 +274,20 @@ function confirmacionvyp() {
     const propietarioAbreviado = propietario.slice(0, 2).toUpperCase();
     const domicilioAbreviado = domicilio.slice(0, 2).toUpperCase();
     const namevisitaAbreviado = namevisitaSpan.slice(0, 2).toUpperCase();
-    const fechaSinEspacios = fechavisita2Span.replace(/\s/g, ''); // Eliminar espacios de la fecha
+    const fechaSinEspacios = fechavisitaSpan.replace(/\s/g, ''); // Eliminar espacios de la fecha
     const fechaHoraRegistroSinEspacios = fechaHoraFormateada.replace(/\s/g, ''); // Eliminar espacios de la fechaHoraRegistro
     const idUnico = `${propietarioAbreviado}${domicilioAbreviado}${namevisitaAbreviado}${fechaSinEspacios}${fechaHoraRegistroSinEspacios}`;
     console.log(idUnico)
 
 
-
-
     const tipoSpan = document.getElementById("tipo").value;
-    console.log(domicilio, propietario, namevisitaSpan, tipoSpan, fechavisita2Span, tipoSpan);
+    console.log(domicilio, propietario, namevisitaSpan, tipoSpan, fechavisitaSpan, tipoSpan);
 
     const datos = {
         propietario: propietario,
         domicilio: domicilio,
         namevisita: namevisitaSpan,
-        fecha: fechavisita2Span,
+        fecha: fechavisitaSpan,
         tipo: tipoSpan,
         fechaHoraRegistro: fechaHoraFormateada,
         idunico: idUnico,
@@ -293,7 +296,7 @@ function confirmacionvyp() {
     const qrData = {
         Casa: domicilio,
         Nombre: namevisitaSpan,
-        Fecha: fechavisita2Span,
+        Fecha: fechavisitaSpan,
         Tipo: tipoSpan,
     };
 
@@ -312,7 +315,7 @@ function confirmacionvyp() {
         .then((response) => response.json())
         .then((data) => {
             // Alerta de éxito después de enviar los datos
-            alert("Tu solicitud para el ingreso de " + namevisitaSpan + " el " + fechavisita2Span + " fue enviada");
+            alert("Tu solicitud para el ingreso de " + namevisitaSpan + " el " + fechavisitaSpan + " fue enviada");
             
             // Generar el contenido para el QR
             const qrContent = JSON.stringify(qrData);
@@ -325,7 +328,6 @@ function confirmacionvyp() {
             
             // Agregar el código QR al contenedor
             contenedorQR.appendChild(qrElement);
-
 
 
             // Llamar a las funciones para borrar elementos y regresar
@@ -345,6 +347,7 @@ function borrarElementos() {
     const fechavisitaSpan = document.getElementById("fechavisita");
     const tipoSpan = document.getElementById("tipo");
     const contenedorQR = document.getElementById('qrElement');
+
 
     // Eliminar el contenido de los elementos
     namevisita2Span.value = "";
@@ -368,6 +371,8 @@ function borrarElementos() {
     divbotonreservar.style.display = "none";
     divbotonvisitas.style.display = "none";
     confirmacion.style.display = "none"
+    divregreso.style.display = "block";
+
     // También puedes reiniciar el valor de los campos de entrada si es necesario
     // Por ejemplo, si 'fechavisita' es un campo de entrada, podrías hacer lo siguiente:
     // document.getElementById("fechavisita").value = "";
@@ -395,40 +400,18 @@ function enviarsdei() { //grabala infor en el html
     const correo = correoSpan.textContent;
     const status = statusSpan.textContent;
 
-    // Obtener la fecha actual
-    const fecha = new Date();
-
-    // Función para obtener el nombre del mes en español
-    function obtenerNombreMes(mes) {
-        const nombresMeses = [
-            "enero", "febrero", "marzo", "abril", "mayo", "junio",
-            "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
-        ];
-        return nombresMeses[mes];
-    }
-
-    // Función para agregar un cero delante si el número es menor que 10
-    function agregarCero(numero) {
-        return numero < 10 ? '0' + numero : numero;
-    }
-
-    // Formatear la fecha
-    const fechaFormateada = `${agregarCero(fecha.getDate())} de ${obtenerNombreMes(fecha.getMonth())} de ${fecha.getFullYear()}`;
-
-    // Asignar la fecha formateada al elemento HTML
-    fechavisita2Span.value = fechaFormateada;
-
-
     if (status === "Al Corriente") {
         console.log(namevisitaSpan);
-        console.log(fechaFormateada); // Mostrar la fecha formateada
+        console.log(fechavisitaSpan); // Mostrar la fecha formateada
         console.log(tipoSpan);
 
         confirmacion.style.display = "block";
         formulario2.style.display = "none";
+        divregreso.style.display = "block";
+
 
         namevisita2Span.textContent = namevisitaSpan;
-        fechavisita2Span.textContent = fechaFormateada;
+        fechavisita2Span.textContent = fechavisitaSpan;
         tipo2Span.textContent = tipoSpan;
 
 
@@ -447,13 +430,8 @@ function regresar() {
     divingresos.style.display = "none";
     segurichat.style.display = "block";
     divnuevoregistro.style.display = "none";
-    divnuevoregistro.style.display = "none";
     divamenidades.style.display = "none";
     divreservar.style.display = "none";
-
-
-
-
 
 }
 
@@ -467,9 +445,16 @@ function ingresos() {
     divbotonvisitas.style.display = "none";
     segurichat.style.display = "none";
     divreservar.style.display = "none";
+    btnenborrar.style.display = "block";
+    divregreso.style.display = "block";
 
-
+    if (!namevisitaSpan || namevisitaSpan === "") {
+        divnuevoregistro.style.display = "none";
+    } else {
+        divnuevoregistro.style.display = "block";
+    }
 }
+
 
 function redireccionarPagos() {
     window.location.href = "https://sites.google.com/view/sansebastianprivada/mantenimiento/pagos";
@@ -515,7 +500,7 @@ function updatePaymentHistory() {
             divbotonpago.style.display = "none";
             divbotonreservar.style.display = "none";
             divbotonvisitas.style.display = "none";
-            divregreso.style.display = "block";
+            divregreso.style.display = "none";
             segurichat.style.display = "none";
 
 
@@ -585,8 +570,6 @@ formulario.addEventListener("submit", (e) => {
             });
     }
 });
-
-
 
 
   
