@@ -1,61 +1,56 @@
 // Función para obtener los datos del API y agregar los registros
-function obtenerYAgregarRegistros() {
+
+function obtenerYAgregarRegistros2() {
     console.log("actualziandose")
     fetch("https://sheet.best/api/sheets/ef7150db-3f89-42e9-8abd-790a804eab30")
         .then((response) => response.json())
         .then((data) => {
             console.log(data); // Imprime los datos obtenidos desde la API
 
-            // Obtener la fecha actual en el formato deseado
-            const fechaActual = obtenerFechaActual();
-
-            // Filtrar los registros para obtener solo los de hoy y los pasados
-            const registrosHoyYPasados = data.filter((fila) => esFechaHoyOPasada(fila.fecha, fechaActual));
+            // Filtrar los registros para obtener solo los de hoy
+            const registrosHoy = data.filter((fila) => esFechaHoy(fila.fecha));
             
             // Procesar los datos y agregarlos a los contenedores de calle
-            agregarRegistros("alba-registros", registrosHoyYPasados.filter((registro) => registro.domicilio.startsWith("ALBA")));
-            agregarRegistros("caballeros-registros", registrosHoyYPasados.filter((registro) => registro.domicilio.startsWith("CABALLEROS")));
-            agregarRegistros("esmeralda-registros", registrosHoyYPasados.filter((registro) => registro.domicilio.startsWith("ESMERALDA")));
-            agregarRegistros("eros-registros", registrosHoyYPasados.filter((registro) => registro.domicilio.startsWith("EROS")));
-            agregarRegistros("magdalena-registros", registrosHoyYPasados.filter((registro) => registro.domicilio.startsWith("MAGDALENA")));
-            agregarRegistros("ibiza-registros", registrosHoyYPasados.filter((registro) => registro.domicilio.startsWith("IBIZA")));
-            agregarRegistros("hierro-registros", registrosHoyYPasados.filter((registro) => registro.domicilio.startsWith("HIERRO")));
+            agregarRegistros("alba-registros", registrosHoy.filter((registro) => registro.domicilio.startsWith("ALBA")));
+            agregarRegistros("caballeros-registros", registrosHoy.filter((registro) => registro.domicilio.startsWith("CABALLEROS")));
+            agregarRegistros("esmeralda-registros", registrosHoy.filter((registro) => registro.domicilio.startsWith("ESMERALDA")));
+            agregarRegistros("eros-registros", registrosHoy.filter((registro) => registro.domicilio.startsWith("EROS")));
+            agregarRegistros("magdalena-registros", registrosHoy.filter((registro) => registro.domicilio.startsWith("MAGDALENA")));
+            agregarRegistros("ibiza-registros", registrosHoy.filter((registro) => registro.domicilio.startsWith("IBIZA")));
+            agregarRegistros("hierro-registros", registrosHoy.filter((registro) => registro.domicilio.startsWith("HIERRO")));
         })
         .catch((error) => {
             console.error(error);
         });
 }
 
-// Función para obtener la fecha actual en el formato deseado
-function obtenerFechaActual() {
-    const fecha = new Date();
-    const mes = fecha.toLocaleString('default', { month: 'long' });
-    const dia = fecha.getDate();
-    const año = fecha.getFullYear();
-    return `${dia} de ${mes} de ${año}`;
-}
 
-// Función para verificar si una fecha es hoy o pasada
-function esFechaHoyOPasada(fechaComparar, fechaActual) {
-    const fechaCompararObj = obtenerFechaObj(fechaComparar);
-    const fechaActualObj = obtenerFechaObj(fechaActual);
-    return fechaCompararObj <= fechaActualObj;
-}
 
-// Función para convertir la fecha de formato de texto a objeto de fecha
 function obtenerFechaObj(fechaTexto) {
-    const partes = fechaTexto.split(' ');
-    const dia = parseInt(partes[0]);
-    const mes = partes[2];
-    const año = parseInt(partes[4]);
-    const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-    const mesNum = meses.indexOf(mes) + 1;
-    return new Date(año, mesNum - 1, dia);
+    // Verificar si fechaTexto es null antes de intentar dividirla
+    if (!fechaTexto) {
+        return null;
+    }
+    
+    // Dividir la fecha por el carácter '-' en lugar de ' '
+    const partes = fechaTexto.split('-');
+    const año = parseInt(partes[0]);
+    const mes = parseInt(partes[1]) - 1; // Restar 1 al mes ya que en JavaScript los meses van de 0 a 11
+    const dia = parseInt(partes[2]);
+    
+    return new Date(año, mes, dia);
 }
 
-
-
-obtenerYAgregarRegistros();
+function esFechaHoy(fechaComparar) {
+    // Verificar si fechaComparar es null antes de intentar usarla
+    if (!fechaComparar) {
+        return false;
+    }
+    
+    const fechaCompararObj = obtenerFechaObj(fechaComparar);
+    const fechaActual = new Date();
+    return fechaCompararObj && fechaCompararObj.toDateString() === fechaActual.toDateString();
+}
 
 
 
@@ -293,3 +288,4 @@ function enviarFechaSalida(usuarioInput, fechaActual) {
 }
 
 
+obtenerYAgregarRegistros2();
