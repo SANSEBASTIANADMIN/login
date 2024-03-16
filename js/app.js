@@ -500,7 +500,6 @@ function updatePaymentHistory() {
             divbotonpago.style.display = "none";
             divbotonreservar.style.display = "none";
             divbotonvisitas.style.display = "none";
-            divregreso.style.display = "none";
             segurichat.style.display = "none";
             divregreso.style.display = "block";
 
