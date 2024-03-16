@@ -259,7 +259,7 @@ function confirmacionvyp() {
     divqr.style.display = "block";  
     datoscorrectosvisitas.style.display = "block"; 
     divnuevoregistro.style.display = "block";
-    divregreso.style.display = "none";
+    divregreso.style.display = "block";
 
 
 
