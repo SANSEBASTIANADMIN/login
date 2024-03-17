@@ -53,3 +53,36 @@ details {
     border-radius: 3px;
     font-size: 12px;
   }
+
+
+  .contenedor {
+    width: 180px;
+    max-width: 180px;
+    overflow: hidden;
+    display: grid;
+    flex-direction: column;
+    gap: 2px; /* Espacio entre elementos internos */
+}
+
+
+element.style {
+  display: grid;
+}
+
+/* Estilos para los botones */
+button {
+  width: 180px;
+  background-color: #013E6A; /* Color de fondo verde */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition-duration: 0.4s;
+}
+
