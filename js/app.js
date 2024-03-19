@@ -572,6 +572,11 @@ formulario.addEventListener("submit", (e) => {
     }
 });
 
+function removeSpecialCharacters(input) {
+    input.value = input.value.replace(/[^A-Za-z0-9\s]/g, '');
+}
+
+
 
   
 
