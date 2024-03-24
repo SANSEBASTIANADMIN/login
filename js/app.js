@@ -77,14 +77,14 @@ formulario.addEventListener("submit", (e) => {
     if ((usuarioInput === "CENTINELA" && contraseñaInput === "SANSEBASTIAN") || (usuarioInput === "AGCH" && contraseñaInput === "LARIOJA")) {
         // Redirigir a la página deseada
         window.location.href = "index2.html";
-    
     } else {
         fetch("https://sheet.best/api/sheets/e2001717-5bc2-4628-b943-edb102107a49")
             .then((response) => response.json())
             .then((data) => {
-                const usuario = data.find((fila) => fila.correo === usuarioInput);
-
-                if (usuario && usuario.contraseña === contraseñaInput) {
+                const correos = data.map((fila) => fila.correo);
+                const contraseñas = data.map((fila) => fila.contraseñas);
+                const indice = correos.findIndex((correo) => correo === usuarioInput);
+                if (indice !== -1 && contraseñas[indice] === contraseñaInput) {
                     console.log("Inicio de sesión exitoso");
 
                     const cliente = data[indice].Cliente; // Accede directamente al cliente en lugar de usar map
@@ -130,43 +130,57 @@ formulario.addEventListener("submit", (e) => {
                     document.getElementById("divbotonreservar").addEventListener("click", calendario);
                     document.getElementById("confirmarreserca").addEventListener("click", registrarReserva);
 
-                    ene2023Span.textContent = data[indice].ene2023;
-                    feb2023Span.textContent = data[indice].feb2023;
-                    mar2023Span.textContent = data[indice].mar2023;
-                    abr2023Span.textContent = data[indice].abr2023;
-                    may2023Span.textContent = data[indice].may2023;
-                    jun2023Span.textContent = data[indice].jun2023;
-                    jul2023Span.textContent = data[indice].jul2023;
-                    ago2023Span.textContent = data[indice].ago2023;
-                    sep2023Span.textContent = data[indice].sep2023;
-                    oct2023Span.textContent = data[indice].oct2023;
-                    nov2023Span.textContent = data[indice].nov2023;
-                    dic2023Span.textContent = data[indice].dic2023;
-                    ene2024Span.textContent = data[indice].ene2024;
-                    feb2024Span.textContent = data[indice].feb2024;
-                    mar2024Span.textContent = data[indice].mar2024;
-                    abr2024Span.textContent = data[indice].abr2024;
-                    may2024Span.textContent = data[indice].may2024;
-                    jun2024Span.textContent = data[indice].jun2024;
-                    jul2024Span.textContent = data[indice].jul2024;
-                    ago2024Span.textContent = data[indice].ago2024;
-                    sep2024Span.textContent = data[indice].sep2024;
-                    oct2024Span.textContent = data[indice].oct2024;
-                    nov2024Span.textContent = data[indice].nov2024;
-                    dic2024Span.textContent = data[indice].dic2024;
-
                 
                     function updatePaymentHistory() {
-                        paymentHistory2024.style.display = "block";
-                        tags.style.display = "none";
-                        divbotonhistorico.style.display = "none";
-                        divbotonpago.style.display = "none";
-                        divbotonreservar.style.display = "none";
-                        divbotonvisitas.style.display = "none";
-                        segurichat.style.display = "none";
-                        divregreso.style.display = "block";
-                    }
+                        const domicilio = domicilioSpan.textContent;
+                        const usuarioInput = correoSpan.textContent; 
+                        fetch("https://sheet.best/api/sheets/e2001717-5bc2-4628-b943-edb102107a49")
+                            .then((response) => response.json())
+                            .then((data) => {
+                                // Aquí se omiten las definiciones de datos que no están siendo utilizadas
+                                const indice = data.findIndex((fila) => fila.correo === usuarioInput); // Encuentra el índice por el correo
                     
+                                ene2023Span.textContent = data[indice].ene2023;
+                                feb2023Span.textContent = data[indice].feb2023;
+                                mar2023Span.textContent = data[indice].mar2023;
+                                abr2023Span.textContent = data[indice].abr2023;
+                                may2023Span.textContent = data[indice].may2023;
+                                jun2023Span.textContent = data[indice].jun2023;
+                                jul2023Span.textContent = data[indice].jul2023;
+                                ago2023Span.textContent = data[indice].ago2023;
+                                sep2023Span.textContent = data[indice].sep2023;
+                                oct2023Span.textContent = data[indice].oct2023;
+                                nov2023Span.textContent = data[indice].nov2023;
+                                dic2023Span.textContent = data[indice].dic2023;
+                                ene2024Span.textContent = data[indice].ene2024;
+                                feb2024Span.textContent = data[indice].feb2024;
+                                mar2024Span.textContent = data[indice].mar2024;
+                                abr2024Span.textContent = data[indice].abr2024;
+                                may2024Span.textContent = data[indice].may2024;
+                                jun2024Span.textContent = data[indice].jun2024;
+                                jul2024Span.textContent = data[indice].jul2024;
+                                ago2024Span.textContent = data[indice].ago2024;
+                                sep2024Span.textContent = data[indice].sep2024;
+                                oct2024Span.textContent = data[indice].oct2024;
+                                nov2024Span.textContent = data[indice].nov2024;
+                                dic2024Span.textContent = data[indice].dic2024;
+                    
+                                paymentHistory2024.style.display = "block";
+                                tags.style.display = "none";
+                                divbotonhistorico.style.display = "none";
+                                divbotonpago.style.display = "none";
+                                divbotonreservar.style.display = "none";
+                                divbotonvisitas.style.display = "none";
+                                segurichat.style.display = "none";
+                                divregreso.style.display = "block";
+                    
+                    
+                    
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
+                    }
 
                     function registrarReserva() {
                         const domicilio = domicilioSpan.textContent;
@@ -278,6 +292,7 @@ formulario.addEventListener("submit", (e) => {
                             });
                     }
                     
+                    
                     function agregarRegistros(divmisreservas, registros) {
                         const contenedor = document.getElementById(divmisreservas);
                         contenedor.innerHTML = ''; // Limpiar el contenido del contenedor
@@ -301,6 +316,7 @@ formulario.addEventListener("submit", (e) => {
                             }
                         });
                     }
+                    
                      
                     function calendario(){
                         divingresos.style.display = "none";
@@ -331,8 +347,11 @@ formulario.addEventListener("submit", (e) => {
                         divnuevoregistro.style.display = "none";
                         divamenidades.style.display = "none";
                     
+                    
+                    
                         borrarElementos();
                     }
+                    
                     
                     function confirmacionvyp() {
                         confirmacion.style.display = "none";
@@ -531,18 +550,11 @@ formulario.addEventListener("submit", (e) => {
 
 });
 
+
 function removeSpecialCharacters(input) {
     input.value = input.value.replace(/[^A-Za-z0-9\s]/g, '');
 }
 
-
-
-  
-
-
-
-  
-  
 
 
 
