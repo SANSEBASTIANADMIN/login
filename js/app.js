@@ -87,7 +87,7 @@ formulario.addEventListener("submit", (e) => {
         // Redirigir a la página deseada
         window.location.href = "index2.html";
     } else {
-        fetch("https://sheet.best/api/sheets/b10896e3-d186-4ce2-85df-5d8de2c92587")
+        fetch("https://sheet.best/api/sheets/e2001717-5bc2-4628-b943-edb102107a49")
             .then((response) => response.json())
             .then((data) => {
 
