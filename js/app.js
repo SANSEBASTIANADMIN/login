@@ -60,13 +60,8 @@ const divamenidades  = document.getElementById("divamenidades");
 const divreservar  = document.getElementById("divreservar");
 const confirmarreserca  = document.getElementById("confirmarreserca");
 const divmisreservas  = document.getElementById("divmisreservas");
-
 var today = new Date().toISOString().split('T')[0];
 var loggedIn = true
-
-
-
-
 
 function cifrarCorreo(valor) {
     var texto = JSON.stringify(valor);
@@ -90,6 +85,7 @@ formulario.addEventListener("submit", (e) => {
         window.location.href = "index2.html";
     } else {
         fetch("https://sheet.best/api/sheets/b10896e3-d186-4ce2-85df-5d8de2c92587")
+            //actualización
             .then((response) => response.json())
             .then((data) => {
 
