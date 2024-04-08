@@ -47,7 +47,6 @@ const divbotonvisitas = document.getElementById("divbotonvisitas");
 const divregreso = document.getElementById("divregreso");
 const divingresos = document.getElementById("divingresos");
 const divpagos = document.getElementById("divpagos");
-
 const btnenviaringreso = document.getElementById("btnenviaringreso");
 const confirmacion = document.getElementById("confirmacion");
 const formulario2 = document.getElementById("formulario2");
