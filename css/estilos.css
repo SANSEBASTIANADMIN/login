@@ -398,3 +398,25 @@ select:focus {
   border-radius: 8px; /* Esquinas ligeramente ovaladas */
 }
 
+.registro-item {
+  border: 1px solid #013E6A; /* Marco de 1px de grosor y color gris claro */
+  padding: 10px; /* Espaciado interior de 10px */
+  font-size: 12px; /* Tamaño de fuente de 12px */
+  margin-bottom: 10px; /* Margen inferior de 10px */
+  border-radius: 8px; /* Esquinas ligeramente ovaladas */
+}
+
+.btn2 {
+	width: 200px; /* Maintains the desired width */
+	height: 70px; /* Maintains the desired height */
+	min-width: 150px; /* Maintains the minimum width */
+	margin: 2px; /* Maintains the margin */
+	padding: 10px 20px; /* Maintains the padding for button comfort */
+	text-align: start; /* Aligns the text to the left */
+	border-radius: 5px; /* Maintains the border radius */
+	font-size: 13px; /* Reduces the font size to 12px */
+	font-weight: 500; /* Maintains the font weight */
+	transition: all 0.3s ease; /* Maintains the transition effect */
+	outline: none; /* Maintains the removal of outline */
+  }
+
