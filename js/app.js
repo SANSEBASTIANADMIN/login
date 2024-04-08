@@ -556,10 +556,9 @@ formulario.addEventListener("submit", (e) => {
                                 divnuevoregistro.style.display = "block";
                             }
                         }
+                    } else {
+                        alert("Usuario o contraseña incorrectos");
                     }
-
-                } else {
-                    alert("Usuario o contraseña incorrectos");
                 }
             })
             .catch((error) => {
@@ -568,7 +567,6 @@ formulario.addEventListener("submit", (e) => {
     }
 
 });
-
 
 
 function togglePasswordVisibility() {
