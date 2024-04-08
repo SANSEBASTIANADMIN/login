@@ -32,17 +32,20 @@
 								<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 								<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 							</svg>
-							<input type="text" id="username" name="username" placeholder="Correo electrónico" autocomplete="new-password">
+							<input type="text" id="username" name="username" placeholder="Correo electrónico" autocomplete="username">
 						</div>
-			
 						<label for="Contraseña">Contraseña</label>
 						<div class="contenedor-input">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
 								<path d="M4 7V5a4 4 0 0 1 8 0v2h.5a2.5 2.5 0 0 1 2.5 2.5V13a2.5 2.5 0 0 1-2.5 2.5H2.5A2.5 2.5 0 0 1 0 13v-3.5A2.5 2.5 0 0 1 2.5 7H4zM3 7h10V5a3 3 0 0 0-6 0v2H3z"/>
-							</svg>													
-							<input type="text" id="contrasena" name="password" placeholder="*********" autocomplete="current-password">
+							</svg>                                                    
+							<input type="password" id="contrasena" name="password" placeholder="*********" autocomplete="current-password">
+							<span class="toggle-password" onclick="togglePasswordVisibility()">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+									<path d="M4 7V5a4 4 0 0 1 8 0v2h.5a2.5 2.5 0 0 1 2.5 2.5V13a2.5 2.5 0 0 1-2.5 2.5H2.5A2.5 2.5 0 0 1 0 13v-3.5A2.5 2.5 0 0 1 2.5 7H4zM3 7h10V5a3 3 0 0 0-6 0v2H3z"/>
+								</svg>  
+							</span>
 						</div>
-						
 						<div class="contenedor-boton">
 							<button type="submit">
 								Ingresa datos para iniciar sesión
@@ -51,7 +54,7 @@
 								</svg>
 							</button>
 						</div>
-					</form>
+					</form>					
 				</div>
 			</div>
 		</div>
@@ -67,7 +70,7 @@
 						<p></p>
 						<p><span id="propietario"></span></p>
 						<p><span id="domicilio"></span></p>
-						<p><span id="correo" style="display: none;"></span></p>	
+						<p><span style="display: none;" id="correo"></span></p>	
 						<p>Estatus:  <span id="status"></span></p>		
 					</div>
 					<div class="columna-izquierda2">
@@ -285,7 +288,7 @@
 					</ul>
 				</details>			
 				<details id="divreservar" class="dropdown">
-					<summary class="dropdown-title">Favor de aun no generar reservaciones, aun  no esta conectado con el calendario</summary>
+					<summary class="dropdown-title">Realizar reservación</summary>
 					<div class="dropdown-content">
 						<div class="contenedorformulario">
 							<div class="contenedor">
@@ -296,7 +299,7 @@
 								<label for="horaFin">Hora de fin:</label>
 								<input type="time" id="horaFin" name="horaFin" required>
 								<select id="tiporeserva" required>
-									<option value="">Selecciona qué desea reservar...</option>
+									<option value="">Tipo de reservación</option>
 									<option value="Casa Club">Casa Club</option>
 									<option value="Asador">Asador</option>
 									<option value="Alberca">Alberca</option>
@@ -311,11 +314,34 @@
 					</div>
 				</details>					
 				<details id="misreservsas" class="dropdown">
-					<summary class="dropdown-title" onclick="toggleMisReservas()">Mis Reservaciones</summary>
+					<summary class="dropdown-title">Mis Reservaciones</summary>
 					<div class="dropdown-content" id="divmisreservas">
 					</div>
 				</details>
 			</div>	
+		</div>
+		<div id="divpagos" style="display: none;" class="contenedor">
+			<p class="titulo">Datos Bancarios</p>
+			<p>Banco: SANTANDER</p>
+			<p>Titular: COLONOS SAN SEBASTIAN, A.C.</p>
+			<p>Cuenta: 65509378739</p>
+			<p>CLABE: 014308655093787392</p>
+			<p>Monto: $550.00 M.N.</p>
+			<p> </p>
+			<p> </p>
+			<p class="titulo">Adjunta tu pago<p>
+			<input type="file" id="archivo" accept="application/pdf,image/*" onchange="procesarArchivo()">
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+			<div>
+				<p class="titulo">Datos del Pago</p>
+				<p>Fecha: <span id="fechaPago"></span></p>
+				<p>Monto: <span id="montoPago"></span></p>
+				<p>Beneficiario:<span id="beneficiarioPago"></span></p>
+
+			</div>
+			<p></p>
+			<p></p>
+			<button type="submit" class="btn">Enviar Pago</button>
 		</div>
 		<div id="botones"  style="display: none;">	
 			<div class="contenedor2 button-container">
@@ -356,14 +382,21 @@
 					</button>
 				</div>
 			</div>
-
 		</div>
-	</div>
-	<script src="js/app.js"></script>	
-	<!-- Incluir FullCalendar CSS -->
 
+	</div>
+	<!-- v5 -->
+	<script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+	<script src="js/app.js"></script>
 </body>
 </html>
+  
+
+
+
+  
+
   
 
 
