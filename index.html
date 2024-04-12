@@ -34,24 +34,24 @@
 							</svg>
 							<input type="text" id="username" name="username" placeholder="Correo electrónico" autocomplete="username">
 						</div>
-						<label for="Contraseña">Contraseña</label>
+						<label for="contraseña">Contraseña</label>
 						<div class="contenedor-input">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
-								<path d="M4 7V5a4 4 0 0 1 8 0v2h.5a2.5 2.5 0 0 1 2.5 2.5V13a2.5 2.5 0 0 1-2.5 2.5H2.5A2.5 2.5 0 0 1 0 13v-3.5A2.5 2.5 0 0 1 2.5 7H4zM3 7h10V5a3 3 0 0 0-6 0v2H3z"/>
-							</svg>                                                    
-							<input type="password" id="contrasena" name="password" placeholder="*********" autocomplete="current-password">
+						<input type="password" id="contrasena" name="password" placeholder="*********" autocomplete="current-password">
 							<span class="toggle-password" onclick="togglePasswordVisibility()">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
-									<path d="M4 7V5a4 4 0 0 1 8 0v2h.5a2.5 2.5 0 0 1 2.5 2.5V13a2.5 2.5 0 0 1-2.5 2.5H2.5A2.5 2.5 0 0 1 0 13v-3.5A2.5 2.5 0 0 1 2.5 7H4zM3 7h10V5a3 3 0 0 0-6 0v2H3z"/>
-								</svg>  
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16" style="display: bloc;" id="ojoabierto">
+									<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+									<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+								</svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16" style="display: none;" id="ojocerrado">
+									<path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+									<path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+									<path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+								  </svg>	
 							</span>
 						</div>
 						<div class="contenedor-boton">
 							<button type="submit">
 								Ingresa datos para iniciar sesión
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-									<path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-								</svg>
 							</button>
 						</div>
 					</form>					
@@ -109,10 +109,10 @@
 				</div>
 			</div>
 		</div>
-		<div id="paymentHistory2024" class="contenedor"style="display: none;">
-			<div class="row">
-				<div class="columna-izquierda">
-					<p class="titulo">2024</p>
+		<div id="paymentHistory2024" class="contenedorpagos"style="display: none;">
+			<div>
+				<details id="2024" class="dropdown">
+					<summary class="dropdown-title">Pagos 2024</summary>
 					<table class="table-custom table-custom-highlight">
 					<tr>
 						<td>Enero</td>
@@ -163,10 +163,10 @@
 							<td><span id="dic2024"></span></td>
 						</tr>
 					</table>
-				</div>
-				<div class="columna-izquierda">
-					<p class="titulo">2023</p>
-					<table class="columna-derecha">
+				</details>
+				<details id="2023" class="dropdown">
+					<summary class="dropdown-title">Pagos 2023</summary>
+					<table class="table-custom table-custom-highlight">
 						<tr>
 							<td>Enero</td>
 							<td><span id="ene2023"></span></td>
@@ -216,7 +216,7 @@
 							<td><span id="dic2023"></span></td>
 						</tr>
 					</table>
-				</div>
+				</details>
 			</div>
 		</div>
 		<div clas="contenedorformulario" id="divingresos" style="display: none;">
@@ -391,6 +391,16 @@
 	<script src="js/app.js"></script>
 </body>
 </html>
+  
+
+
+
+  
+
+  
+
+
+
   
 
 
