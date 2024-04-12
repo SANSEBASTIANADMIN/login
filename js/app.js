@@ -214,7 +214,7 @@ formulario.addEventListener("submit", (e) => {
                         
                             if (statuscod === "IkFsIENvcnJpZW50ZSI=") {
                                 
-                                const url = "https://sheet.best/api/sheets/ef7150db-3f89-42e9-8abd-790a804eab30/tabs/reservaciones";
+                                const url = "https://sheet.best/api/sheets/b10896e3-d186-4ce2-85df-5d8de2c92587/tabs/reservaciones";
                                 const opciones = {
                                     method: "POST",
                                     headers: {
@@ -227,12 +227,20 @@ formulario.addEventListener("submit", (e) => {
                                 verificarDisponibilidad(fechareserva, tiporeserva)
                                     .then(disponible => {
                                         if (disponible) {
-                                            // Enviar los datos a la hoja de cálculo
                                             fetch(url, opciones)
                                                 .then((response) => response.json())
                                                 .then((data) => {
                                                     // Alerta de éxito después de enviar los datos
                                                     alert("Tu reservación para usar " + tiporeserva + " el " + fechareserva + " fue enviada");
+                                                    console.log(fechareserva)
+                                                    console.log(tiporeserva)
+                                                    console.log(fechaHoraFormateada)
+                                                    console.log(domiciliocod)
+                                                    console.log(clientecod)
+                                                    console.log(fechareserva)
+                                                    console.log(tiporeserva)
+                                                    console.log(horaInicio)
+                                                    console.log(horaFin)
                         
                                                     // Limpiar los campos del formulario después de enviar los datos
                                                     document.getElementById("fechareserva").value = "";
@@ -256,7 +264,7 @@ formulario.addEventListener("submit", (e) => {
                         }
                         
                         function verificarDisponibilidad(fecha, tiporeserva) {
-                            const url = "https://sheet.best/api/sheets/ef7150db-3f89-42e9-8abd-790a804eab30/tabs/reservaciones";
+                            const url = "https://sheet.best/api/sheets/b10896e3-d186-4ce2-85df-5d8de2c92587/tabs/reservaciones";
                             
                             // Realizar una consulta para obtener los registros en la misma fecha y amenidad
                             return fetch(url)
@@ -284,7 +292,7 @@ formulario.addEventListener("submit", (e) => {
                         function toggleMisReservas() {
                             console.log("actualizándose")
                             const domicilio = domicilioSpan.textContent;
-                            fetch("https://sheet.best/api/sheets/ef7150db-3f89-42e9-8abd-790a804eab30/tabs/reservaciones")
+                            fetch("https://sheet.best/api/sheets/b10896e3-d186-4ce2-85df-5d8de2c92587/tabs/reservaciones")
                                 .then((response) => response.json())
                                 .then((data) => {
                                     console.log(domiciliocod);
@@ -399,7 +407,7 @@ formulario.addEventListener("submit", (e) => {
                                 Tipo: tipoSpan,
                             };
                         
-                            const url = "https://sheet.best/api/sheets/ef7150db-3f89-42e9-8abd-790a804eab30";
+                            const url = "https://sheet.best/api/sheets/b10896e3-d186-4ce2-85df-5d8de2c92587/tabs/visitas";
                         
                             const opciones = {
                                 method: "POST",
@@ -556,9 +564,9 @@ formulario.addEventListener("submit", (e) => {
                                 divnuevoregistro.style.display = "block";
                             }
                         }
-                    } else {
-                        alert("Usuario o contraseña incorrectos");
-                    }
+    } else {
+         alert("Usuario o contraseña incorrectos");
+        }
                 }
             })
             .catch((error) => {
@@ -568,23 +576,21 @@ formulario.addEventListener("submit", (e) => {
 
 });
 
-
 function togglePasswordVisibility() {
     var passwordInput = document.getElementById("contrasena");
-    var eyeIcon = document.querySelector(".toggle-password svg");
+    var eyeOpen = document.getElementById("ojoabierto");
+    var eyeClosed = document.getElementById("ojocerrado");
 
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
-        eyeIcon.classList.remove("bi-eye");
-        eyeIcon.classList.add("bi-eye-slash");
+        eyeOpen.style.display = "none";
+        eyeClosed.style.display = "block";
     } else {
         passwordInput.type = "password";
-        eyeIcon.classList.remove("bi-eye-slash");
-        eyeIcon.classList.add("bi-eye");
+        eyeOpen.style.display = "block";
+        eyeClosed.style.display = "none";
     }
 }
-
-
 
 function procesarArchivo() {
     const archivo = document.getElementById('archivo').files[0];
@@ -674,9 +680,6 @@ function procesarImagen(datos) {
         document.getElementById('beneficiarioPago').innerText = beneficiario || 'No se encontró beneficiario';
     });
 }
-
-
-  
 
 
 
