@@ -94,7 +94,7 @@ formulario.addEventListener("submit", (e) => {
                 console.log(correoCifradoInput)
                 const correosCifrados = data.map((fila) => fila.correo);
                 const indice = correosCifrados.findIndex((correoCifrado) => correoCifrado === correoCifradoInput);
-                const contraseñasCifradas = data.map((fila) => fila.jsgIyGfyKPPoetyv);
+                const contraseñasCifradas = data.map((fila) => fila.password);
                 console.log(indice)
 
                 //console.log(indice)
