@@ -772,6 +772,7 @@ function procesarImagen(datos) {
 
 
   
+  
 const miBoton = document.getElementById("btnreservar");
 
 miBoton.addEventListener("click", function() {
@@ -789,13 +790,26 @@ const miBoton2 = document.getElementById("datoscorrectosvisitas");
 
 miBoton.addEventListener("click", function() {
     // Desactivar el botón
-    miBoton.disabled = true;
+    miBoton2.disabled = true;
 
     // Volver a habilitar el botón después de 3 segundos
     setTimeout(function() {
-        miBoton.disabled = false;
+        miBoton2.disabled = false;
     }, 3000); // 3000 milisegundos = 3 segundos
 });
+
+const miBoton3 = document.getElementById("enviarpago");
+
+miBoton.addEventListener("click", function() {
+    // Desactivar el botón
+    miBoton3.disabled = true;
+
+    // Volver a habilitar el botón después de 3 segundos
+    setTimeout(function() {
+        miBoton3.disabled = false;
+    }, 3000); // 3000 milisegundos = 3 segundos
+});
+
 
 
 // JavaScript para habilitar la selección de múltiples opciones con un solo clic
