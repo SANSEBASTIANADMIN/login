@@ -200,6 +200,8 @@ formulario.addEventListener("submit", (e) => {
                             const tiporeserva = document.getElementById("tiporeserva").value;
                             const fechaHoraActual = new Date();
                             const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+                            const domicilio = domicilioSpan.textContent;
+
 
                             
                             const datos = {
@@ -210,6 +212,7 @@ formulario.addEventListener("submit", (e) => {
                                 amenidad: tiporeserva,
                                 inicio: horaInicio,
                                 fin: horaFin,
+                                domds: domicilio,
                             };
                         
                             if (statuscod === "IkFsIENvcnJpZW50ZSI=") {
