@@ -332,16 +332,46 @@
 			<p class="titulo">Adjunta tu pago<p>
 			<input type="file" id="archivo" accept="application/pdf,image/*" onchange="procesarArchivo()">
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
-			<div>
+			<div id="pagocargado" style="display: none;">
 				<p class="titulo">Datos del Pago</p>
+				<div id="loader">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+						<defs>
+						  <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+							<stop offset="0%" style="stop-color:#013E6A;stop-opacity:1" />
+							<stop offset="100%" style="stop-color:#013E6A;stop-opacity:1" />
+						  </linearGradient>
+						</defs>
+						<path fill="url(#grad)" d="M5 12h14M8 16l3-3-3-3" />
+						<animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/>
+					  </svg>
+				</div>
 				<p>Fecha: <span id="fechaPago"></span></p>
 				<p>Monto: <span id="montoPago"></span></p>
 				<p>Beneficiario:<span id="beneficiarioPago"></span></p>
+				<p>Concepto del pago:<span id="conceptodelpago"></span></p>
+				<p> </p>
+				<p> </p>
+				<label for="mespago" class="titulo">Seleccion el mes al que quieres que se aplique tu pago:</label><br>
+				<select id="mespago" required multiple size="10">
+					<option value="ene2024">Enero 2024</option>
+					<option value="feb2024">Febrero 2024</option>
+					<option value="mar2024">Marzo 2024</option>
+					<option value="abr2024">Abril 2024</option>
+					<option value="may2024">Mayo 2024</option>
+					<option value="jun2024">Junio 2024</option>
+					<option value="jul2024">Julio 2024</option>
+					<option value="ago2024">Agosto 2024</option>
+					<option value="sep2024">Septiembre 2024</option>
+					<option value="oct2024">Octubre 2024</option>
+					<option value="nov2024">Noviembre 2024</option>
+					<option value="dic2024">Diciembre 2024</option>
+				</select>
+				
 
+								
+				<button type="submit" id="enviarpago" class="btn">Enviar Pago</button>
 			</div>
-			<p></p>
-			<p></p>
-			<button type="submit" class="btn">Enviar Pago</button>
 		</div>
 		<div id="botones"  style="display: none;">	
 			<div class="contenedor2 button-container">
@@ -403,9 +433,6 @@
 
   
 
-
-
-  
 
   
 
