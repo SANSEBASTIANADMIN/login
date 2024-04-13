@@ -181,6 +181,8 @@ formulario.addEventListener("submit", (e) => {
                         document.getElementById("divbotonreservar").addEventListener("click", calendario);
                         document.getElementById("confirmarreserca").addEventListener("click", registrarReserva);
                         document.getElementById("misreservsas").addEventListener("click", toggleMisReservas);
+                        document.getElementById("enviarpago").addEventListener("click", enviardatospago);
+
 
                         function updatePaymentHistory() {
                                     paymentHistory2024.style.display = "block";
@@ -515,6 +517,63 @@ formulario.addEventListener("submit", (e) => {
                                 alert("Domicilio con adeudo, actualmente no tiene derecho al ingreso de visitas o proveedores");
                             }
                         }
+
+                        function enviardatospago() { 
+                            const fechaPagoSpan = document.getElementById("fechaPago").textContent;
+                            const montoPagoSpan = document.getElementById("montoPago").textContent;
+                            const beneficiarioPagoSpan = document.getElementById("beneficiarioPago").textContent;
+                            const conceptodelpagoPagoSpan = document.getElementById("conceptodelpago").textContent;
+                            const fechaHoraActual = new Date();
+                            const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+                            const mesPagoSelect = document.getElementById("mespago");
+                            const selectedOptions = Array.from(mesPagoSelect.options).filter(option => option.selected).map(option => option.value);
+                            console.log(selectedOptions);
+
+                                                        
+                            const datos = {
+                                registro: fechaHoraFormateada,
+                                dom: domiciliocod,
+                                nombre: clientecod,
+                                domds: domicilio,
+                                beneficiario: beneficiarioPagoSpan,
+                                fechapago: fechaPagoSpan,
+                                monto: montoPagoSpan,
+                                concepto: conceptodelpagoPagoSpan,
+                                aplicarpara : selectedOptions
+                            };
+
+
+                            const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/pagos";
+                                const opciones = {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                        body: JSON.stringify(datos)
+                                    };
+                                        fetch(url, opciones)
+                                                .then((response) => response.json())
+                                                .then((data) => {
+                                                    // Alerta de éxito después de enviar los datos
+                                                    alert("Tu pago el " + fechaPagoSpan + " por " + montoPagoSpan + " sera revisado");
+                                                    console.log(fechaPagoSpan)
+                                                    console.log(montoPagoSpan)
+                                                    console.log(beneficiarioPagoSpan)
+                                                    console.log(fechaHoraFormateada)
+                                                    console.log(domiciliocod)
+                                                    console.log(clientecod)
+                        
+                                                    // Limpiar los campos del formulario después de enviar los datos
+                                                    document.getElementById("fechaPago").textContent = "";
+                                                    document.getElementById("montoPago").textContent = "";
+                                                    document.getElementById("beneficiarioPago").textContent = "";
+                                                    const divpagocargado = document.getElementById("pagocargado");
+                                                    divpagocargado.style.display = "none";
+                                                })
+                                                .catch((error) => {
+                                                    console.error("Error al enviar los datos a la hoja de cálculo", error);
+                                                });
+                        }
                         
                         function regresar() {
                             paymentHistory2024.style.display = "none";
@@ -596,7 +655,10 @@ function togglePasswordVisibility() {
 }
 
 function procesarArchivo() {
+    const divpagocargado = document.getElementById("pagocargado");
     const archivo = document.getElementById('archivo').files[0];
+    divpagocargado.style.display = "block";
+
     if (!archivo) {
         alert('Por favor, seleccione un archivo PDF o una imagen.');
         return;
@@ -639,16 +701,28 @@ function procesarPDF(datos) {
                 const beneficiarioMatch = texto.match(regexBeneficiario);
                 const beneficiario = beneficiarioMatch ? beneficiarioMatch[0] : null;
 
+                // Buscar el concepto del pago
+                const regexConceptoPago = /(?<=Monto IVA Referencia numérica Clave de rastreo  \d{2} de [a-zA-Z]+\sde\s\d{4}\s)(.+?)\s+\$/; // Coincide con cualquier texto después del texto indicado y seguido del siguiente "$"
+                const conceptoPagoMatch = texto.match(regexConceptoPago);
+                const conceptoPago = conceptoPagoMatch ? conceptoPagoMatch[1] : null;
+                console.log(conceptoPago)
+
+
                 // Mostrar los datos en el HTML
                 document.getElementById('fechaPago').innerText = fecha || 'No se encontró fecha';
                 document.getElementById('montoPago').innerText = monto || 'No se encontró monto';
                 document.getElementById('beneficiarioPago').innerText = beneficiario || 'No se encontró beneficiario';
+                document.getElementById('conceptodelpago').innerText = conceptoPago || 'No se encontró concepto';
+
             });
         });
     });
 }
 
-function procesarImagen(datos) {
+function procesarImagen(datos) {    
+    const loader = document.getElementById("loader");
+    loader.style.display = "block"; // Mostrar el indicador de carga
+
     Tesseract.recognize(
         datos,
         'spa', // Idioma de reconocimiento (puedes cambiarlo según tus necesidades)
@@ -673,6 +747,14 @@ function procesarImagen(datos) {
         const beneficiarioMatch = text.match(regexBeneficiario);
         const beneficiario = beneficiarioMatch ? beneficiarioMatch[0] : null;
 
+        // Buscar el concepto del pago
+        const regexConceptoPago = /Concepto\s+del\s+pago\s+(.+?)\s+Clave\s+de\s+rastreo\s+\w+/; // Coincide con "Concepto del pago" seguido de cualquier texto hasta la siguiente ocurrencia de "Clave de rastreo" seguido de letras o números
+        const conceptoPagoMatch = text.match(regexConceptoPago);
+        const conceptoPago = conceptoPagoMatch ? conceptoPagoMatch[1] : null;
+        
+        // Ocultar el indicador de carga
+        loader.style.display = "none";
+
         // Imprimir los datos en la consola
         console.log('Fecha:', fecha || 'No se encontró fecha');
         console.log('Monto:', monto || 'No se encontró monto');
@@ -681,8 +763,12 @@ function procesarImagen(datos) {
         document.getElementById('fechaPago').innerText = fecha || 'No se encontró fecha';
         document.getElementById('montoPago').innerText = monto || 'No se encontró monto';
         document.getElementById('beneficiarioPago').innerText = beneficiario || 'No se encontró beneficiario';
+        document.getElementById('conceptodelpago').innerText = conceptoPago || 'No se encontró concepto';
+
     });
 }
+
+
 
 
   
@@ -712,5 +798,13 @@ miBoton.addEventListener("click", function() {
 });
 
 
+// JavaScript para habilitar la selección de múltiples opciones con un solo clic
+document.getElementById("mespago").addEventListener("click", function(event) {
+    var target = event.target;
+    if (target.tagName === "OPTION") {
+        target.selected = !target.selected;
+    }
+});
+
   
-  
+
