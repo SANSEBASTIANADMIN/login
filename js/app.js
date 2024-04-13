@@ -121,7 +121,7 @@ formulario.addEventListener("submit", (e) => {
                         const tag4 = atob(data[indice].tag4);
                         const tag5 = atob(data[indice].tag5);
                         const tag6 = atob(data[indice].tag6);
-                        const status = atob(data[indice].status);
+                        const status = data[indice].status;
                         const statuscod = data[indice].status;
 
                         ene2023Span.textContent = (data[indice].ene2023);
@@ -215,7 +215,7 @@ formulario.addEventListener("submit", (e) => {
                                 domds: domicilio,
                             };
                         
-                            if (statuscod === "IkFsIENvcnJpZW50ZSI=") {
+                            if (statuscod === "Al Corriente") {
                                 
                                 const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/reservaciones";
                                 const opciones = {
@@ -497,7 +497,7 @@ formulario.addEventListener("submit", (e) => {
                             const correo = correoSpan.textContent;
                             const status = statusSpan.textContent;
                         
-                            if (statuscod === "IkFsIENvcnJpZW50ZSI=") {
+                            if (statuscod === "Al Corriente") {
                                 console.log(namevisitaSpan);
                                 console.log(fechavisitaSpan); // Mostrar la fecha formateada
                                 console.log(tipoSpan);
@@ -683,7 +683,5 @@ function procesarImagen(datos) {
         document.getElementById('beneficiarioPago').innerText = beneficiario || 'No se encontró beneficiario';
     });
 }
-
-
 
   
