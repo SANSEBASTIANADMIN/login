@@ -84,7 +84,7 @@ formulario.addEventListener("submit", (e) => {
         // Redirigir a la página deseada
         window.location.href = "index2.html";
     } else {
-        fetch("https://sheet.best/api/sheets/b10896e3-d186-4ce2-85df-5d8de2c92587")
+        fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e")
             //actualización
             .then((response) => response.json())
             .then((data) => {
@@ -214,7 +214,7 @@ formulario.addEventListener("submit", (e) => {
                         
                             if (statuscod === "IkFsIENvcnJpZW50ZSI=") {
                                 
-                                const url = "https://sheet.best/api/sheets/b10896e3-d186-4ce2-85df-5d8de2c92587/tabs/reservaciones";
+                                const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/reservaciones";
                                 const opciones = {
                                     method: "POST",
                                     headers: {
@@ -264,7 +264,7 @@ formulario.addEventListener("submit", (e) => {
                         }
                         
                         function verificarDisponibilidad(fecha, tiporeserva) {
-                            const url = "https://sheet.best/api/sheets/b10896e3-d186-4ce2-85df-5d8de2c92587/tabs/reservaciones";
+                            const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/reservaciones";
                             
                             // Realizar una consulta para obtener los registros en la misma fecha y amenidad
                             return fetch(url)
@@ -292,7 +292,7 @@ formulario.addEventListener("submit", (e) => {
                         function toggleMisReservas() {
                             console.log("actualizándose")
                             const domicilio = domicilioSpan.textContent;
-                            fetch("https://sheet.best/api/sheets/b10896e3-d186-4ce2-85df-5d8de2c92587/tabs/reservaciones")
+                            fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/reservaciones")
                                 .then((response) => response.json())
                                 .then((data) => {
                                     console.log(domiciliocod);
@@ -407,7 +407,7 @@ formulario.addEventListener("submit", (e) => {
                                 Tipo: tipoSpan,
                             };
                         
-                            const url = "https://sheet.best/api/sheets/b10896e3-d186-4ce2-85df-5d8de2c92587/tabs/visitas";
+                            const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/visitas";
                         
                             const opciones = {
                                 method: "POST",
