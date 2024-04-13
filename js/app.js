@@ -820,5 +820,11 @@ document.getElementById("mespago").addEventListener("click", function(event) {
     }
 });
 
+function removeSpecialCharacters(input) {
+  // Reemplaza caracteres especiales y acentos con una expresión regular
+  input.value = input.value.replace(/[^A-Za-z\s]/g, '');
+}
+
+
   
 
