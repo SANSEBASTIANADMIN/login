@@ -684,4 +684,33 @@ function procesarImagen(datos) {
     });
 }
 
+
+  
+const miBoton = document.getElementById("btnreservar");
+
+miBoton.addEventListener("click", function() {
+    // Desactivar el botón
+    miBoton.disabled = true;
+
+    // Volver a habilitar el botón después de 3 segundos
+    setTimeout(function() {
+        miBoton.disabled = false;
+    }, 3000); // 3000 milisegundos = 3 segundos
+});
+
+
+const miBoton2 = document.getElementById("datoscorrectosvisitas");
+
+miBoton.addEventListener("click", function() {
+    // Desactivar el botón
+    miBoton.disabled = true;
+
+    // Volver a habilitar el botón después de 3 segundos
+    setTimeout(function() {
+        miBoton.disabled = false;
+    }, 3000); // 3000 milisegundos = 3 segundos
+});
+
+
+  
   
