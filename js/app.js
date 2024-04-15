@@ -810,7 +810,17 @@ miBoton.addEventListener("click", function() {
     }, 3000); // 3000 milisegundos = 3 segundos
 });
 
+const miBoton4 = document.getElementById("generarvisitayqr");
 
+miBoton.addEventListener("click", function() {
+    // Desactivar el botón
+    miBoton4.disabled = true;
+
+    // Volver a habilitar el botón después de 3 segundos
+    setTimeout(function() {
+        miBoton4.disabled = false;
+    }, 5000); // 3000 milisegundos = 3 segundos
+});
 
 // JavaScript para habilitar la selección de múltiples opciones con un solo clic
 document.getElementById("mespago").addEventListener("click", function(event) {
