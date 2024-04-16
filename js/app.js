@@ -276,7 +276,7 @@ formulario.addEventListener("submit", (e) => {
                                 doc.setTextColor(1, 62, 106); // RGB: 1, 62, 106
                                 doc.text("Atentamente: La Mesa Directiva de Colonos San Sebastián..", 10, 90);
 
-                                var imgData = 'anda2.png'; // Reemplaza esto con la URL de tu imagen
+                                var imgData = 'Logo.jpg'; // Reemplaza esto con la URL de tu imagen
                                 doc.addImage(imgData, 'JPEG', 10, 100, 50, 50); // Ajusta las coordenadas y el tamaño según sea necesario
                             
                             
