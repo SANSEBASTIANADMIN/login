@@ -469,3 +469,18 @@ select:focus {
   padding: 8px; /* Ajusta el padding según sea necesario */
 }
 
+
+.contenedorhome {
+  width: 400px;
+  max-width: 900px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  min-height: 10vh;
+  display: grid;
+  margin: 20px; /* Agregar margen */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  padding: 20px 40px;
+}
+
