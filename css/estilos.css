@@ -217,7 +217,7 @@ button svg {
   
   table {
 	margin: 0;
-	border-collapse: collapse;
+	border-collapse: separate;
 	text-align: left;
   }
 
@@ -419,4 +419,53 @@ select:focus {
 	transition: all 0.3s ease; /* Maintains the transition effect */
 	outline: none; /* Maintains the removal of outline */
   }
+
+.dropdown-title{
+  color: rgb(37, 150, 190);
+  }
+  #loader {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding-top: 20%;
+}
+
+#loader img {
+    width: 100px;
+}
+
+.buttonrecibos{
+  width: 90px;
+  white-space: nowrap;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  border-radius: 5px;
+  margin-top: 20px;
+  height: 16px;
+  color: white;
+  background: #013e6a;
+  padding: 0 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: 2px solid #013E6A;
+  cursor: pointer;
+  transition: .3s ease all;
+  outline: none;
+  flex-direction: column-reverse;
+  justify-content: space-around;
+}
+
+.table-custom td {
+  border: 0px solid #ffffff00;
+  text-align: center; /* Esto alineará el contenido horizontalmente */
+  vertical-align: bottom; /* Esto alineará el contenido verticalmente hacia abajo */
+  padding: 8px; /* Ajusta el padding según sea necesario */
+}
 
