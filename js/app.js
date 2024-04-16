@@ -307,7 +307,7 @@ formulario.addEventListener("submit", (e) => {
                                 domds: domicilio,
                             };
 
-                            if (fechareserva.trim() === "" || horaInicio.trim() === "" || horaFin.trim() === "" || tiporeserva === "Tipo de reservación") {
+                            if (fechareserva.trim() === "" || horaInicio.trim() === "" || horaFin.trim() === "" || tiporeserva === "") {
                                 alert("Por favor, complete todos los campos antes de registrar la reserva.");
                                 return; // Detener la ejecución si hay campos vacíos
                             }
