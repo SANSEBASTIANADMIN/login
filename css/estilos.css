@@ -319,7 +319,7 @@ button svg {
     border-top: none; /* Elimina el borde superior */
     border-radius: 0 0 5px 5px; /* Borde redondeado solo en la parte inferior */
     z-index: 1; /* Asegura que las opciones aparezcan sobre otros elementos */
-    width: 100%; /* Ancho completo del contenedor */
+    width: 90%; /* Ancho completo del contenedor */
     display: none; /* Inicialmente oculto */
     cursor: pointer; /* Cursor de puntero al pasar sobre las opciones */
 }
