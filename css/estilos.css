@@ -481,6 +481,6 @@ select:focus {
   margin: 20px; /* Agregar margen */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
   overflow: hidden;
-  padding: 2px 20px;
+  padding: 0 20px;
 }
 
