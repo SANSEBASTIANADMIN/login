@@ -182,7 +182,33 @@ formulario.addEventListener("submit", (e) => {
                         document.getElementById("confirmarreserca").addEventListener("click", registrarReserva);
                         document.getElementById("misreservsas").addEventListener("click", toggleMisReservas);
                         document.getElementById("enviarpago").addEventListener("click", enviardatospago);
+                        document.getElementById("btnreciboene2024").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibofeb2024").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibomar2024").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnreciboabr2024").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibomay2024").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibojun2024").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibojul2024").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnreciboago2024").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibosep2024").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibooct2024").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibonov2024").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibodic2024").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnreciboene2023").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnreciboene2023").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibofeb2023").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibomar2023").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnreciboabr2023").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibomay2023").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibojun2023").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibojul2023").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnreciboago2023").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibosep2023").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibooct2023").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibonov2023").addEventListener("click", generarrecibopdf);
+                        document.getElementById("btnrecibodic2023").addEventListener("click", generarrecibopdf);
 
+                        
 
                         function updatePaymentHistory() {
                                     paymentHistory2024.style.display = "block";
@@ -193,6 +219,70 @@ formulario.addEventListener("submit", (e) => {
                                     divbotonvisitas.style.display = "none";
                                     segurichat.style.display = "none";
                                     divregreso.style.display = "block";
+                        }
+
+                        function generarrecibopdf (){
+                            // Obtener la fila correspondiente al botón clicado
+                            var fila = event.target.closest('tr');
+                            
+                            // Obtener los datos de la fila
+                            var datosFila = fila.querySelectorAll('td');
+                        
+                            // Obtener el texto de cada elemento td y guardarlo en variables
+                            var mes = datosFila[0].textContent.trim(); // Mes
+                            var idMes = datosFila[1].querySelector('span').id; // ID del mes
+                            var cantidad = datosFila[1].querySelector('span').textContent.trim(); // Cantidad
+                        
+                            // Verificar si la cantidad está vacía
+                            if (cantidad === "") {
+                                alert("Aún no hay un pago aplicado a este mes");
+                                return; // Salir de la función
+                            }
+                            else{
+                                var año = idMes.substring(3); // Extraer los caracteres a partir del cuarto (el año)
+                                var now = new Date();
+                                var folio = now.getFullYear() + pad(now.getMonth() + 1) + pad(now.getDate()) + pad(now.getHours()) + pad(now.getMinutes()) + pad(now.getSeconds());
+
+                                // Función para agregar ceros a la izquierda si es necesario
+                                function pad(number) {
+                                    return (number < 10 ? '0' : '') + number;
+                                }
+                        
+                                // Crear un nuevo objeto jsPDF
+                                const { jsPDF } = window.jspdf;
+                                var doc = new jsPDF();
+
+                                var fontSize = 10;
+                                doc.setFontSize(fontSize);
+                                doc.setTextColor(1, 62, 106); // RGB: 1, 62, 106
+
+                            
+                                // Agregar la información al PDF
+                                doc.setTextColor(255, 0, 0); // RGB: 255, 0, 0 (rojo)
+                                doc.text("Folio: " + folio, 160, 10, null, null, 'right'); // Folio alineado a la derecha
+                                doc.setTextColor(0, 0, 0); // RGB: 0, 0, 0 (negro)
+                                doc.text("Fecha: " + new Date().toLocaleDateString(), 160, 20, null, null, 'right'); // Fecha de hoy alineada a la derecha
+
+                                doc.setTextColor(1, 62, 106); // RGB: 1, 62, 106
+                                doc.text("Estimado(a) "  + cliente, 10, 30); // Nombre del cliente
+
+                                doc.setTextColor(0, 0, 0); // RGB: 0, 0, 0 (negro)
+                                doc.text("Es un placer informarte que hemos recibido tu comprobante de pago por la cantidad de " + cantidad, 10, 40, null, null, 'left')
+                                doc.text("correspondiente al mes de " + mes + " " + año + " de tu propiedad ubicada en " + domicilio, 10, 50, null, null, 'left')
+                                doc.text("Cada contribución es esencial para asegurar el buen estado de nuestras áreas comunes y servicios.", 10, 60, null, null, 'left');
+                                doc.text("Agradecemos tu puntualidad y compromiso con el mantenimiento de nuestra comunidad.", 10, 70, null, null, 'left');
+                                doc.text("Este documento tiene carácter informativo y no constituye un instrumento para el acceso a amenidades o servicios.", 10, 80, null, null, 'left');
+
+                                doc.setTextColor(1, 62, 106); // RGB: 1, 62, 106
+                                doc.text("Atentamente: La Mesa Directiva de Colonos San Sebastián..", 10, 90);
+
+                                var imgData = 'anda2.png'; // Reemplaza esto con la URL de tu imagen
+                                doc.addImage(imgData, 'JPEG', 10, 100, 50, 50); // Ajusta las coordenadas y el tamaño según sea necesario
+                            
+                            
+                                // Guardar el PDF
+                                doc.save("recibo_" + mes.toLowerCase() + "_" + año + ".pdf");
+                            }
                         }
 
                         function registrarReserva() {
@@ -772,7 +862,6 @@ function procesarImagen(datos) {
 
 
   
-  
 const miBoton = document.getElementById("btnreservar");
 
 miBoton.addEventListener("click", function() {
@@ -795,7 +884,7 @@ miBoton.addEventListener("click", function() {
     // Volver a habilitar el botón después de 3 segundos
     setTimeout(function() {
         miBoton2.disabled = false;
-    }, 3000); // 3000 milisegundos = 3 segundos
+    }, 5000); // 3000 milisegundos = 3 segundos
 });
 
 const miBoton3 = document.getElementById("enviarpago");
@@ -810,6 +899,7 @@ miBoton.addEventListener("click", function() {
     }, 3000); // 3000 milisegundos = 3 segundos
 });
 
+
 const miBoton4 = document.getElementById("generarvisitayqr");
 
 miBoton.addEventListener("click", function() {
@@ -822,6 +912,7 @@ miBoton.addEventListener("click", function() {
     }, 5000); // 3000 milisegundos = 3 segundos
 });
 
+
 // JavaScript para habilitar la selección de múltiples opciones con un solo clic
 document.getElementById("mespago").addEventListener("click", function(event) {
     var target = event.target;
@@ -829,12 +920,11 @@ document.getElementById("mespago").addEventListener("click", function(event) {
         target.selected = !target.selected;
     }
 });
-
+  
 function removeSpecialCharacters(input) {
   // Reemplaza caracteres especiales y acentos con una expresión regular
   input.value = input.value.replace(/[^A-Za-z\s]/g, '');
 }
-
 
   
 
