@@ -26,6 +26,7 @@ body {
     min-height: 10vh;
     display: grid;
     margin: 20px; /* Agregar margen */
+    
 }
 
 @media screen and (max-width: 150px) {
@@ -340,7 +341,7 @@ button svg {
 select {
   font-size: 16px;
   font-family: 'Quicksand', sans-serif;
-  width: 100%;
+  width: 90%;
   padding: 20px 35px;
   border: 25px;
   border-radius: 16px;
@@ -469,7 +470,6 @@ select:focus {
   padding: 8px; /* Ajusta el padding según sea necesario */
 }
 
-
 .contenedorhome {
   width: 400px;
   max-width: 900px;
@@ -478,7 +478,7 @@ select:focus {
   background: #fff;
   min-height: 10vh;
   display: grid;
-  margin: 20px; /* Agregar margen */
+  margin: 10px; /* Agregar margen */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
   overflow: hidden;
 }
