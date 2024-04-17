@@ -456,7 +456,16 @@ formulario.addEventListener("submit", (e) => {
                             divamenidades.style.display = "block";
                             divreservar.style.display = "block";
                             divregreso.style.display = "block";
-                        
+
+                            const contenedorCalendario = document.getElementById("contenedorCalendario");
+                            const calendarioIframe = document.createElement("iframe");
+                            calendarioIframe.setAttribute("src", "https://calendar.google.com/calendar/embed?src=37177ba39d333f7ac9edfc4ae9571b75e2562da9e2887771191bab6db82b5aee%40group.calendar.google.com&ctz=America%2FMexico_City");
+                            calendarioIframe.setAttribute("style", "border: 0");
+                            calendarioIframe.setAttribute("width", "800");
+                            calendarioIframe.setAttribute("height", "600");
+                            calendarioIframe.setAttribute("frameborder", "0");
+                            calendarioIframe.setAttribute("scrolling", "no");
+                            contenedorCalendario.appendChild(calendarioIframe);
                         }
                         
                         function nuevoregistro(){
