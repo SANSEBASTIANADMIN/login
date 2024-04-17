@@ -475,16 +475,20 @@ select:focus {
 }
 
 .contenedorhome {
-  width: 400px;
-  max-width: 90%;
-  border-radius: 10px;
+  width: 380px;
+  max-width: 390px;
+  max-height: 90%;
+  border-radius: 10px 10px 0;
+  position: center;
   overflow: hidden;
+  left: 50%; /* Establece el 50% del ancho del viewport */
   background: #fff;
   min-height: 10vh;
   display: grid;
   margin: 10px; /* Agregar margen */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
   overflow: hidden;
+  bottom: 0;
 }
 
 #adminPanel {
