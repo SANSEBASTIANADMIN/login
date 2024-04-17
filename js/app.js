@@ -91,7 +91,7 @@ formulario.addEventListener("submit", (e) => {
         // Redirigir a la página deseada
         window.location.href = "index2.html";
     } else {
-        fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e")
+        fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
             //actualización
             .then((response) => response.json())
             .then((data) => {
