@@ -900,7 +900,7 @@ function procesarImagen(datos) {
 function onClick(e) {
     e.preventDefault();
     grecaptcha.enterprise.ready(async () => {
-      const token = await grecaptcha.enterprise.execute('6LdCILYpAAAAADl_Sm8WVoZTzGfv8RS_TiLLspJf', {action: 'LOGIN'});
+      const token = await grecaptcha.enterprise.execute('6LdCILYpAAAAADl_Sm8WVoZTzGfv8RS_TiLLspJf', {action: 'formulario'});
     });
   }
   
