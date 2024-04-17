@@ -286,8 +286,8 @@ formulario.addEventListener("submit", (e) => {
                                 doc.setTextColor(1, 62, 106); // RGB: 1, 62, 106
                                 doc.text("Atentamente: La Mesa Directiva de Colonos San Sebastián..", 10, 90);
 
-                                var imgData = 'anda2.png'; // Reemplaza esto con la URL de tu imagen
-                                doc.addImage(imgData, 'JPEG', 10, 100, 50, 50); // Ajusta las coordenadas y el tamaño según sea necesario
+                                var imgData = 'logorecibos.png'; // Reemplaza esto con la URL de tu imagen
+                                doc.addImage(imgData, 'JPEG', 10, 100, 100, 100); // Ajusta las coordenadas y el tamaño según sea necesario
                             
                             
                                 // Guardar el PDF
@@ -897,12 +897,6 @@ function procesarImagen(datos) {
     });
 }
 
-function onClick(e) {
-    e.preventDefault();
-    grecaptcha.enterprise.ready(async () => {
-      const token = await grecaptcha.enterprise.execute('6LdCILYpAAAAADl_Sm8WVoZTzGfv8RS_TiLLspJf', {action: 'formulario'});
-    });
-  }
   
 const miBoton = document.getElementById("btnreservar");
 
@@ -980,4 +974,10 @@ function cerrarAdminPanel() {
     adminPanel.style.padding = "0px";
 }
 
+function onClick(e) {
+    e.preventDefault();
+    grecaptcha.enterprise.ready(async () => {
+      const token = await grecaptcha.enterprise.execute('6LdCILYpAAAAADl_Sm8WVoZTzGfv8RS_TiLLspJf', {action: 'formulario'});
+    });
+  }
 
