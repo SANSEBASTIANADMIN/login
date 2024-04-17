@@ -475,8 +475,8 @@ select:focus {
 }
 
 .contenedorhome {
-  width: 380px;
-  max-width: 390px;
+  width: 370px;
+  max-width: 370px;
   max-height: 90%;
   border-radius: 10px 10px 0;
   position: center;
@@ -492,8 +492,8 @@ select:focus {
 }
 
 #adminPanel {
-  width: 400px;
-  max-width: 400px;
+  width: 370px;
+  max-width: 370px;
   max-height: 90%;
   border-radius: 10px;
   background: linear-gradient(to bottom, rgb(255, 255, 255) 55%, #013E6A); /* Degradado de arriba hacia abajo */
@@ -509,6 +509,9 @@ select:focus {
   color: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
 }
+
+
+
 
 
 
