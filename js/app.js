@@ -62,6 +62,13 @@ const confirmarreserca  = document.getElementById("confirmarreserca");
 const divmisreservas  = document.getElementById("divmisreservas");
 var today = new Date().toISOString().split('T')[0];
 var loggedIn = true
+const btndcerrarsesion  = document.getElementById("cerrarsesion");
+
+document.getElementById("cerrarsesion").addEventListener("click", function() {
+    window.location.reload();
+});
+
+
 
 function cifrarCorreo(valor) {
     var texto = JSON.stringify(valor);
@@ -162,7 +169,9 @@ formulario.addEventListener("submit", (e) => {
                         statusSpan.textContent = status;
 
                         homepage.style.display = "none";
+                        btndcerrarsesion.style.display = "block"
                         tags.style.display = "block";
+                        btndcerrarsesion.style.display = "block"
                         inicio.style.display = "block";
                         botones.style.display = "block";
 
@@ -213,6 +222,7 @@ formulario.addEventListener("submit", (e) => {
                         function updatePaymentHistory() {
                                     paymentHistory2024.style.display = "block";
                                     tags.style.display = "none";
+                                    btndcerrarsesion.style.display = "none"
                                     divbotonhistorico.style.display = "none";
                                     divbotonpago.style.display = "none";
                                     divbotonreservar.style.display = "none";
@@ -276,7 +286,7 @@ formulario.addEventListener("submit", (e) => {
                                 doc.setTextColor(1, 62, 106); // RGB: 1, 62, 106
                                 doc.text("Atentamente: La Mesa Directiva de Colonos San Sebastián..", 10, 90);
 
-                                var imgData = 'Logo.jpg'; // Reemplaza esto con la URL de tu imagen
+                                var imgData = 'anda2.png'; // Reemplaza esto con la URL de tu imagen
                                 doc.addImage(imgData, 'JPEG', 10, 100, 50, 50); // Ajusta las coordenadas y el tamaño según sea necesario
                             
                             
@@ -311,7 +321,7 @@ formulario.addEventListener("submit", (e) => {
                                 alert("Por favor, complete todos los campos antes de registrar la reserva.");
                                 return; // Detener la ejecución si hay campos vacíos
                             }
-                        
+                                                
                             if (statuscod === "Al Corriente") {
                                 
                                 const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/reservaciones";
@@ -437,6 +447,7 @@ formulario.addEventListener("submit", (e) => {
                             divingresos.style.display = "none";
                             paymentHistory2024.style.display = "none";
                             tags.style.display = "none";
+                            btndcerrarsesion.style.display = "none"
                             divbotonhistorico.style.display = "none";
                             divbotonpago.style.display = "none";
                             divbotonreservar.style.display = "none";
@@ -453,6 +464,7 @@ formulario.addEventListener("submit", (e) => {
                             divnuevoregistro.style.display = "none";
                             paymentHistory2024.style.display = "none";
                             tags.style.display = "block";
+                            btndcerrarsesion.style.display = "block"
                             divbotonhistorico.style.display = "block";
                             divbotonpago.style.display = "block";
                             divbotonreservar.style.display = "block";
@@ -569,6 +581,7 @@ formulario.addEventListener("submit", (e) => {
                             divingresos.style.display = "block";
                             paymentHistory2024.style.display = "none";
                             tags.style.display = "none";
+                            btndcerrarsesion.style.display = "none"
                             divbotonhistorico.style.display = "none";
                             divbotonpago.style.display = "none";
                             divbotonreservar.style.display = "none";
@@ -673,6 +686,7 @@ formulario.addEventListener("submit", (e) => {
                         function regresar() {
                             paymentHistory2024.style.display = "none";
                             tags.style.display = "block";
+                            btndcerrarsesion.style.display = "block"
                             divbotonhistorico.style.display = "block";
                             divbotonpago.style.display = "block";
                             divbotonreservar.style.display = "block";
@@ -683,6 +697,7 @@ formulario.addEventListener("submit", (e) => {
                             divamenidades.style.display = "none";
                             divreservar.style.display = "none";
                             divpagos.style.display = "none";
+                            divregreso.style.display = "none";
 
                         
                         }
@@ -691,6 +706,7 @@ formulario.addEventListener("submit", (e) => {
                             divingresos.style.display = "none";
                             paymentHistory2024.style.display = "none";
                             tags.style.display = "none";
+                            btndcerrarsesion.style.display = "none"
                             divbotonhistorico.style.display = "none";
                             divbotonpago.style.display = "none";
                             divbotonreservar.style.display = "none";
@@ -706,6 +722,7 @@ formulario.addEventListener("submit", (e) => {
                             divingresos.style.display = "block";
                             paymentHistory2024.style.display = "none";
                             tags.style.display = "none";
+                            btndcerrarsesion.style.display = "none"
                             divbotonhistorico.style.display = "none";
                             divbotonpago.style.display = "none";
                             divbotonreservar.style.display = "none";
@@ -748,6 +765,23 @@ function togglePasswordVisibility() {
         eyeClosed.style.display = "none";
     }
 }
+
+function togglePasswordVisibilityadmin() {
+    var passwordInputadmin = document.getElementById("admin-contrasena")
+    var eyeOpenadmin = document.getElementById("ojoabiertoadmin");
+    var eyeClosedadmin = document.getElementById("ojocerradoadmin");
+
+    if (passwordInputadmin.type === "password") {
+        passwordInputadmin.type = "text";
+        eyeOpenadmin.style.display = "none";
+        eyeClosedadmin.style.display = "block";
+    } else {
+        passwordInputadmin.type = "password";
+        eyeOpenadmin.style.display = "block";
+        eyeClosedadmin.style.display = "none";
+    }
+}
+
 
 function procesarArchivo() {
     const divpagocargado = document.getElementById("pagocargado");
@@ -863,9 +897,12 @@ function procesarImagen(datos) {
     });
 }
 
-
-
-
+function onClick(e) {
+    e.preventDefault();
+    grecaptcha.enterprise.ready(async () => {
+      const token = await grecaptcha.enterprise.execute('6LdCILYpAAAAADl_Sm8WVoZTzGfv8RS_TiLLspJf', {action: 'LOGIN'});
+    });
+  }
   
 const miBoton = document.getElementById("btnreservar");
 
@@ -931,5 +968,16 @@ function removeSpecialCharacters(input) {
   input.value = input.value.replace(/[^A-Za-z\s]/g, '');
 }
 
-  
+function expandAdminPanel() {
+    var adminPanel = document.getElementById("adminPanel");
+    adminPanel.style.height = "100%";
+    adminPanel.style.padding = "20px";
+}
+
+function cerrarAdminPanel() {
+    var adminPanel = document.getElementById("adminPanel");
+    adminPanel.style.height = "0%";
+    adminPanel.style.padding = "0px";
+}
+
 
