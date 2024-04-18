@@ -1,4 +1,5 @@
 const formulario = document.getElementById("formulario");
+const formularioadmin = document.getElementById("formularioadmin");
 const home = document.getElementById("home");
 const inicio = document.getElementById("inicio");
 const propietarioSpan = document.getElementById("propietario");
@@ -63,12 +64,17 @@ const divmisreservas  = document.getElementById("divmisreservas");
 var today = new Date().toISOString().split('T')[0];
 var loggedIn = true
 const btndcerrarsesion  = document.getElementById("cerrarsesion");
+const btncerrarsesionadmin  = document.getElementById("cerrarsesionadmin");
+
+let sesionIniciada = false;
 
 document.getElementById("cerrarsesion").addEventListener("click", function() {
     window.location.reload();
 });
 
-
+document.getElementById("cerrarsesionadmin").addEventListener("click", function() {
+    window.location.reload();
+});
 
 function cifrarCorreo(valor) {
     var texto = JSON.stringify(valor);
@@ -747,14 +753,65 @@ formulario.addEventListener("submit", (e) => {
                                 divnuevoregistro.style.display = "block";
                             }
                         }
-    } else {
-         alert("Usuario o contraseña incorrectos");
-        }
+
+                        const miBoton = document.getElementById("btnreservar");
+
+                        miBoton.addEventListener("click", function() {
+                            // Desactivar el botón
+                            miBoton.disabled = true;
+
+                            // Volver a habilitar el botón después de 3 segundos
+                            setTimeout(function() {
+                                miBoton.disabled = false;
+                            }, 3000); // 3000 milisegundos = 3 segundos
+                        });
+
+                        const miBoton2 = document.getElementById("datoscorrectosvisitas");
+
+                        miBoton2.addEventListener("click", function() {
+                            // Desactivar el botón
+                            miBoton2.disabled = true;
+
+                            // Volver a habilitar el botón después de 3 segundos
+                            setTimeout(function() {
+                                miBoton2.disabled = false;
+                            }, 5000); // 3000 milisegundos = 3 segundos
+                        });
+
+                        const miBoton3 = document.getElementById("enviarpago");
+
+                        miBoton3.addEventListener("click", function() {
+                            // Desactivar el botón
+                            miBoton3.disabled = true;
+
+                            // Volver a habilitar el botón después de 3 segundos
+                            setTimeout(function() {
+                                miBoton3.disabled = false;
+                            }, 3000); // 3000 milisegundos = 3 segundos
+                        });
+
+                        const miBoton4 = document.getElementById("generarvisitayqr");
+
+                        miBoton4.addEventListener("click", function() {
+                            // Desactivar el botón
+                            miBoton4.disabled = true;
+
+                            // Volver a habilitar el botón después de 3 segundos
+                            setTimeout(function() {
+                                miBoton4.disabled = false;
+                            }, 5000); // 3000 milisegundos = 3 segundos
+                        });
+
+                    } else {
+                        alert("Usuario o contraseña incorrectos");
+                    }   
+                } else {
+                    alert("Usuario o contraseña incorrectos");
                 }
             })
             .catch((error) => {
                 console.error(error);
-            });
+        });
     }
 
 });
@@ -790,7 +847,6 @@ function togglePasswordVisibilityadmin() {
         eyeClosedadmin.style.display = "none";
     }
 }
-
 
 function procesarArchivo() {
     const divpagocargado = document.getElementById("pagocargado");
@@ -906,57 +962,6 @@ function procesarImagen(datos) {
     });
 }
 
-  
-const miBoton = document.getElementById("btnreservar");
-
-miBoton.addEventListener("click", function() {
-    // Desactivar el botón
-    miBoton.disabled = true;
-
-    // Volver a habilitar el botón después de 3 segundos
-    setTimeout(function() {
-        miBoton.disabled = false;
-    }, 3000); // 3000 milisegundos = 3 segundos
-});
-
-
-const miBoton2 = document.getElementById("datoscorrectosvisitas");
-
-miBoton.addEventListener("click", function() {
-    // Desactivar el botón
-    miBoton2.disabled = true;
-
-    // Volver a habilitar el botón después de 3 segundos
-    setTimeout(function() {
-        miBoton2.disabled = false;
-    }, 5000); // 3000 milisegundos = 3 segundos
-});
-
-const miBoton3 = document.getElementById("enviarpago");
-
-miBoton.addEventListener("click", function() {
-    // Desactivar el botón
-    miBoton3.disabled = true;
-
-    // Volver a habilitar el botón después de 3 segundos
-    setTimeout(function() {
-        miBoton3.disabled = false;
-    }, 3000); // 3000 milisegundos = 3 segundos
-});
-
-
-const miBoton4 = document.getElementById("generarvisitayqr");
-
-miBoton.addEventListener("click", function() {
-    // Desactivar el botón
-    miBoton4.disabled = true;
-
-    // Volver a habilitar el botón después de 3 segundos
-    setTimeout(function() {
-        miBoton4.disabled = false;
-    }, 5000); // 3000 milisegundos = 3 segundos
-});
-
 
 // JavaScript para habilitar la selección de múltiples opciones con un solo clic
 document.getElementById("mespago").addEventListener("click", function(event) {
@@ -988,5 +993,184 @@ function onClick(e) {
     grecaptcha.enterprise.ready(async () => {
       const token = await grecaptcha.enterprise.execute('6LdCILYpAAAAADl_Sm8WVoZTzGfv8RS_TiLLspJf', {action: 'formulario'});
     });
-  }
+}
+
+
+document.getElementById("inicarsesionadmin").addEventListener("click", () => {
+    const usuarioInput = document.getElementById("admin-username").value;
+    const contraseñaInput = document.getElementById("admin-contrasena").value;
+
+    fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/admin")
+        .then((response) => response.json())
+        .then((data) => {
+            const correoCifradoInput = cifrarCorreo(usuarioInput);
+            const correosCifrados = data.map((fila) => fila.correo);
+            const indice = correosCifrados.findIndex((correoCifrado) => correoCifrado === correoCifradoInput);
+            const contraseñasCifradas = data.map((fila) => fila.password);
+
+            if (indice !== -1) {
+                const contraseñaCifrada = contraseñasCifradas[indice];
+                const contraseñaCifradoInput = cifrarCorreo(contraseñaInput);
+
+                if (contraseñaCifrada === contraseñaCifradoInput) {
+                    console.log("Inicio de sesión exitoso");
+                    sesionIniciada = true; // Marcar la sesión como iniciada
+                    console.log(sesionIniciada)
+                    const contenedoradmin = document.getElementById("contenedoradmin");
+                    contenedoradmin.style.display = "block";
+                    homepage.style.display = "none";
+
+                    fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
+                    //actualización
+                    .then((response) => response.json())
+                    .then((datapropietarios) => {
+
+                    // Generar HTML para la tabla
+                    const tablaHTML = generarTabla(datapropietarios);
+                    // Inyectar la tabla en el contenedor
+
+                    const tablapropietarios = document.getElementById("tablapropietarios");
+                    tablapropietarios.innerHTML = tablaHTML;
+                    });
+
+                } else {
+                    alert("Usuario o contraseña incorrectos");
+                }
+            } else {
+                alert("Usuario o contraseña incorrectos");
+            }
+        })
+        .catch((error) => {
+            console.error("Error al obtener los datos:", error);
+        });
+});
+
+                    
+function generarTabla(data) {
+    let tablaHTML = '<table border="1">';
+    // Encabezados de la tabla
+    tablaHTML += '<tr>';
+    tablaHTML += '<th>Domicilio</th>';
+    tablaHTML += '</tr>';
+    
+    // Objeto para almacenar las filas agrupadas por calle
+    const filasPorCalle = {};
+    
+    // Agrupar las filas por calle
+    data.forEach((fila, index) => {
+        const domDecodificado = atob(fila.dom);
+        const calle = domDecodificado.replace(/"/g, '');
+    
+        if (!filasPorCalle[calle]) {
+            filasPorCalle[calle] = [];
+        }
+    
+        filasPorCalle[calle].push({ fila, index });
+    });
+    
+    // Generar los detalles por cada calle
+    Object.keys(filasPorCalle).forEach(calle => {
+        tablaHTML += `<tr>`;
+        tablaHTML += `<td><details><summary>${calle}</summary>`;
+        tablaHTML += `<table class="tablaporcada" border="0">`;
+        tablaHTML += `<tr><th>Concepto</th><th>Valor</th></tr>`;
+    
+        // Iterar sobre las filas de la calle actual
+        filasPorCalle[calle].forEach(({ fila, index }) => {
+            const domDecodificado = atob(fila.dom);
+            const domComillas = domDecodificado.replace(/"/g, '');
+            const clienteDecodificado = atob(fila.Cliente);
+            const clienteComillas = clienteDecodificado.replace(/"/g, '');
+            const correoDecodificado = atob(fila.correo);
+            const correoSinComillas = correoDecodificado.replace(/"/g, '');
+            const passwordDecodificado = atob(fila.password);
+            const passwordComillas = passwordDecodificado.replace(/"/g, '');
+    
+            tablaHTML += '<tr>';
+            tablaHTML += `<td id="indice">Index</td><td>${index}</td></tr>`;
+            tablaHTML += `<tr><td>Residente</td><td><input class="datostext" type="text" value="${clienteComillas}" onchange="actualizarDato(this.value, 'Cliente', ${index})"></td></tr>`;
+            tablaHTML += `<tr><td>Usuario</td><td><input class="datostext" type="text" value="${correoSinComillas}" onchange="actualizarDato(this.value, 'correo', ${index})"></td></tr>`;
+            tablaHTML += `<tr><td>Contraseña</td><td><input class="datostext" type="text" value="${passwordComillas}" onchange="actualizarDato(this.value, 'password', ${index})"></td></tr>`;
+            tablaHTML += `<tr>
+                            <td>Estatus</td>
+                            <td>
+                                <select class="identificadormora" onchange="actualizarDato(this.value, 'status', ${index})">
+                                    <option value="Al corriente" ${fila.status === "Al corriente" ? "selected" : ""}>Al corriente</option>
+                                    <option value="Morosidad" ${fila.status === "Moroso" ? "selected" : ""}>Morosidad</option>
+                                </select>
+                            </td>
+                        </tr>`;
+            tablaHTML += `<tr><td>Ene 2024</td><td><input class="pago" type="text" value="${fila.ene2024}" onchange="actualizarDato(this.value, 'ene2024', ${index})"></td></tr>`;
+            tablaHTML += `<tr><td>Feb 2024</td><td><input class="pago" type="text" value="${fila.feb2024}" onchange="actualizarDato(this.value, 'feb2024', ${index})"></td></tr>`;
+            tablaHTML += `<tr><td>Mar 2024</td><td><input class="pago" type="text" value="${fila.mar2024}" onchange="actualizarDato(this.value, 'mar2024', ${index})"></td></tr>`;
+            tablaHTML += `<tr><td>Abr 2024</td><td><input class="pago" type="text" value="${fila.abr2024}" onchange="actualizarDato(this.value, 'abr2024', ${index})"></td></tr>`;
+            tablaHTML += `<tr><td>May 2024</td><td><input class="pago" type="text" value="${fila.may2024}" onchange="actualizarDato(this.value, 'may2024', ${index})"></td></tr>`;
+            tablaHTML += `<tr><td>Jun 2024</td><td><input class="pago" type="text" value="${fila.jun2024}" onchange="actualizarDato(this.value, 'jun2024', ${index})"></td></tr>`;
+            tablaHTML += `<tr><td>Jul 2024</td><td><input class="pago" type="text" value="${fila.jul2024}" onchange="actualizarDato(this.value, 'jul2024', ${index})"></td></tr>`;
+            tablaHTML += `<tr><td>Ago 2024</td><td><input class="pago" type="text" value="${fila.ago2024}" onchange="actualizarDato(this.value, 'ago2024', ${index})"></td></tr>`;
+            tablaHTML += `<tr><td>Sep 2024</td><td><input class="pago" type="text" value="${fila.sep2024}" onchange="actualizarDato(this.value, 'sep2024', ${index})"></td></tr>`;
+            tablaHTML += `<tr><td>Oct 2024</td><td><input class="pago" type="text" value="${fila.oct2024}" onchange="actualizarDato(this.value, 'oct2024', ${index})"></td></tr>`;
+            tablaHTML += `<tr><td>Nov 2024</td><td><input class="pago" type="text" value="${fila.nov2024}" onchange="actualizarDato(this.value, 'nov2024', ${index})"></td></tr>`;
+            tablaHTML += `<tr><td>Dic 2024</td><td><input class="pago" type="text" value="${fila.dic2024}" onchange="actualizarDato(this.value, 'dic2024', ${index})"></td></tr>`;
+        });
+    
+        tablaHTML += `</table>`;
+        tablaHTML += `</details></td>`;
+        tablaHTML += `</tr>`;
+    });
+    
+    tablaHTML += '</table>';
+    
+    return tablaHTML;
+}    
+
+function actualizarDato(valor, campo, indice) {
+    // Verificar si la sesión está iniciada
+    if (sesionIniciada) {
+        console.log("Valor:", valor);
+        console.log("Campo:", campo);
+        console.log("Índice:", indice);
+
+        let valorActualizado = valor; // Valor por defecto no cifrado
+
+        // Verificar si el campo es "correo" o "password" y cifrarlo
+        if (campo === "correo" || campo === "password" || campo === "Cliente") {
+            valorActualizado = cifrarCorreo(valor);
+            console.log("Valor cifrado:", valorActualizado);
+        }
+
+        // Crear un objeto con los datos proporcionados
+        const datosActualizados = {
+            [campo]: valorActualizado,
+        };
+
+        // Construir la URL para la solicitud PATCH
+        const url = `https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios/${indice}`;
+        console.log("URL:", url);
+
+        // Realizar la solicitud PATCH para actualizar los datos
+        fetch(url, {
+            method: "PATCH",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(datosActualizados)
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Datos actualizados correctamente:", data);
+            alert("Datos actualizados correctamente: "+ "Valor: " + valor + " Campo: "+ campo)
+        })
+        .catch((error) => {
+            console.error("Error al actualizar los datos:", error);
+            alert("Error al actualizar los datos:" + valor);
+        });
+
+        return datosActualizados;
+    } else {
+        console.error("Error: La sesión no está iniciada");
+        return null; // O maneja el error de alguna otra manera
+    }
+}
 
