@@ -32,11 +32,11 @@
 								<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 								<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 							</svg>
-							<input type="text" id="username" name="username" placeholder="Correo electrónico" autocomplete="username">
+							<input class="input" type="text" id="username" name="username" placeholder="Correo electrónico" autocomplete="username">
 						</div>
 						<label for="contraseña">Contraseña</label>
 						<div class="contenedor-input">
-						<input type="password" id="contrasena" name="password" placeholder="*********" autocomplete="current-password">
+						<input class="input" type="password" id="contrasena" name="password" placeholder="*********" autocomplete="current-password">
 							<span class="toggle-password" onclick="togglePasswordVisibility()">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16" style="display: bloc;" id="ojoabierto">
 									<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
@@ -73,11 +73,11 @@
 										<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 										<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 									</svg>
-									<input type="text" id="admin-username" name="admin-username" placeholder="Correo electrónico" autocomplete="username">
+									<input class="input" type="text" id="admin-username" name="admin-username" placeholder="Correo electrónico" autocomplete="username">
 								</div>
 								<label for="admin-contraseña">Contraseña</label>
 								<div class="contenedor-input">
-									<input type="password" id="admin-contrasena" name="admin-password" placeholder="*********" autocomplete="current-password">
+									<input class="input" type="password" id="admin-contrasena" name="admin-password" placeholder="*********" autocomplete="current-password">
 									<span class="toggle-password2" onclick="togglePasswordVisibilityadmin()">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16" style="display: bloc;" id="ojoabiertoadmin">
 											<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
@@ -90,7 +90,7 @@
 										  </svg>    
 									</span>
 								</div>
-								<button class="hidden" id="">Iniciar sesión</button>
+								<button class="" id="inicarsesionadmin">Iniciar sesión</button>
 								<button id="" onclick="cerrarAdminPanel()">Soy Residente</button>
 							</div>
 						</div>
@@ -312,32 +312,32 @@
 		</div>
 		<div clas="contenedorformulario" id="divingresos" style="display: none;">
 			<div>
-				<form class="formulario2" id="formulario2">
-					<div class="contenedor-input">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-						</svg>
-						
-						<input type="text" id="namevisita" placeholder="Nombre de visita o proveedor" oninput="removeSpecialCharacters(this)" required>
-						
-					</div>
-					<div class="contenedor-fecha">
-						<input type="date" id="fechavisita" placeholder="Ingresa fecha" required>  
-						<select id="tipo" required>
-							<option value="">Selecciona el tipo de visita...</option>
-							<option value="familiar-amigo">Familiar o Amigo</option>
-							<option value="proveedor">Proveedor</option>
-						</select>
-					</div>
-					<div class="contenedor">
-					</div>					
-					<div class="contenedor">
-						<div id="btnenviaringreso">
-							<button type="button" onclick="" class="btn">Enviar</button>
+				<div class="contenedorformulariovisita">
+					<form class="formulario2" id="formulario2">
+						<div class="contenedor-input">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+								<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+								<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+							</svg>
+							
+							<input class="input" type="text" id="namevisita" placeholder="Nombre de visita o proveedor" oninput="removeSpecialCharacters(this)" required>
+							
 						</div>
-					</div>	
-				</form>
+						<div class="contenedor-fecha">
+							<input class="input" type="date" id="fechavisita" placeholder="Ingresa fecha" required>  
+							<select id="tipo" required>
+								<option value="">Selecciona el tipo de visita...</option>
+								<option value="familiar-amigo">Familiar o Amigo</option>
+								<option value="proveedor">Proveedor</option>
+							</select>
+						</div>
+						<div>
+							<div id="btnenviaringreso">
+								<button type="button" onclick="" class="btn">Enviar</button>
+							</div>
+						</div>	
+					</form>
+				</div>	
 				<div id="confirmacion" style="display: none;">
 					<div class="contenedor">
 						<p>Por favor confirma la información:</p>
@@ -385,11 +385,11 @@
 						<div class="contenedorformulario">
 							<div class="contenedor">
 								<label for="fechadereserva">Seleccionar fecha:</label>
-								<input type="date" id="fechareserva" placeholder="Ingresa fecha" required></input>
+								<input class="input" type="date" id="fechareserva" placeholder="Ingresa fecha" required></input>
 								<label for="horaInicio">Hora de inicio:</label>
-								<input type="time" id="horaInicio" name="horaInicio" required>
+								<input class="input" type="time" id="horaInicio" name="horaInicio" required>
 								<label for="horaFin">Hora de fin:</label>
-								<input type="time" id="horaFin" name="horaFin" required>
+								<input class="input" type="time" id="horaFin" name="horaFin" required>
 								<select id="tiporeserva" required>
 									<option value="">Tipo de reservación</option>
 									<option value="Casa Club">Casa Club</option>
@@ -422,7 +422,7 @@
 			<p> </p>
 			<p> </p>
 			<p class="titulo">Adjunta tu pago<p>
-			<input type="file" id="archivo" accept="application/pdf,image/*" onchange="procesarArchivo()">
+			<input class="input" type="file" id="archivo" accept="application/pdf,image/*" onchange="procesarArchivo()">
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
 			<div id="pagocargado" style="display: none;">
 				<p class="titulo">Datos del Pago</p>
@@ -512,6 +512,17 @@
 		</div>
 
 	</div>
+
+	<div class="contenedoradmin" id="contenedoradmin" style="display: none;">
+		<div id="cerrarsesionadmin">	
+			<button type="submit" class="btn">
+				Cerrar Sesión
+			</button>
+		</div>
+		<div id="tablapropietarios" class="tablapropietarios">
+		</div>
+	</div>
+
 	<!-- v5 -->
 	<script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
@@ -520,9 +531,14 @@
 	<script src="js/app.js"></script>
 </body>
 </html>
+  
+
 
 
   
+
+  
+
 
 
 
