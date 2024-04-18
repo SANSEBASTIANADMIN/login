@@ -88,7 +88,8 @@ label {
     font-size: 14px;
 }
 
-input {
+
+.input {
     height: 50px;
     line-height: 50px;
     font-size: 16px;
@@ -360,7 +361,6 @@ select {
 /* Estilos al enfocar el elemento select */
 select:focus {
     /* Borde */ 
-    background-color: rgba(231,240,254,255);
     /* Elimina el estilo de selección nativo */
     outline: none;
 }
@@ -509,6 +509,124 @@ select:focus {
   transition: height 0.5s ease-in-out, padding 0.5s ease-in-out;
   color: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+.contenedorformulariovisita{
+  color: rgb(37, 150, 190);
+  padding: 0px 25px;
+}
+
+
+
+
+
+
+.estatus {
+  width: 60px;
+  height: 18px;
+  line-height: 14px;
+  font-size: 10px;
+  border: none;
+  border-radius: 5px;
+  padding: 0px 0px 0 0;
+  margin-bottom: 0px;
+  background: #f4f8f7;
+  color: #013E6A;
+}
+
+/* Estilo base para la tabla */
+#tablapropietarios {
+  width: 370px;
+  max-width: 370px;
+  max-height: 90%;
+  border-radius: 10px 10px 0;
+  position: center;
+  overflow: hidden;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  background: #fff;
+  min-height: 10vh;
+  display: grid;
+  margin: 10px; /* Agregar margen */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  bottom: 0;
+}
+
+.tablapropietarios th, .tablapropietarios td {
+  padding: 8px; /* Espaciado interno */
+}
+
+/* Estilo para la fila de detalle */
+.detalle {
+  display: none; /* Ocultar por defecto */
+}
+
+/* Estilo para las filas de detalle cuando están abiertas */
+.detalle.abierto {
+  display: table-row; /* Mostrar como fila de tabla */
+}
+
+.tablapropietarios tr:nth-child(even) {
+  background-color: #ededed;
+}
+.tablapropietarios tr:hover {
+  background-color: #013e6a3e;
+}
+/* Estilos para las filas de las tablas más pequeñas */
+.tablaporcada tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.tablaporcada tr:hover {
+  background-color: #013e6a3e;
+}
+/* Estilos para las celdas */
+th, td {
+  border: 1px solid #ffffff;
+  text-align: left;
+  padding: 8px;
+}
+
+.tablaporcada{
+  width: 100%;
+}
+
+
+
+.pago{
+  height: 20px;
+  line-height: 0px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 0px 0px 0 15px;
+  margin-bottom: 0px;
+  background: #013e6ad8;
+  color: #ffffff;
+  width: 100%;
+}
+
+
+.datostext {
+  height: 20px;
+  line-height: 0px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 0px 0px 0 15px;
+  margin-bottom: 0px;
+  background: #013e6ad8;
+  color: #ffffff;
+  width: 100%;
+}
+
+.identificadormora{
+  height: 20px;
+  line-height: 0px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 0px 0px 0 15px;
+  margin-bottom: 0px;
+  background: #013e6ad8;
+  color: #ffffff;
+  width: 100%;
 }
 
 
