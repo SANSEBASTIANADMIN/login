@@ -98,7 +98,7 @@ label {
     border-radius: 5px;
     padding: 0 20px 0 45px;
     margin-bottom: 20px;
-    background: #f4f8f7;
+    background: #f3f3f3eb;
     color: #013E6A;
     font-family: 'Quicksand', sans-serif;
     border: 2px solid transparent;
@@ -107,7 +107,7 @@ label {
 
 input:focus {
     outline: none;
-    border: rgba(60, 192, 255, 0.3);
+    border: rgba(23, 158, 221, 0.3);
 }
 
 .contenedor-input svg {
@@ -143,6 +143,29 @@ button:hover {
     background: rgb(37, 150, 190);
     border: rgb(37, 150, 190);
     color: #fff;
+}
+
+input:hover {
+  background: rgb(37, 150, 190);
+  border: rgb(37, 150, 190);
+  color: #fff;
+}
+
+select:hover {
+  background: rgb(37, 150, 190);
+  border: rgb(37, 150, 190);
+  color: #fff;
+}
+
+#divamenidades{
+  width: 350px;
+  max-width: 350px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  min-height: 10vh;
+  display: grid;
+  margin: 5px; /* Agregar margen */ 
 }
 
 button svg {
@@ -344,18 +367,19 @@ button svg {
 
 /* Estilos para el elemento select */
 select {
+  height: 50px;
+  line-height: 50px;
   font-size: 16px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 0 20px 0 45px;
+  margin-bottom: 20px;
+  background: #f3f3f3eb;
+  color: #013E6A;
   font-family: 'Quicksand', sans-serif;
-  width: 90%;
-  padding: 20px 35px;
-  border: 25px;
-  border-radius: 16px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: auto;
-  background-color: rgba(231,240,254,255); /* Corrección aquí */
-  color: rgb(5, 5, 5); /* Añadí coma entre los valores de color */
-  transition: border-color 0.3s ease;
+  border: 2px solid transparent;
+  transition: .3s ease all;
 }
 
 /* Estilos al enfocar el elemento select */
@@ -454,13 +478,13 @@ select:focus {
   border-radius: 5px;
   margin-top: 20px;
   height: 16px;
-  color: white;
-  background: #013e6a;
+  color: #013E6A;
+  background: #013e6a00;
   padding: 0 60px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  border: 2px solid #013E6A;
+  border: 1px solid #013E6A;
   cursor: pointer;
   transition: .3s ease all;
   outline: none;
@@ -566,19 +590,9 @@ select:focus {
   display: table-row; /* Mostrar como fila de tabla */
 }
 
-.tablapropietarios tr:nth-child(even) {
-  background-color: #ededed;
-}
-.tablapropietarios tr:hover {
-  background-color: #013e6a3e;
-}
+
 /* Estilos para las filas de las tablas más pequeñas */
-.tablaporcada tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-.tablaporcada tr:hover {
-  background-color: #013e6a3e;
-}
+
 /* Estilos para las celdas */
 th, td {
   border: 1px solid #ffffff;
@@ -590,44 +604,167 @@ th, td {
   width: 100%;
 }
 
+.fila-roja {
+  color: red;
+  width: 100%;  
+  font-weight: bold; /* Agregar negrita */
+  background: rgba(255, 0, 0, 0.232);
+}
 
+.fila-roja2 {
+  color: red;
+  width: 100%;  
+  font-weight: bold; /* Agregar negrita */
+  content: "\f06a"; /* Código Unicode del icono de alerta */
+  margin-right: 5px; /* Espacio entre el icono y el texto */
+}
 
 .pago{
   height: 20px;
   line-height: 0px;
-  font-size: 14px;
-  border-radius: 5px;
-  padding: 0px 0px 0 15px;
+  font-size: 12px;
+  border-radius: 0px;
+  padding: 0px 0px 0px 0px;
   margin-bottom: 0px;
-  background: #013e6ad8;
-  color: #ffffff;
+  background: #013e6a22;
+  color: #000000;
   width: 100%;
+  border: none; 
 }
 
 
 .datostext {
   height: 20px;
   line-height: 0px;
-  font-size: 14px;
-  border-radius: 5px;
-  padding: 0px 0px 0 15px;
+  font-size: 12px;
+  border-radius: 0px;
+  padding: 0px 0px 0px 0px;
   margin-bottom: 0px;
-  background: #013e6ad8;
-  color: #ffffff;
+  background: #013e6a22;
+  color: #000000;
   width: 100%;
+  border: none; 
+
 }
 
 .identificadormora{
   height: 20px;
   line-height: 0px;
-  font-size: 14px;
-  border-radius: 5px;
-  padding: 0px 0px 0 15px;
+  font-size: 12px;
+  border-radius: 0px;
+  padding: 0px 0px 0px 0px;
   margin-bottom: 0px;
-  background: #013e6ad8;
-  color: #ffffff;
+  background: #013e6a22;
+  color: #000000;
   width: 100%;
+  border: none; 
 }
+
+.calle-registros{
+  width: 380px;
+  position: center;
+  overflow: hidden;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  background: #fff;
+  display: grid;
+  margin: 15px; /* Agregar margen */
+  overflow: hidden;
+  bottom: 0;
+  border: none; 
+}
+
+.calle-registros tr:nth-child(even) {
+  background-color: #ededed;
+}
+
+.calle-registros tr:nth-child(odd) {
+  background-color: rgba(53, 98, 130, 0.2);
+}
+
+.tablacompleta{
+  width: 450px;
+  max-height: 90%;
+  border-radius: 10px 10px 0;
+  position: center;
+  overflow: hidden;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  background: #fff;
+  min-height: 10vh;
+  display: grid;
+  padding: 0px 0px 0px 20px;
+  margin: 20px; /* Agregar margen */
+  overflow: hidden;
+  bottom: 0;
+}
+
+.calle-box{
+  border: none; 
+}
+
+
+/* Estilo para el icono de abrir */
+summary::before {
+  content: "\002B" !important; /* Código Unicode para el signo de más (+) */
+  display: inline-block;
+  margin-right: 0.5em; /* Espacio entre el icono y el texto */
+  color: #013E6A;
+}
+
+/* Estilo para el icono de cerrar */
+details[open] > summary::before {
+  content: "\2212" !important; /* Código Unicode para el signo de menos (-) */
+  color: #013E6A;
+}
+
+summary {
+  list-style: none;
+}
+
+/* Restablece el margen izquierdo para el contenido del resumen */
+summary::before {
+  margin-left: 0;
+}
+
+
+#adminPanel2 {
+  width: 370px;
+  max-width: 370px;
+  max-height: 90%;
+  border-radius: 10px;
+  background: linear-gradient(to bottom, rgb(255, 255, 255) 75%, #013E6A); /* Degradado de arriba hacia abajo */
+  border-radius: 10px 10px 0;
+  position: absolute;
+  bottom: 0;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  transform: translateX(-50%); /* Centra el panel horizontalmente */
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s ease-in-out, padding 0.5s ease-in-out;
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+#encabezadoadmin{
+  display: flex;
+
+}
+
+.boton-eliminar {
+  background-color: transparent;
+  color: red;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+  margin-top: 5px; /* Ajusta el margen superior según sea necesario */
+}
+
+.boton-eliminar:hover {
+  text-decoration: none;
+}
+
+
 
 
 
