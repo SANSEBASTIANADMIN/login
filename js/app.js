@@ -306,9 +306,13 @@ formulario.addEventListener("submit", (e) => {
                             const horaInicio = document.getElementById("horaInicio").value;
                             const horaFin = document.getElementById("horaFin").value;
                             const tiporeserva = document.getElementById("tiporeserva").value;
+                            const statusElement = document.getElementById("status");
+                            const statusText = statusElement.textContent;
                             const fechaHoraActual = new Date();
                             const fechaHoraFormateada = fechaHoraActual.toLocaleString();
                             const domicilio = domicilioSpan.textContent;
+                            console.log(statuscod)
+                            console.log(statusText)
 
 
                             
@@ -328,7 +332,7 @@ formulario.addEventListener("submit", (e) => {
                                 return; // Detener la ejecución si hay campos vacíos
                             }
                                                 
-                            if (statuscod === "Al Corriente") {
+                            if (statuscod.trim() !== "Morosos" && statuscod.trim() !== "Morosidad") {
                                 
                                 const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/reservaciones";
                                 const opciones = {
@@ -376,6 +380,7 @@ formulario.addEventListener("submit", (e) => {
                                     });
                             } else {
                                 alert("Domicilio tiene adeudo, actualmente no tiene derecho al reservar amenidades");
+                                console.log(statusText)
                             }
                         }
                         
@@ -622,7 +627,7 @@ formulario.addEventListener("submit", (e) => {
                             const correo = correoSpan.textContent;
                             const status = statusSpan.textContent;
                         
-                            if (statuscod === "Al Corriente") {
+                            if (statuscod.trim() !== "Morosos" && statuscod.trim() !== "Morosidad") {
                                 console.log(namevisitaSpan);
                                 console.log(fechavisitaSpan); // Mostrar la fecha formateada
                                 console.log(tipoSpan);
@@ -753,54 +758,6 @@ formulario.addEventListener("submit", (e) => {
                                 divnuevoregistro.style.display = "block";
                             }
                         }
-
-                        const miBoton = document.getElementById("btnreservar");
-
-                        miBoton.addEventListener("click", function() {
-                            // Desactivar el botón
-                            miBoton.disabled = true;
-
-                            // Volver a habilitar el botón después de 3 segundos
-                            setTimeout(function() {
-                                miBoton.disabled = false;
-                            }, 3000); // 3000 milisegundos = 3 segundos
-                        });
-
-                        const miBoton2 = document.getElementById("datoscorrectosvisitas");
-
-                        miBoton2.addEventListener("click", function() {
-                            // Desactivar el botón
-                            miBoton2.disabled = true;
-
-                            // Volver a habilitar el botón después de 3 segundos
-                            setTimeout(function() {
-                                miBoton2.disabled = false;
-                            }, 5000); // 3000 milisegundos = 3 segundos
-                        });
-
-                        const miBoton3 = document.getElementById("enviarpago");
-
-                        miBoton3.addEventListener("click", function() {
-                            // Desactivar el botón
-                            miBoton3.disabled = true;
-
-                            // Volver a habilitar el botón después de 3 segundos
-                            setTimeout(function() {
-                                miBoton3.disabled = false;
-                            }, 3000); // 3000 milisegundos = 3 segundos
-                        });
-
-                        const miBoton4 = document.getElementById("generarvisitayqr");
-
-                        miBoton4.addEventListener("click", function() {
-                            // Desactivar el botón
-                            miBoton4.disabled = true;
-
-                            // Volver a habilitar el botón después de 3 segundos
-                            setTimeout(function() {
-                                miBoton4.disabled = false;
-                            }, 5000); // 3000 milisegundos = 3 segundos
-                        });
 
                     } else {
                         alert("Usuario o contraseña incorrectos");
@@ -995,7 +952,6 @@ function onClick(e) {
     });
 }
 
-
 document.getElementById("inicarsesionadmin").addEventListener("click", () => {
     const usuarioInput = document.getElementById("admin-username").value;
     const contraseñaInput = document.getElementById("admin-contrasena").value;
@@ -1021,18 +977,18 @@ document.getElementById("inicarsesionadmin").addEventListener("click", () => {
                     homepage.style.display = "none";
 
                     fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
-                    //actualización
                     .then((response) => response.json())
-                    .then((datapropietarios) => {
+                    .then((data) => {
 
-                    // Generar HTML para la tabla
-                    const tablaHTML = generarTabla(datapropietarios);
-                    // Inyectar la tabla en el contenedor
-
-                    const tablapropietarios = document.getElementById("tablapropietarios");
-                    tablapropietarios.innerHTML = tablaHTML;
-                    });
-
+                        generarTabla("alba-registros", data.filter((registro) => registro.dom.startsWith("IkFMQk")));
+                        generarTabla("caballeros-registros", data.filter((registro) => registro.dom.startsWith("IkNBQkFMTEVST")));
+                        generarTabla("esmeralda-registros", data.filter((registro) => registro.dom.startsWith("IkVTTUVSQUxEQ")));
+                        generarTabla("eros-registros", data.filter((registro) => registro.dom.startsWith("IkVST1")));
+                        generarTabla("magdalena-registros", data.filter((registro) => registro.dom.startsWith("Ik1BR0RBTEVOQ")));
+                        generarTabla("ibiza-registros", data.filter((registro) => registro.dom.startsWith("IklCSVpBI")));
+                        generarTabla("hierro-registros", data.filter((registro) => registro.dom.startsWith("IkhJRVJSTy")));
+                        
+                    })
                 } else {
                     alert("Usuario o contraseña incorrectos");
                 }
@@ -1045,84 +1001,88 @@ document.getElementById("inicarsesionadmin").addEventListener("click", () => {
         });
 });
 
-                    
-function generarTabla(data) {
-    let tablaHTML = '<table border="1">';
-    // Encabezados de la tabla
-    tablaHTML += '<tr>';
-    tablaHTML += '<th>Domicilio</th>';
-    tablaHTML += '</tr>';
-    
-    // Objeto para almacenar las filas agrupadas por calle
-    const filasPorCalle = {};
-    
-    // Agrupar las filas por calle
-    data.forEach((fila, index) => {
-        const domDecodificado = atob(fila.dom);
-        const calle = domDecodificado.replace(/"/g, '');
-    
-        if (!filasPorCalle[calle]) {
-            filasPorCalle[calle] = [];
-        }
-    
-        filasPorCalle[calle].push({ fila, index });
-    });
-    
-    // Generar los detalles por cada calle
-    Object.keys(filasPorCalle).forEach(calle => {
-        tablaHTML += `<tr>`;
-        tablaHTML += `<td><details><summary>${calle}</summary>`;
-        tablaHTML += `<table class="tablaporcada" border="0">`;
-        tablaHTML += `<tr><th>Concepto</th><th>Valor</th></tr>`;
-    
-        // Iterar sobre las filas de la calle actual
-        filasPorCalle[calle].forEach(({ fila, index }) => {
+
+function generarTabla(contenedorId, data) {
+        if (sesionIniciada) {
+        const contenedor = document.getElementById(contenedorId);
+
+        let tablaHTML = '<table border="0">';
+
+        
+        const filasPorCalle = {};
+        
+        data.forEach((fila, index) => {
             const domDecodificado = atob(fila.dom);
-            const domComillas = domDecodificado.replace(/"/g, '');
-            const clienteDecodificado = atob(fila.Cliente);
-            const clienteComillas = clienteDecodificado.replace(/"/g, '');
-            const correoDecodificado = atob(fila.correo);
-            const correoSinComillas = correoDecodificado.replace(/"/g, '');
-            const passwordDecodificado = atob(fila.password);
-            const passwordComillas = passwordDecodificado.replace(/"/g, '');
-    
-            tablaHTML += '<tr>';
-            tablaHTML += `<td id="indice">Index</td><td>${index}</td></tr>`;
-            tablaHTML += `<tr><td>Residente</td><td><input class="datostext" type="text" value="${clienteComillas}" onchange="actualizarDato(this.value, 'Cliente', ${index})"></td></tr>`;
-            tablaHTML += `<tr><td>Usuario</td><td><input class="datostext" type="text" value="${correoSinComillas}" onchange="actualizarDato(this.value, 'correo', ${index})"></td></tr>`;
-            tablaHTML += `<tr><td>Contraseña</td><td><input class="datostext" type="text" value="${passwordComillas}" onchange="actualizarDato(this.value, 'password', ${index})"></td></tr>`;
-            tablaHTML += `<tr>
-                            <td>Estatus</td>
-                            <td>
-                                <select class="identificadormora" onchange="actualizarDato(this.value, 'status', ${index})">
-                                    <option value="Al corriente" ${fila.status === "Al corriente" ? "selected" : ""}>Al corriente</option>
-                                    <option value="Morosidad" ${fila.status === "Moroso" ? "selected" : ""}>Morosidad</option>
-                                </select>
-                            </td>
-                        </tr>`;
-            tablaHTML += `<tr><td>Ene 2024</td><td><input class="pago" type="text" value="${fila.ene2024}" onchange="actualizarDato(this.value, 'ene2024', ${index})"></td></tr>`;
-            tablaHTML += `<tr><td>Feb 2024</td><td><input class="pago" type="text" value="${fila.feb2024}" onchange="actualizarDato(this.value, 'feb2024', ${index})"></td></tr>`;
-            tablaHTML += `<tr><td>Mar 2024</td><td><input class="pago" type="text" value="${fila.mar2024}" onchange="actualizarDato(this.value, 'mar2024', ${index})"></td></tr>`;
-            tablaHTML += `<tr><td>Abr 2024</td><td><input class="pago" type="text" value="${fila.abr2024}" onchange="actualizarDato(this.value, 'abr2024', ${index})"></td></tr>`;
-            tablaHTML += `<tr><td>May 2024</td><td><input class="pago" type="text" value="${fila.may2024}" onchange="actualizarDato(this.value, 'may2024', ${index})"></td></tr>`;
-            tablaHTML += `<tr><td>Jun 2024</td><td><input class="pago" type="text" value="${fila.jun2024}" onchange="actualizarDato(this.value, 'jun2024', ${index})"></td></tr>`;
-            tablaHTML += `<tr><td>Jul 2024</td><td><input class="pago" type="text" value="${fila.jul2024}" onchange="actualizarDato(this.value, 'jul2024', ${index})"></td></tr>`;
-            tablaHTML += `<tr><td>Ago 2024</td><td><input class="pago" type="text" value="${fila.ago2024}" onchange="actualizarDato(this.value, 'ago2024', ${index})"></td></tr>`;
-            tablaHTML += `<tr><td>Sep 2024</td><td><input class="pago" type="text" value="${fila.sep2024}" onchange="actualizarDato(this.value, 'sep2024', ${index})"></td></tr>`;
-            tablaHTML += `<tr><td>Oct 2024</td><td><input class="pago" type="text" value="${fila.oct2024}" onchange="actualizarDato(this.value, 'oct2024', ${index})"></td></tr>`;
-            tablaHTML += `<tr><td>Nov 2024</td><td><input class="pago" type="text" value="${fila.nov2024}" onchange="actualizarDato(this.value, 'nov2024', ${index})"></td></tr>`;
-            tablaHTML += `<tr><td>Dic 2024</td><td><input class="pago" type="text" value="${fila.dic2024}" onchange="actualizarDato(this.value, 'dic2024', ${index})"></td></tr>`;
+            const calle = domDecodificado.replace(/"/g, '');
+            if (!filasPorCalle[calle]) {
+                filasPorCalle[calle] = [];
+            }
+            filasPorCalle[calle].push({ fila, index });
         });
-    
-        tablaHTML += `</table>`;
-        tablaHTML += `</details></td>`;
-        tablaHTML += `</tr>`;
-    });
-    
-    tablaHTML += '</table>';
-    
-    return tablaHTML;
-}    
+        
+        // Generar los detalles por cada calle
+        Object.keys(filasPorCalle).forEach(calle => {
+
+            // Iterar sobre las filas de la calle actual
+            filasPorCalle[calle].forEach(({ fila, index }) => {
+                const domDecodificado = atob(fila.dom);
+                const domComillas = domDecodificado.replace(/"/g, '');
+                const clienteDecodificado = atob(fila.Cliente);
+                const clienteComillas = clienteDecodificado.replace(/"/g, '');
+                const correoDecodificado = atob(fila.correo);
+                const correoSinComillas = correoDecodificado.replace(/"/g, '');
+                const passwordDecodificado = atob(fila.password);
+                const passwordComillas = passwordDecodificado.replace(/"/g, '');
+                const claseFila = fila.status === "Moroso" ? "fila-roja" : "tablaporcada";
+                const claseFila2 = fila.status === "Moroso" ? "fila-roja2" : "tablaporcada2";
+
+                tablaHTML += `<tr>`;
+                tablaHTML += `<td><details><summary class="${claseFila2}">${calle}</summary>`;    
+                tablaHTML += `<table class="${claseFila}" border="0">`;    
+                tablaHTML += '<tr>';
+                tablaHTML += `<td id="indice">Index</td><td>${index}</td></tr>`;
+                tablaHTML += `<tr><td>Residente</td><td><input class="datostext" type="text" value="${clienteComillas}" onchange="actualizarDato(this.value, 'Cliente', ${index})"></td></tr>`;
+                tablaHTML += `<tr><td>Usuario</td><td><input class="datostext" type="text" value="${correoSinComillas}" onchange="actualizarDato(this.value, 'correo', ${index})"></td></tr>`;
+                tablaHTML += `<tr><td>Contraseña</td><td><input class="datostext" type="text" value="${passwordComillas}" onchange="actualizarDato(this.value, 'password', ${index})"></td></tr>`;
+                tablaHTML += `<tr>
+                                <td>Estatus</td>
+                                <td>
+                                    <select class="identificadormora" onchange="actualizarDato(this.value, 'status', ${index})">
+                                        <option value="Al corriente" ${fila.status === "Al corriente" ? "selected" : ""}>Al corriente</option>
+                                        <option value="Moroso" ${fila.status === "Moros" ? "selected" : ""}>Moroso</option>
+                                    </select>
+                                </td>
+                            </tr>`;
+                tablaHTML += `<tr><td>Ene 2024</td><td><input class="pago" type="text" value="${fila.ene2024}" onchange="actualizarDato(this.value, 'ene2024', ${index})"></td></tr>`;
+                tablaHTML += `<tr><td>Feb 2024</td><td><input class="pago" type="text" value="${fila.feb2024}" onchange="actualizarDato(this.value, 'feb2024', ${index})"></td></tr>`;
+                tablaHTML += `<tr><td>Mar 2024</td><td><input class="pago" type="text" value="${fila.mar2024}" onchange="actualizarDato(this.value, 'mar2024', ${index})"></td></tr>`;
+                tablaHTML += `<tr><td>Abr 2024</td><td><input class="pago" type="text" value="${fila.abr2024}" onchange="actualizarDato(this.value, 'abr2024', ${index})"></td></tr>`;
+                tablaHTML += `<tr><td>May 2024</td><td><input class="pago" type="text" value="${fila.may2024}" onchange="actualizarDato(this.value, 'may2024', ${index})"></td></tr>`;
+                tablaHTML += `<tr><td>Jun 2024</td><td><input class="pago" type="text" value="${fila.jun2024}" onchange="actualizarDato(this.value, 'jun2024', ${index})"></td></tr>`;
+                tablaHTML += `<tr><td>Jul 2024</td><td><input class="pago" type="text" value="${fila.jul2024}" onchange="actualizarDato(this.value, 'jul2024', ${index})"></td></tr>`;
+                tablaHTML += `<tr><td>Ago 2024</td><td><input class="pago" type="text" value="${fila.ago2024}" onchange="actualizarDato(this.value, 'ago2024', ${index})"></td></tr>`;
+                tablaHTML += `<tr><td>Sep 2024</td><td><input class="pago" type="text" value="${fila.sep2024}" onchange="actualizarDato(this.value, 'sep2024', ${index})"></td></tr>`;
+                tablaHTML += `<tr><td>Oct 2024</td><td><input class="pago" type="text" value="${fila.oct2024}" onchange="actualizarDato(this.value, 'oct2024', ${index})"></td></tr>`;
+                tablaHTML += `<tr><td>Nov 2024</td><td><input class="pago" type="text" value="${fila.nov2024}" onchange="actualizarDato(this.value, 'nov2024', ${index})"></td></tr>`;
+                tablaHTML += `<tr><td>Dic 2024</td><td><input class="pago" type="text" value="${fila.dic2024}" onchange="actualizarDato(this.value, 'dic2024', ${index})"></td></tr>`;
+                tablaHTML += `</table>`;
+                tablaHTML += `<button class="boton-eliminar" onclick="eliminarRegistro(${index})">Eliminar</button>`;
+                tablaHTML += `</details></td>`;
+                tablaHTML += `</tr>`;
+            });
+        
+
+        });
+        
+        tablaHTML += '</table>';
+        
+        contenedor.innerHTML = tablaHTML;
+    } else {
+        console.error("Error: La sesión no está iniciada");
+        return null; // O maneja el error de alguna otra manera
+    }
+}
+                    
 
 function actualizarDato(valor, campo, indice) {
     // Verificar si la sesión está iniciada
@@ -1172,5 +1132,167 @@ function actualizarDato(valor, campo, indice) {
         console.error("Error: La sesión no está iniciada");
         return null; // O maneja el error de alguna otra manera
     }
+}
+
+
+function buscarDomicilio(registrosId) {
+    var input = event.target; // Obtiene el elemento input que desencadenó el evento
+    var divId = input.parentElement.querySelector('.calle-registros').id; // Obtiene el ID del div dentro del mismo detalle
+    console.log(divId);
+    var term = input.value.trim().toLowerCase();
+
+    var registros = document.querySelectorAll("#" + divId + " table tbody tr td details summary");
+    console.log(registros)
+    registros.forEach(function(registro) {
+        var contenido = registro.innerHTML.toLowerCase();
+        if (contenido.includes(term)) {
+            // Muestra el registro y todos sus padres hasta el elemento tr
+            var parent = registro.parentNode; // <details>
+            while (parent && parent.tagName !== 'TR') {
+                parent = parent.parentNode;
+            }
+            if (parent) {
+                parent.style.display = "table-row";
+            }
+        } else {
+            // Oculta el registro y todos sus padres hasta el elemento tr
+            var parent = registro.parentNode; // <details>
+            while (parent && parent.tagName !== 'TR') {
+                parent = parent.parentNode;
+            }
+            if (parent) {
+                parent.style.display = "none";
+            }
+        }
+    });
+}
+
+document.getElementById("grabarnweregistro").addEventListener("click", agregarresidente);
+let clicActivograbarnweregistro = true; 
+
+
+function agregarresidente () {
+        if (!clicActivograbarnweregistro) {
+            return; // Salir si el clic no está activo
+        }
+        
+        clicActivograbarnweregistro = false; // Desactivar el clic
+
+    if (sesionIniciada){
+    
+        const newcalle = document.getElementById("new-calle").value;
+        const newnum = document.getElementById("new-num").value; 
+        const newname = document.getElementById("new-name").value;
+        const newusarname = document.getElementById("new-username").value;
+        const newcontrasena = document.getElementById("new-contrasena").value;
+
+        if (!newname || !newusarname || !newcontrasena || !newcalle || !newnum) {
+            alert("Por favor, complete todos los campos.");
+            setTimeout(() => {
+                clicActivograbarnweregistro = true;
+                }, 3000); 
+            return; // Salir de la función si algún campo está vacío
+
+        }
+
+        const newdom = newcalle + " " + newnum
+        console.log(newdom)
+        newclientecif = cifrarCorreo(newname);
+        console.log(newname)
+        domcif = cifrarCorreo(newdom);
+        correocif = cifrarCorreo(newusarname);
+        console.log(newusarname)
+        passwordcif = cifrarCorreo(newcontrasena); 
+        console.log(newusarname)
+
+    
+        const datos = {
+            Cliente: newclientecif,
+            dom: domcif,
+            correo: correocif,
+            password: passwordcif,
+        };
+        const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios";
+
+        const opciones = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(datos)
+        };
+
+        verificarDisponibilidadregistro(newdom)
+            .then(disponible => {
+                if (disponible) {
+                    fetch(url, opciones)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            alert("Datos grabados correctamente");
+
+                            document.getElementById("new-name").value = "";
+                            document.getElementById("new-username").value = "";
+                            document.getElementById("new-contrasena").value = "";
+                            document.getElementById("new-calle").value = "";
+                            document.getElementById("new-num").value = "";
+
+                            setTimeout(() => {
+                                clicActivograbarnweregistro = true;
+                            }, 3000);
+                        })
+                        .catch((error) => {
+                            console.error("Error al enviar los datos a la hoja de cálculo", error);
+                        });
+                } else {
+                    alert("Sin disponibilidad para registrar " + newdom + " ya tiene un registro previo.");
+                    clicActivograbarnweregistro = true; 
+                }
+            })
+            .catch(error => {
+                console.error("Error al verificar disponibilidad", error);
+                clicActivograbarnweregistro = true; 
+            });
+    } else {
+        console.error("Error: La sesión no está iniciada");
+        return null; 
+    }
+}
+
+
+function verificarDisponibilidadregistro(newdom) {
+    if (sesionIniciada) {
+        const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios";
+
+        // Realizar una consulta para obtener los registros en la misma fecha y amenidad
+        return fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                // Buscar si hay algún registro con el mismo valor de `dom`
+                const registroExistente = data.find(registro => registro.dom === newdom);
+                
+                // Devolver true si hay un registro existente, false si no
+                return !!registroExistente;
+            })
+            .catch(error => {
+                console.error("Error al verificar disponibilidad:", error);
+                throw error;
+            });
+    } else {
+        console.error("Error: La sesión no está iniciada");
+        return null; // O maneja el error de alguna otra manera
+    }
+}
+
+
+
+function expandAdminPanel2() {
+    var adminPanel = document.getElementById("adminPanel2");
+    adminPanel.style.height = "100%";
+    adminPanel.style.padding = "20px";
+}
+function cerrarAdminPanel2() {
+    var adminPanel = document.getElementById("adminPanel2");
+    adminPanel.style.height = "0%";
+    adminPanel.style.padding = "0px";
 }
 
