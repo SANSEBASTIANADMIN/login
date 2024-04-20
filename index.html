@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">  
 	<link rel="stylesheet" href="css/estilos.css">
 	<title>Inicio de sesión Privada San Sebastian</title>
@@ -370,7 +372,7 @@
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	
 			</div>
 		</div>
-		<div id="divamenidades" class="contenedor" style="display: none;">
+		<div id="divamenidades" class="divamenidades" style="display: none;">
 			<div class="formulario2">	
 				<details id="divcalendario" class="dropdown">
 					<summary onclick="toggleCalendar()" class="dropdown-title">Mostrar Calendario</summary>
@@ -396,11 +398,11 @@
 									<option value="Asador">Asador</option>
 									<option value="Alberca">Alberca</option>
 								</select>
-							</div>
-							<div class="btnreservar" id="confirmarreserca">	
-								<button type="submit" class="btn">
-									Enviar solicitud
-								</button>
+								<div class="btnreservar" id="confirmarreserca">	
+									<button type="submit" class="btn">
+										Enviar solicitud
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -514,12 +516,121 @@
 	</div>
 
 	<div class="contenedoradmin" id="contenedoradmin" style="display: none;">
-		<div id="cerrarsesionadmin">	
-			<button type="submit" class="btn">
-				Cerrar Sesión
-			</button>
-		</div>
-		<div id="tablapropietarios" class="tablapropietarios">
+		<div>
+			<div id="encabezadoadmin">
+				<div id="cerrarsesionadmin">	
+					<button type="submit" class="btn">
+						Cerrar Sesión
+					</button>
+				</div>
+				<div id="agregarregistro">	
+					<button type="submit" onclick="expandAdminPanel2()" class="btn">
+						Agregar Registro
+					</button>
+				</div>
+			</div>
+			<div class="tablacompleta">
+
+				<div class="buscador">
+				</div>
+				<details class="calle-box" id="calle-alba">
+					<summary class="calle-title">Alba</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="alba-registros">
+						<!-- Aquí se mostrarán los registros de la calle Alba -->
+					</div>
+				</details>
+				
+				<details class="calle-box" id="calle-caballeros">
+					<summary class="calle-title">Caballeros</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="caballeros-registros">
+						<!-- Aquí se mostrarán los registros de la calle Caballeros -->
+					</div>
+				</details>
+				
+				<details class="calle-box" id="calle-esmeralda">
+					<summary class="calle-title">Esmeralda</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="esmeralda-registros">
+						<!-- Aquí se mostrarán los registros de la calle Esmeralda -->
+					</div>
+				</details>
+				
+				<details class="calle-box" id="calle-eros">
+					<summary class="calle-title">Eros</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="eros-registros">
+						<!-- Aquí se mostrarán los registros de la calle Eros -->
+					</div>
+				</details>
+				
+				<details class="calle-box" id="calle-hierro">
+					<summary class="calle-title">Hierro</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="hierro-registros">
+						<!-- Aquí se mostrarán los registros de la calle Hierro -->
+					</div>
+				</details>
+				
+				<details class="calle-box" id="calle-ibiza">
+					<summary class="calle-title">Ibiza</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="ibiza-registros">
+						<!-- Aquí se mostrarán los registros de la calle Ibiza -->
+					</div>
+				</details>
+				
+				<details class="calle-box" id="calle-magdalena">
+					<summary class="calle-title">Magdalena</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="magdalena-registros">
+						<!-- Aquí se mostrarán los registros de la calle Magdalena -->
+					</div>
+				</details>        
+			</div>
+			<div>
+				<div class="toggle-container">
+					<div class="toggle">
+						<div class="toggle-panel toggle-left" id="adminPanel2">
+							<div class="row">
+								<div class="header">
+									<h2 class="titulo">Nuevo registro</h2>
+									<p>Ingresa los datos para el registro de nuevo residente</p>
+									<p> </p>
+								</div>
+								<div class="columna-izquierda2">
+									<img src="logomat-removebg-preview.png" alt="Descripción de la imagen">
+								</div>
+							</div>
+							<div class="contenedor-input">
+								<input class="input" type="text" id="new-name" placeholder="Nombre Residente" min="0">
+							</div>
+							<select id="new-calle" required>
+								<option value="">Selecciona calle</option>
+								<option value="ALBA">ALBA</option>
+								<option value="CABALLEROS">CABALLEROS</option>
+								<option value="ESMERALDA">ESMERALDA</option>
+								<option value="EROS">EROS</option>
+								<option value="HIERRO">HIERRO</option>
+								<option value="IBIZA">IBIZA</option>
+								<option value="MAGDALENA">MAGDALENA</option>
+							</select>
+							<div class="contenedor-input">
+								<input class="input" type="number" id="new-num" placeholder="Número de casa" min="0">
+							</div>
+							<div class="contenedor-input">
+								<input class="input" type="text" id="new-username" placeholder="Correo electrónico" >
+							</div>
+							<div class="contenedor-input">
+								<input class="input" type="text" id="new-contrasena" placeholder="Contraseña" >
+							</div>
+							<button class="" id="grabarnweregistro">Grabar información</button>
+							<button id="" onclick="cerrarAdminPanel2()">Regresar</button>
+						</div>
+					</div>
+				</div>  
+			</div>
 		</div>
 	</div>
 
@@ -541,6 +652,7 @@
 
 
 
+  
 
   
 
