@@ -121,22 +121,21 @@ input:focus {
 button {
     font-family: 'Quicksand', sans-serif;
     font-size: 14px;
-    border-radius: 5px;
+    border-radius: 8px;
     margin-top: 20px;
-    background: #013e6a;
+    background: #013e6a00;
     height: 50px;
-    color: #ffffff;
+    color: #013e6a;
     padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    border: 2px solid #013E6A;
+    border: 2px solid #013e6a;
     cursor: pointer;
     transition: .3s ease all;
     outline: none;
     width: 231px;
     border-radius: 20px;
-
 }
 
 button:hover {
