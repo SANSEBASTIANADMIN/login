@@ -51,6 +51,10 @@
 								</svg>   
 							</span>
 						</div>
+						<div class="aviso-privacidad">
+							<input type="checkbox" id="avisoPrivacidad" name="avisoPrivacidad">
+							<label for="avisoPrivacidad">He leído y acepto el <a href="avisodeprivacidad.html">aviso de privacidad</a></label>
+						</div>
 						<div class="g-recaptcha" data-sitekey="TU_SITE_KEY"></div>
 						<div class="contenedor-boton">
 							<button id="iniciarresidente" type="submit">Iniciar sesión</button>
@@ -360,13 +364,24 @@
 							<button id="generarvisitayqr" type="button" onclick="" class="btn">Confirmar</button>
 						</div>
 						<div id="btnenborrar">
-							<button type="button" onclick="borrarElementos()" class="btn">Borrar</button>
+							<button type="button" id="borrardatos" onclick="" class="btn">Borrar</button>
 						</div>						
 					</div>
 				</div>
 				<div id="divqr" style="display: none;">	
 					<div id="qrElement">
-						<p class="titulo">Comparte este QR con tu visita o proveedor</p>
+						<p class="">Comparte este QR con: </p>
+							<p> </p>
+							<span class="titulo" id="namevisita3"></span>
+							<p> </p>
+							<span class="titulo" id="tipo3"></span>
+							<p> </p>
+							<span class="titulo" id="fechavisita3"></span>
+							<p> </p>
+							<span class="titulo" id="domdvisista"></span>
+							<p></p>
+							<p></p>
+							<p></p>
 					</div>	
 				</div>
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	
@@ -649,6 +664,11 @@
   
 
   
+
+
+
+  
+
 
 
 
