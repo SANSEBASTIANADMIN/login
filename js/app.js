@@ -1050,9 +1050,13 @@ function generarTabla(contenedorId, data) {
             }
             filasPorCalle[calle].push({ fila, index });
         });
+
+        const callesOrdenadas = Object.keys(filasPorCalle).sort();
+
         
         // Generar los detalles por cada calle
-        Object.keys(filasPorCalle).forEach(calle => {
+        callesOrdenadas.forEach(calle => {
+
 
             // Iterar sobre las filas de la calle actual
             filasPorCalle[calle].forEach(({ fila, index }) => {
@@ -1072,9 +1076,9 @@ function generarTabla(contenedorId, data) {
                 tablaHTML += `<td><details><summary class="${claseFila2}">${calle}</summary>`;    
                 tablaHTML += `<table class="${claseFila}" border="0">`;    
                 tablaHTML += '<tr>';
-                tablaHTML += `<tr><td>Residente</td><td><input class="datostext" type="text" value="${clienteComillas}" onchange="actualizarDato(this.value, 'Cliente', ${domcodificado})"></td></tr>`;
-                tablaHTML += `<tr><td>Usuario</td><td><input class="datostext" type="text" value="${correoSinComillas}" onchange="actualizarDato(this.value, 'correo', ${domcodificado})"></td></tr>`;
-                tablaHTML += `<tr><td>Contraseña</td><td><input class="datostext" type="text" value="${passwordComillas}" onchange="actualizarDato(this.value, 'password', ${domcodificado})"></td></tr>`;
+                tablaHTML += `<tr><td>Residente</td><td><input class="datostext" type="text" value="${clienteComillas}" onchange="actualizarDato(this.value, 'Cliente', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Usuario</td><td><input class="datostext" type="text" value="${correoSinComillas}" onchange="actualizarDato(this.value, 'correo', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Contraseña</td><td><input class="datostext" type="text" value="${passwordComillas}" onchange="actualizarDato(this.value, 'password', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr>
                                 <td>Estatus</td>
                                 <td>
@@ -1097,7 +1101,7 @@ function generarTabla(contenedorId, data) {
                 tablaHTML += `<tr><td>Nov 2024</td><td><input class="pago" type="text" value="${fila.nov2024}" onchange="actualizarDato(this.value, 'nov2024', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr><td>Dic 2024</td><td><input class="pago" type="text" value="${fila.dic2024}" onchange="actualizarDato(this.value, 'dic2024', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `</table>`;
-                tablaHTML += `<button class="boton-eliminar" onclick="eliminarRegistro(${domcodificado})">Eliminar</button>`;
+                tablaHTML += `<button class="boton-eliminar" onclick="eliminarRegistro('${domcodificado}')">Eliminar</button>`;
                 tablaHTML += `</details></td>`;
                 tablaHTML += `</tr>`;
             });
@@ -1127,51 +1131,49 @@ function actualizarDato(valor, campo, domcodificado) {
                 const domcodificados = data.map((fila) => fila.dom);
                 const indice = domcodificados.findIndex((dom) => dom === domcodificado);
                 console.log(indice);
+
+                let valorActualizado = valor; // Inicializamos valorActualizado aquí
+                console.log(valorActualizado)
+
+                if (campo === "correo" || campo === "password" || campo === "Cliente") {
+                    valorActualizado = cifrarCorreo(valor);
+                    console.log("Valor cifrado:", valorActualizado);
+                }
+
+                const datosActualizados = {
+                    [campo]: valorActualizado,
+                };
+
+                const url = `https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios/${indice}`;
+                console.log("URL:", url);
+                // Realizar la solicitud PATCH para actualizar los datos
+                fetch(url, {
+                    method: "PATCH",
+                    mode: "cors",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(datosActualizados)
+                     })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log("Datos actualizados correctamente:", data);
+                        alert("Datos actualizados correctamente: " + "Valor: " + valor + " Campo: " + campo);
+                    })
+                    .catch((error) => {
+                        console.error("Error al actualizar los datos:", error);
+                        alert("Error al actualizar los datos:" + valor);
+                    });
+                    }) // Cierre del segundo .then()
+            .catch((error) => {
+                console.error("Error al obtener los datos:", error);
+                alert("Error al obtener los datos.");
             });
+    } else {
+        console.error("Error: La sesión no está iniciada");
+        return null; // O maneja el error de alguna otra manera
     }
 }
-
-            // Verificar si el campo es "correo" o "password" y cifrarlo
-            //if (campo === "correo" || campo === "password" || campo === "Cliente") {
-            //    valorActualizado = cifrarCorreo(valor);
-            //    console.log("Valor cifrado:", valorActualizado);
-            //}
-   
-
-            // Crear un objeto con los datos proporcionados
-            //const datosActualizados = {
-            //    [campo]: valorActualizado,
-           // };
-
-        // Construir la URL para la solicitud PATCH
-        //const url = `https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios/${indice}`;
-        //console.log("URL:", url);
-
-        // Realizar la solicitud PATCH para actualizar los datos
-        //fetch(url, {
-        //    method: "PATCH",
-        //    mode: "cors",
-        //    headers: {
-        //        "Content-Type": "application/json"
-        //    },
-        //    body: JSON.stringify(datosActualizados)
-        //})
-        //.then((response) => response.json())
-        //.then((data) => {
-        //    console.log("Datos actualizados correctamente:", data);
-        //    alert("Datos actualizados correctamente: "+ "Valor: " + valor + " Campo: "+ campo)
-        //})
-        //.catch((error) => {
-        //    console.error("Error al actualizar los datos:", error);
-        //    alert("Error al actualizar los datos:" + valor);
-        //});
-
-        //return datosActualizados;
-    //} else {
-    //    console.error("Error: La sesión no está iniciada");
-    //    return null; // O maneja el error de alguna otra manera
-    //}
-            
 
 
 
@@ -1280,7 +1282,26 @@ function agregarresidente () {
                             setTimeout(() => {
                                 clicActivograbarnweregistro = true;
                             }, 3000);
+
+                            setTimeout(() => {
+                                fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        generarTabla("alba-registros", data.filter((registro) => registro.dom.startsWith("IkFMQk")));
+                                        generarTabla("caballeros-registros", data.filter((registro) => registro.dom.startsWith("IkNBQkFMTEVST")));
+                                        generarTabla("esmeralda-registros", data.filter((registro) => registro.dom.startsWith("IkVTTUVSQUxEQ")));
+                                        generarTabla("eros-registros", data.filter((registro) => registro.dom.startsWith("IkVST1")));
+                                        generarTabla("magdalena-registros", data.filter((registro) => registro.dom.startsWith("Ik1BR0RBTEVOQ")));
+                                        generarTabla("ibiza-registros", data.filter((registro) => registro.dom.startsWith("IklCSVpBI")));
+                                        generarTabla("hierro-registros", data.filter((registro) => registro.dom.startsWith("IkhJRVJSTy")));
+                                    })
+                                    .catch((error) => {
+                                        console.error("Error al obtener los datos para actualizar las tablas:", error);
+                                        alert("Error al obtener los datos para actualizar las tablas.");
+                                    });
+                            }, 5000); // 5000 milisegundos = 5 segundos
                         })
+
                         .catch((error) => {
                             console.error("Error al enviar los datos a la hoja de cálculo", error);
                         });
@@ -1298,6 +1319,13 @@ function agregarresidente () {
         return null; 
     }
 }
+
+function limpiarContenedor(contenedorId) {
+    const contenedor = document.getElementById(contenedorId);
+    contenedor.innerHTML = ''; // Elimina todos los elementos hijos del contenedor
+}
+
+
 
 
 function verificarDisponibilidadregistro(newdom) {
@@ -1322,7 +1350,7 @@ function verificarDisponibilidadregistro(newdom) {
                 return true; // Retorna true si hay un registro existente
             } else {
                 console.log("NO DISPONIBLE");
-                return false; // Retorna false si no hay un registro existente
+                return true; // Retorna false si no hay un registro existente
             }
         })
         .catch(error => {
@@ -1342,3 +1370,62 @@ function cerrarAdminPanel2() {
     adminPanel.style.height = "0%";
     adminPanel.style.padding = "0px";
 }
+
+function eliminarRegistro(domcodificado){
+    if (sesionIniciada) {
+        fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
+            .then((response) => response.json())
+            .then((data) => {
+                const domcodificados = data.map((fila) => fila.dom);
+                const indice = domcodificados.findIndex((dom) => dom === domcodificado);
+                console.log(indice);
+
+                if (indice !== -1) {
+                    // Realizar la solicitud DELETE para eliminar el registro
+                    const url = `https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios/${indice}`;
+                    fetch(url, {
+                        method: "DELETE",
+                        mode: "cors",
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log("Registro eliminado correctamente:", data);
+                        alert("Registro eliminado correctamente:");
+
+                        setTimeout(() => {
+                            fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
+                                .then((response) => response.json())
+                                .then((data) => {
+                                    generarTabla("alba-registros", data.filter((registro) => registro.dom.startsWith("IkFMQk")));
+                                    generarTabla("caballeros-registros", data.filter((registro) => registro.dom.startsWith("IkNBQkFMTEVST")));
+                                    generarTabla("esmeralda-registros", data.filter((registro) => registro.dom.startsWith("IkVTTUVSQUxEQ")));
+                                    generarTabla("eros-registros", data.filter((registro) => registro.dom.startsWith("IkVST1")));
+                                    generarTabla("magdalena-registros", data.filter((registro) => registro.dom.startsWith("Ik1BR0RBTEVOQ")));
+                                    generarTabla("ibiza-registros", data.filter((registro) => registro.dom.startsWith("IklCSVpBI")));
+                                    generarTabla("hierro-registros", data.filter((registro) => registro.dom.startsWith("IkhJRVJSTy")));
+                                })
+                                .catch((error) => {
+                                    console.error("Error al obtener los datos para actualizar las tablas:", error);
+                                    alert("Error al obtener los datos para actualizar las tablas.");
+                                });
+                        }, 5000); // 5000 milisegundos = 5 segundos
+
+                    })
+                    .catch((error) => {
+                        console.error("Error al eliminar el registro:", error);
+                        alert("Error al eliminar el registro.");
+                    });
+                } else {
+                    console.log("No se encontró el registro a eliminar.");
+                }
+            })
+            .catch((error) => {
+                console.error("Error al obtener los datos:", error);
+                alert("Error al obtener los datos para eliminar el registro.");
+            });
+    } else {
+        console.error("Error: La sesión no está iniciada");
+        return null; // O maneja el error de alguna otra manera
+    }
+}
+
