@@ -318,6 +318,12 @@ formulario.addEventListener("submit", (e) => {
                             }
 
                             function registrarReserva() {
+
+                                event.currentTarget.removeEventListener("click", registrarReserva);
+                                setTimeout(function() {
+                                    event.currentTarget.addEventListener("click", registrarReserva);
+                                }, 5000); // 5000 milisegundos = 5 segundos
+
                                 const fechareserva = document.getElementById("fechareserva").value;
                                 const horaInicio = document.getElementById("horaInicio").value;
                                 const horaFin = document.getElementById("horaFin").value;
@@ -380,6 +386,7 @@ formulario.addEventListener("submit", (e) => {
                                                         document.getElementById("horaInicio").value = "";
                                                         document.getElementById("horaFin").value = "";
                                                         document.getElementById("tiporeserva").value = "";
+                                                        
                                                     })
                                                     .catch((error) => {
                                                         console.error("Error al enviar los datos a la hoja de cálculo", error);
@@ -510,6 +517,7 @@ formulario.addEventListener("submit", (e) => {
                                                 .then(response => {
                                                     if (response.ok) {
                                                         console.log("La reserva fue marcada como eliminada en la hoja de cálculo.");
+                                                        alert("Tu reservación sera eliminada en los siguientes minutos")
                                                         // Puedes realizar cualquier otra acción que necesites aquí después de que la actualización se haya completado correctamente
                                                     } else {
                                                         console.error("Hubo un error al actualizar la reserva en la hoja de cálculo.");
