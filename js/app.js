@@ -241,6 +241,22 @@ formulario.addEventListener("submit", (e) => {
                             document.getElementById("btnrecibodic2023").addEventListener("click", generarrecibopdf);
                             document.getElementById("borrardatos").addEventListener("click", borrarElementos);
 
+                            var boton = document.getElementById("btnparaconfirmarreserca");                            
+                            var boton2 = document.getElementById("generarvisitayqr");
+
+                            var tiempoEspera = 5 * 1000; // 5 minutos en milisegundos
+                            var timer; // variable para almacenar el temporizador
+
+                            function desactivarBoton() {
+                                boton.disabled = true;
+                                boton2.disabled = true;
+                            }
+
+                            function activarBoton() {
+                                boton.disabled = false;
+                                boton2.disabled = false;
+                            }
+
                             function updatePaymentHistory() {
                                         paymentHistory2024.style.display = "block";
                                         tags.style.display = "none";
@@ -315,18 +331,6 @@ formulario.addEventListener("submit", (e) => {
                                     // Guardar el PDF
                                     doc.save("recibo_" + mes.toLowerCase() + "_" + año + ".pdf");
                                 }
-                            }
-
-                            var boton = document.getElementById("btnparaconfirmarreserca");
-                            var tiempoEspera = 5 * 1000; // 5 minutos en milisegundos
-                            var timer; // variable para almacenar el temporizador
-
-                            function desactivarBoton() {
-                                boton.disabled = true;
-                            }
-
-                            function activarBoton() {
-                                boton.disabled = false;
                             }
 
                             function registrarReserva() {
@@ -595,6 +599,11 @@ formulario.addEventListener("submit", (e) => {
                             
                             
                             function confirmacionvyp() {
+                                if (boton2.disabled) {
+                                    return; // Evitar ejecutar la función si ya está en curso
+                                }
+                                desactivarBoton(); // Desactivar el botón al inicio de la función
+
                                 confirmacion.style.display = "none";
                                 divqr.style.display = "block";  
                                 datoscorrectosvisitas.style.display = "block"; 
@@ -674,6 +683,7 @@ formulario.addEventListener("submit", (e) => {
                                     .catch((error) => {
                                         console.error("Error al enviar los datos a la hoja de cálculo", error);
                                     });
+                                timer = setTimeout(activarBoton, tiempoEspera);
                             }
                             
                             function borrarElementos() {
