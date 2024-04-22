@@ -317,12 +317,25 @@ formulario.addEventListener("submit", (e) => {
                                 }
                             }
 
+                            var boton = document.getElementById("btnparaconfirmarreserca");
+                            var tiempoEspera = 5 * 1000; // 5 minutos en milisegundos
+                            var timer; // variable para almacenar el temporizador
+
+                            function desactivarBoton() {
+                                boton.disabled = true;
+                            }
+
+                            function activarBoton() {
+                                boton.disabled = false;
+                            }
+
                             function registrarReserva() {
 
-                                event.currentTarget.removeEventListener("click", registrarReserva);
-                                setTimeout(function() {
-                                    event.currentTarget.addEventListener("click", registrarReserva);
-                                }, 5000); // 5000 milisegundos = 5 segundos
+                                if (boton.disabled) {
+                                    return; // Evitar ejecutar la función si ya está en curso
+                                }
+                                desactivarBoton(); // Desactivar el botón al inicio de la función
+
 
                                 const fechareserva = document.getElementById("fechareserva").value;
                                 const horaInicio = document.getElementById("horaInicio").value;
@@ -386,7 +399,6 @@ formulario.addEventListener("submit", (e) => {
                                                         document.getElementById("horaInicio").value = "";
                                                         document.getElementById("horaFin").value = "";
                                                         document.getElementById("tiporeserva").value = "";
-                                                        
                                                     })
                                                     .catch((error) => {
                                                         console.error("Error al enviar los datos a la hoja de cálculo", error);
@@ -402,6 +414,7 @@ formulario.addEventListener("submit", (e) => {
                                     alert("Domicilio tiene adeudo, actualmente no tiene derecho al reservar amenidades");
                                     console.log(statusText)
                                 }
+                                timer = setTimeout(activarBoton, tiempoEspera);
                             }
                             
                             function verificarDisponibilidad(fecha, tiporeserva) {
