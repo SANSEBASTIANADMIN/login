@@ -731,7 +731,7 @@ summary::before {
 #adminPanel2 {
   width: 370px;
   max-width: 370px;
-  height: 500px;
+  height: 6150px;
   max-height: 100%;
   background: linear-gradient(to bottom, rgb(255, 255, 255) 75%, #013E6A); /* Degradado de arriba hacia abajo */
   border-radius: 10px 10px 10px 10px;
