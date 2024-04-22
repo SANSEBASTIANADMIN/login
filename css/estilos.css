@@ -797,7 +797,15 @@ summary::before {
   overflow: hidden;
   bottom: 0;
 }
-
+.boton-eliminar:hover {
+  background-color: transparent;
+  color: red;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+  margin-top: 5px; /* Ajusta el margen superior según sea necesario */
+}
 
 
 
