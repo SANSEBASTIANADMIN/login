@@ -241,11 +241,6 @@ formulario.addEventListener("submit", (e) => {
                             document.getElementById("btnrecibodic2023").addEventListener("click", generarrecibopdf);
                             document.getElementById("borrardatos").addEventListener("click", borrarElementos);
 
-
-                            
-
-                            
-
                             function updatePaymentHistory() {
                                         paymentHistory2024.style.display = "block";
                                         tags.style.display = "none";
@@ -460,16 +455,79 @@ formulario.addEventListener("submit", (e) => {
                                     
                                     // Verificar si la fecha de la reserva está entre hoy y ayer (sin hora)
                                     if (fechaReserva >= fechaAyer) {
-                                        const registroHTML = `<div class="registro-item">
+                                        const registroHTML = `<div id="${registro.amenidad}-${registro.fecha}-${domiciliocod}" class="registro-item">
                                             <p><strong>Amenidad:</strong>${registro.amenidad}</p>
                                             <p><strong>Fecha:</strong>${registro.fecha}</p>
                                             <p><strong>Estatus:</strong>${registro.estatus}</p>
+                                            <button class="boton-eliminar">Eliminar</button>
                                         </div>`;
                                 
                                         contenedor.insertAdjacentHTML('beforeend', registroHTML);
+                                
+                                        // Agregar el evento click después de agregar el elemento al DOM
+                                        const botonEliminar = document.getElementById(`${registro.amenidad}-${registro.fecha}-${domiciliocod}`);
+                                        botonEliminar.addEventListener("click", function() {
+                                            eliminarreservacion(registro.amenidad, registro.fecha, domiciliocod);
+                                        });
                                     }
                                 });
+                                
+                            function eliminarreservacion(amenidad, fecha, domiciliocod) {
+                                // Obtener la URL de la API
+                                const apiURL = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/reservaciones";
+                                
+                                // Realizar una solicitud GET para obtener los datos de la hoja de cálculo
+                                fetch(apiURL)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // Encontrar el índice del registro que coincide con los datos proporcionados
+                                        const indice = data.findIndex(registro => registro.amenidad === amenidad && registro.fecha === fecha && registro.dom === domiciliocod);
+                                        console.log("Buscando registro de amenidad...")
+                                        console.log(amenidad)
+                                        console.log(fecha)
+                                        console.log(domiciliocod)
+                                        console.log(indice)
+                                        
+                                        // Si se encuentra el índice, construir la URL de la solicitud PUT para actualizar la fila
+                                        if (indice !== -1) {
+                                            const updateURL = `${apiURL}/${indice}`; 
+                            
+                                            // Definir los datos que deseas actualizar
+                                            const newData = { "eliminar": "Cancelada" }; // Aquí puedes poner la leyenda que quieras
+                                            
+                                            // Configurar la solicitud PUT
+                                            const requestOptions = {
+                                                method: 'PATCH',
+                                                mode: "cors",
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                body: JSON.stringify(newData)
+                                            };
+                            
+                                            // Realizar la solicitud PUT para actualizar la fila
+                                            fetch(updateURL, requestOptions)
+                                                .then(response => {
+                                                    if (response.ok) {
+                                                        console.log("La reserva fue marcada como eliminada en la hoja de cálculo.");
+                                                        // Puedes realizar cualquier otra acción que necesites aquí después de que la actualización se haya completado correctamente
+                                                    } else {
+                                                        console.error("Hubo un error al actualizar la reserva en la hoja de cálculo.");
+                                                    }
+                                                })
+                                                .catch(error => {
+                                                    console.error("Hubo un error de red:", error);
+                                                });
+                                        } else {
+                                            console.log("Registro no encontrado");
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error("Hubo un error al obtener los datos de la hoja de cálculo:", error);
+                                    });
+                                }
                             }
+                            
                             
                             
                             function calendario(){
@@ -1362,7 +1420,7 @@ function verificarDisponibilidadregistro(newdom) {
 
 function expandAdminPanel2() {
     var adminPanel = document.getElementById("adminPanel2");
-    adminPanel.style.height = "100%";
+    adminPanel.style.height = "1550px";
     adminPanel.style.padding = "20px";
 }
 function cerrarAdminPanel2() {
