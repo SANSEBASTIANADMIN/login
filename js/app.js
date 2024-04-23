@@ -247,6 +247,35 @@ formulario.addEventListener("submit", (e) => {
                             var tiempoEspera = 5 * 1000; // 5 minutos en milisegundos
                             var timer; // variable para almacenar el temporizador
 
+
+                            const fechaHoraActual = new Date();
+                            const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+                            
+                            const datosreg = {
+                                registro: fechaHoraFormateada,
+                                dom: domiciliocod,
+                            };
+                            
+                            const urlregistro = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/registros";
+                            const opciones = {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(datosreg) // Corregido aquí
+                            };
+                            
+                            fetch(urlregistro, opciones)
+                                .then((response) => response.json())
+                                .then((data) => {
+                                    // Manejar la respuesta de la API si es necesario
+                                })
+                                .catch((error) => {
+                                    console.error("Error al enviar datos a la API:", error);
+                                });
+                            
+
+
                             function desactivarBoton() {
                                 boton.disabled = true;
                                 boton2.disabled = true;
@@ -978,12 +1007,20 @@ function procesarPDF(datos) {
                 const conceptoPago = conceptoPagoMatch ? conceptoPagoMatch[1] : null;
                 console.log(conceptoPago)
 
+                // Clave de rastreo
+                const regexclavederastreo = /(?<=Monto IVA Referencia numérica Clave de rastreo  \d{2} de [a-zA-Z]+\sde\s\d{4}\s)(.+?)\s+\$/; // Coincide con cualquier texto después del texto indicado y seguido del siguiente "$"
+                const clavederastreoMatch = texto.match(regexclavederastreo);
+                const clavederastreo = clavederastreoMatch ? clavederastreoMatch[1] : null;
+                console.log(clavederastreo)
+
 
                 // Mostrar los datos en el HTML
                 document.getElementById('fechaPago').innerText = fecha || 'No se encontró fecha';
                 document.getElementById('montoPago').innerText = monto || 'No se encontró monto';
                 document.getElementById('beneficiarioPago').innerText = beneficiario || 'No se encontró beneficiario';
                 document.getElementById('conceptodelpago').innerText = conceptoPago || 'No se encontró concepto';
+                document.getElementById('clavederastreo').innerText = clavederastreo || 'No se encontró concepto';
+
 
             });
         });
@@ -1517,4 +1554,5 @@ function eliminarRegistro(domcodificado){
         return null; // O maneja el error de alguna otra manera
     }
 }
+
 
