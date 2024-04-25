@@ -69,6 +69,8 @@ const tipo3Span = document.getElementById("tipo3");
 const namevisita3Span = document.getElementById("namevisita3");
 const fechavisita3Span = document.getElementById("fechavisita3");
 const domdvisistaSpan = document.getElementById("domdvisista");
+const divpagocargado = document.getElementById("pagocargado");
+
 
 
 let sesionIniciada = false;
@@ -243,6 +245,7 @@ formulario.addEventListener("submit", (e) => {
 
                             var boton = document.getElementById("btnparaconfirmarreserca");                            
                             var boton2 = document.getElementById("generarvisitayqr");
+                            var boton3 = document.getElementById("enviarpago")
 
                             var tiempoEspera = 5 * 1000; // 5 minutos en milisegundos
                             var timer; // variable para almacenar el temporizador
@@ -279,11 +282,14 @@ formulario.addEventListener("submit", (e) => {
                             function desactivarBoton() {
                                 boton.disabled = true;
                                 boton2.disabled = true;
+                                boton3.disabled = true;
+
                             }
 
                             function activarBoton() {
                                 boton.disabled = false;
                                 boton2.disabled = false;
+                                boton3.disabled = false;
                             }
 
                             function updatePaymentHistory() {
@@ -792,62 +798,111 @@ formulario.addEventListener("submit", (e) => {
                                 }
                             }
 
+
+
+                            ///
                             function enviardatospago() { 
+
+                                if (boton3.disabled) {
+                                    return; // Evitar ejecutar la función si ya está en curso
+                                }
+                                desactivarBoton(); // Desactivar el botón al inicio de la función
+
+
                                 const fechaPagoSpan = document.getElementById("fechaPago").textContent;
                                 const montoPagoSpan = document.getElementById("montoPago").textContent;
                                 const beneficiarioPagoSpan = document.getElementById("beneficiarioPago").textContent;
                                 const conceptodelpagoPagoSpan = document.getElementById("conceptodelpago").textContent;
+                                const clavederastreoSpan = document.getElementById("clavederastreo").textContent;
                                 const fechaHoraActual = new Date();
                                 const fechaHoraFormateada = fechaHoraActual.toLocaleString();
                                 const mesPagoSelect = document.getElementById("mespago");
                                 const selectedOptions = Array.from(mesPagoSelect.options).filter(option => option.selected).map(option => option.value);
                                 console.log(selectedOptions);
+                                
+                                // Verificar si el pago ya ha sido aplicado
 
-                                                            
-                                const datos = {
-                                    registro: fechaHoraFormateada,
-                                    dom: domiciliocod,
-                                    nombre: clientecod,
-                                    domds: domicilio,
-                                    beneficiario: beneficiarioPagoSpan,
-                                    fechapago: fechaPagoSpan,
-                                    monto: montoPagoSpan,
-                                    concepto: conceptodelpagoPagoSpan,
-                                    aplicarpara : selectedOptions
-                                };
+                                const urlVerificacion = `https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/pagos/clavederastreo/${encodeURIComponent(clavederastreoSpan)}`;
+                                console.log(urlVerificacion);
+                                
+                                
+                                fetch(urlVerificacion)
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        console.log(data)
+                                        console.log(data.length)
 
 
-                                const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/pagos";
+                                        if (data.length > 0) {
+                                            // Pago ya registrado, mostrar alerta
+                                            alert("Este pago con clave de rastreo " + clavederastreoSpan + " ya está registrado");
+
+                                            document.getElementById("fechaPago").value = "";
+                                            document.getElementById("montoPago").value = "";
+                                            document.getElementById("beneficiarioPago").value = "";
+                                            document.getElementById("conceptodelpago").value = "";
+                                            document.getElementById("clavederastreo").value = "";
+                                            divpagocargado.style.display = "none";
+
+
+                                        } else {
+                                            // Pago no registrado, proceder a enviar los datos
+                                            enviarDatos();
+
+                                            alert("Tu pago fue enviado, se procedera a su revisión y aplicación")
+                                            document.getElementById("fechaPago").value = "";
+                                            document.getElementById("montoPago").value = "";
+                                            document.getElementById("beneficiarioPago").value = "";
+                                            document.getElementById("conceptodelpago").value = "";
+                                            document.getElementById("clavederastreo").value = "";
+                                            divpagocargado.style.display = "none";
+
+
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        console.error("Error al verificar los datos", error);
+                                    });
+                            
+                                function enviarDatos() {
+                                    const datos = {
+                                        registro: fechaHoraFormateada,
+                                        dom: domiciliocod,
+                                        nombre: clientecod,
+                                        domds: domicilio,
+                                        beneficiario: beneficiarioPagoSpan,
+                                        fechapago: fechaPagoSpan,
+                                        monto: montoPagoSpan,
+                                        concepto: conceptodelpagoPagoSpan,
+                                        aplicarpara : selectedOptions,
+                                        clavederastreo : clavederastreoSpan,
+                                    };
+    
+                            
+                                    const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/pagos";
                                     const opciones = {
                                         method: "POST",
                                         headers: {
                                             "Content-Type": "application/json"
                                         },
-                                            body: JSON.stringify(datos)
-                                        };
-                                            fetch(url, opciones)
-                                                    .then((response) => response.json())
-                                                    .then((data) => {
-                                                        // Alerta de éxito después de enviar los datos
-                                                        alert("Tu pago el " + fechaPagoSpan + " por " + montoPagoSpan + " sera revisado");
-                                                        console.log(fechaPagoSpan)
-                                                        console.log(montoPagoSpan)
-                                                        console.log(beneficiarioPagoSpan)
-                                                        console.log(fechaHoraFormateada)
-                                                        console.log(domiciliocod)
-                                                        console.log(clientecod)
+                                        body: JSON.stringify(datos)
+                                    };
                             
-                                                        // Limpiar los campos del formulario después de enviar los datos
-                                                        document.getElementById("fechaPago").textContent = "";
-                                                        document.getElementById("montoPago").textContent = "";
-                                                        document.getElementById("beneficiarioPago").textContent = "";
-                                                        const divpagocargado = document.getElementById("pagocargado");
-                                                        divpagocargado.style.display = "none";
-                                                    })
-                                                    .catch((error) => {
-                                                        console.error("Error al enviar los datos a la hoja de cálculo", error);
-                                                    });
+                                    fetch(url, opciones)
+                                        .then((response) => response.json())
+                                        .then((data) => {
+                                            // Lógica después de enviar datos
+                                        })
+                                        .catch((error) => {
+                                            console.error("Error al enviar los datos a la hoja de cálculo", error);
+                                        });
+                                }
+
+                                timer = setTimeout(activarBoton, tiempoEspera);
+
                             }
+
+                            ///
                             
                             function regresar() {
                                 paymentHistory2024.style.display = "none";
@@ -955,7 +1010,6 @@ function togglePasswordVisibilityadmin() {
 }
 
 function procesarArchivo() {
-    const divpagocargado = document.getElementById("pagocargado");
     const archivo = document.getElementById('archivo').files[0];
     divpagocargado.style.display = "block";
 
@@ -986,6 +1040,8 @@ function procesarPDF(datos) {
                     return item.str;
                 }).join(' ');
 
+                console.log(texto)
+
                 // Buscar el monto
                 const regexMonto = /\$\s?(\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2}))/; // Coincide con el formato de monto: $XXX,XXX.XX o $XXX.XX
                 const montoMatch = texto.match(regexMonto);
@@ -1008,9 +1064,14 @@ function procesarPDF(datos) {
                 console.log(conceptoPago)
 
                 // Clave de rastreo
-                const regexclavederastreo = /(?<=Monto IVA Referencia numérica Clave de rastreo  \d{2} de [a-zA-Z]+\sde\s\d{4}\s)(.+?)\s+\$/; // Coincide con cualquier texto después del texto indicado y seguido del siguiente "$"
-                const clavederastreoMatch = texto.match(regexclavederastreo);
-                const clavederastreo = clavederastreoMatch ? clavederastreoMatch[1] : null;
+
+                const regexDatosDespuesDeCero = /\$ 0\.00\s*(\S+)\s*(\S+)/; // Coincide con "$ 0.00" seguido de dos grupos de cualquier otro texto
+                const datosDespuesDeCeroMatch = texto.match(regexDatosDespuesDeCero);
+                const primerDato = datosDespuesDeCeroMatch ? datosDespuesDeCeroMatch[1] : null;
+                const segundoDato = datosDespuesDeCeroMatch ? datosDespuesDeCeroMatch[2] : null;
+                console.log(primerDato);
+                console.log(segundoDato);
+                clavederastreo = primerDato + " " + segundoDato
                 console.log(clavederastreo)
 
 
@@ -1059,6 +1120,19 @@ function procesarImagen(datos) {
         const regexConceptoPago = /Concepto\s+del\s+pago\s+(.+?)\s+Clave\s+de\s+rastreo\s+\w+/; // Coincide con "Concepto del pago" seguido de cualquier texto hasta la siguiente ocurrencia de "Clave de rastreo" seguido de letras o números
         const conceptoPagoMatch = text.match(regexConceptoPago);
         const conceptoPago = conceptoPagoMatch ? conceptoPagoMatch[1] : null;
+
+        const regexReferenciaNumerica = /Referencia numérica (\S+)/; // Coincide con "Referencia numérica" seguido de cualquier otro texto
+        const referenciaNumericaMatch = text.match(regexReferenciaNumerica);
+        const referenciaNumerica = referenciaNumericaMatch ? referenciaNumericaMatch[1] : null;
+    
+        // Buscar los datos después de "Clave de rastreo"
+        const regexClaveRastreo = /Clave de rastreo (\S+)/; // Coincide con "Clave de rastreo" seguido de cualquier otro texto
+        const claveRastreoMatch = text.match(regexClaveRastreo);
+        const claveRastreo = claveRastreoMatch ? claveRastreoMatch[1] : null;
+
+        const refeyclave = referenciaNumerica + " " + claveRastreo
+        console.log(refeyclave)
+
         
         // Ocultar el indicador de carga
         loader.style.display = "none";
@@ -1068,10 +1142,13 @@ function procesarImagen(datos) {
         console.log('Monto:', monto || 'No se encontró monto');
         console.log('Beneficiario:', beneficiario || 'No se encontró beneficiario');
 
+
         document.getElementById('fechaPago').innerText = fecha || 'No se encontró fecha';
         document.getElementById('montoPago').innerText = monto || 'No se encontró monto';
         document.getElementById('beneficiarioPago').innerText = beneficiario || 'No se encontró beneficiario';
         document.getElementById('conceptodelpago').innerText = conceptoPago || 'No se encontró concepto';
+        document.getElementById('clavederastreo').innerText = refeyclave || 'No se encontró concepto';
+
 
     });
 }
@@ -1340,11 +1417,12 @@ let clicActivograbarnweregistro = true;
 
 
 function agregarresidente () {
-        if (!clicActivograbarnweregistro) {
-            return; // Salir si el clic no está activo
-        }
-        
-        clicActivograbarnweregistro = false; // Desactivar el clic
+
+    if (!clicActivograbarnweregistro) {
+        return; // Salir si el clic no está activo
+    }
+    
+    clicActivograbarnweregistro = false; // Desactivar el clic
 
     if (sesionIniciada){
     
@@ -1374,57 +1452,64 @@ function agregarresidente () {
         console.log(newusarname);
         console.log(domcif);
 
-    
-        const datos = {
-            Cliente: newclientecif,
-            dom: domcif,
-            correo: correocif,
-            password: passwordcif,
-        };
-        const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios";
+        const urlVerificacion = `https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios/dom/${(domcif)}`;
+        console.log(urlVerificacion);
 
-        const opciones = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(datos)
-        };
+        fetch(urlVerificacion)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            console.log(data.length)
 
-        verificarDisponibilidadregistro(newdom)
-            .then(disponible => {
-                if (disponible) {
-                    fetch(url, opciones)
-                        .then((response) => response.json())
-                        .then((data) => {
-                            alert("Datos grabados correctamente");
 
-                            document.getElementById("new-name").value = "";
-                            document.getElementById("new-username").value = "";
-                            document.getElementById("new-contrasena").value = "";
-                            document.getElementById("new-calle").value = "";
-                            document.getElementById("new-num").value = "";
+            if (data.length < 1) {
+                const datos = {
+                    Cliente: newclientecif,
+                    dom: domcif,
+                    correo: correocif,
+                    password: passwordcif,
+                };
+                const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios";
 
-                            setTimeout(() => {
-                                clicActivograbarnweregistro = true;
-                            }, 3000);
+                const opciones = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(datos)
+                };
 
-                            setTimeout(() => {
-                                fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
-                                    .then((response) => response.json())
-                                    .then((data) => {
-                                        generarTabla("alba-registros", data.filter((registro) => registro.dom.startsWith("IkFMQk")));
-                                        generarTabla("caballeros-registros", data.filter((registro) => registro.dom.startsWith("IkNBQkFMTEVST")));
-                                        generarTabla("esmeralda-registros", data.filter((registro) => registro.dom.startsWith("IkVTTUVSQUxEQ")));
-                                        generarTabla("eros-registros", data.filter((registro) => registro.dom.startsWith("IkVST1")));
-                                        generarTabla("magdalena-registros", data.filter((registro) => registro.dom.startsWith("Ik1BR0RBTEVOQ")));
-                                        generarTabla("ibiza-registros", data.filter((registro) => registro.dom.startsWith("IklCSVpBI")));
-                                        generarTabla("hierro-registros", data.filter((registro) => registro.dom.startsWith("IkhJRVJSTy")));
-                                    })
-                                    .catch((error) => {
-                                        console.error("Error al obtener los datos para actualizar las tablas:", error);
-                                        alert("Error al obtener los datos para actualizar las tablas.");
-                                    });
+                fetch(url, opciones)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        alert("Datos grabados correctamente");
+
+                        document.getElementById("new-name").value = "";
+                        document.getElementById("new-username").value = "";
+                        document.getElementById("new-contrasena").value = "";
+                        document.getElementById("new-calle").value = "";
+                        document.getElementById("new-num").value = "";
+
+                        setTimeout(() => {
+                            clicActivograbarnweregistro = true;
+                        }, 3000);
+
+                        setTimeout(() => {
+                            fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
+                                .then((response) => response.json())
+                                .then((data) => {
+                                    generarTabla("alba-registros", data.filter((registro) => registro.dom.startsWith("IkFMQk")));
+                                    generarTabla("caballeros-registros", data.filter((registro) => registro.dom.startsWith("IkNBQkFMTEVST")));
+                                    generarTabla("esmeralda-registros", data.filter((registro) => registro.dom.startsWith("IkVTTUVSQUxEQ")));
+                                    generarTabla("eros-registros", data.filter((registro) => registro.dom.startsWith("IkVST1")));
+                                    generarTabla("magdalena-registros", data.filter((registro) => registro.dom.startsWith("Ik1BR0RBTEVOQ")));
+                                    generarTabla("ibiza-registros", data.filter((registro) => registro.dom.startsWith("IklCSVpBI")));
+                                    generarTabla("hierro-registros", data.filter((registro) => registro.dom.startsWith("IkhJRVJSTy")));
+                                })
+                                .catch((error) => {
+                                    console.error("Error al obtener los datos para actualizar las tablas:", error);
+                                    alert("Error al obtener los datos para actualizar las tablas.");
+                                });
                             }, 5000); // 5000 milisegundos = 5 segundos
                         })
 
@@ -1449,40 +1534,6 @@ function agregarresidente () {
 function limpiarContenedor(contenedorId) {
     const contenedor = document.getElementById(contenedorId);
     contenedor.innerHTML = ''; // Elimina todos los elementos hijos del contenedor
-}
-
-
-
-
-function verificarDisponibilidadregistro(newdom) {
-    if (!sesionIniciada) {
-        console.error("Error: La sesión no está iniciada");
-        return Promise.resolve(false); // Retorna false si la sesión no está iniciada
-    }
-
-    const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios";
-
-    // Realizar una consulta para obtener los registros en la misma fecha y amenidad
-    return fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            // Buscar si hay algún registro con el mismo valor de `dom`
-            const registroExistente = data.find(registro => registro.dom === newdom);
-            console.log(registroExistente)
-            console.log(data)
-
-            if (registroExistente) {
-                console.log("DISPONIBLE");
-                return true; // Retorna true si hay un registro existente
-            } else {
-                console.log("NO DISPONIBLE");
-                return true; // Retorna false si no hay un registro existente
-            }
-        })
-        .catch(error => {
-            console.error("Error al verificar disponibilidad:", error);
-            throw error;
-        });
 }
 
 
@@ -1554,5 +1605,4 @@ function eliminarRegistro(domcodificado){
         return null; // O maneja el error de alguna otra manera
     }
 }
-
 
