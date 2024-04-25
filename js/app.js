@@ -1133,7 +1133,6 @@ function procesarImagen(datos) {
         const refeyclave = referenciaNumerica + " " + claveRastreo
         console.log(refeyclave)
 
-        
         // Ocultar el indicador de carga
         loader.style.display = "none";
 
@@ -1142,14 +1141,53 @@ function procesarImagen(datos) {
         console.log('Monto:', monto || 'No se encontró monto');
         console.log('Beneficiario:', beneficiario || 'No se encontró beneficiario');
 
-
         document.getElementById('fechaPago').innerText = fecha || 'No se encontró fecha';
         document.getElementById('montoPago').innerText = monto || 'No se encontró monto';
         document.getElementById('beneficiarioPago').innerText = beneficiario || 'No se encontró beneficiario';
         document.getElementById('conceptodelpago').innerText = conceptoPago || 'No se encontró concepto';
         document.getElementById('clavederastreo').innerText = refeyclave || 'No se encontró concepto';
 
+        if (!monto || !fecha || !beneficiario || !conceptoPago || !referenciaNumerica || !claveRastreo) {
+            console.log("segunda validacion")
 
+            const regexMonto2 = /\$\s?(\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2}))/; // Coincide con el formato de monto: $XXX,XXX.XX o $XXX.XX
+            const montoMatch2 = text.match(regexMonto2);
+            const monto2 = montoMatch2 ? montoMatch2[1] : null;
+            console.log(monto2)
+
+
+            const regexFecha2 = /Fecha y hora de operación\s+([\w\/]+ - [\d:]+)/;
+            const fechaMatch2 = text.match(regexFecha2);
+            const fecha2 = fechaMatch2 ? fechaMatch2[0] : null;
+            console.log(fecha2)
+
+            const regexBeneficiario2 = /SAN\sSEBASTIAN/ // Coincide con "COLONOS SAN SEBASTIAN AC"
+            const beneficiarioMatch2 = text.match(regexBeneficiario2);
+            const beneficiario2 = beneficiarioMatch2 ? beneficiarioMatch2[0] : null;
+            console.log(beneficiario2)
+
+            const regexConceptoPago2 = /por el concepto\s+“(\w+)”/; // Coincide con "Concepto del pago" seguido de cualquier texto hasta la siguiente ocurrencia de "Clave de rastreo" seguido de letras o números
+            const conceptoPagoMatch2 = text.match(regexConceptoPago2);
+            const conceptoPago2 = conceptoPagoMatch2 ? conceptoPagoMatch2[1] : null;
+            console.log(conceptoPago2)
+
+    
+            const regexReferenciaNumerica2 = /Ref\. SuperMóvil\s+(\d+)/; // Coincide con "Referencia numérica" seguido de cualquier otro texto
+            const referenciaNumericaMatch2 = text.match(regexReferenciaNumerica2);
+            const refeyclave2 = referenciaNumericaMatch2 ? referenciaNumericaMatch2[1] : null;        
+            console.log(refeyclave2)
+
+                    // Imprimir los datos en la consola
+            console.log('Fecha:', fecha2 || 'No se encontró fecha');
+            console.log('Monto:', monto2 || 'No se encontró monto');
+            console.log('Beneficiario:', beneficiario2 || 'No se encontró beneficiario');
+
+            document.getElementById('fechaPago').innerText = fecha2 || 'No se encontró fecha';
+            document.getElementById('montoPago').innerText = monto2 || 'No se encontró monto';
+            document.getElementById('beneficiarioPago').innerText = beneficiario2 || 'No se encontró beneficiario';
+            document.getElementById('conceptodelpago').innerText = conceptoPago2 || 'No se encontró concepto';
+            document.getElementById('clavederastreo').innerText = refeyclave2 || 'No se encontró concepto';
+            }
     });
 }
 
@@ -1605,4 +1643,3 @@ function eliminarRegistro(domcodificado){
         return null; // O maneja el error de alguna otra manera
     }
 }
-
