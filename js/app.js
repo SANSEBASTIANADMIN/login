@@ -1285,7 +1285,7 @@ function generarTabla(contenedorId, data) {
                 tablaHTML += `<tr>
                                 <td>Estatus</td>
                                 <td>
-                                    <select class="identificadormora" onchange="actualizarDato(this.value, 'status', ${domcodificado})">
+                                    <select class="identificadormora" onchange="actualizarDato(this.value, 'status', '${domcodificado}')">
                                         <option value="Al Corriente" ${fila.status === "Al Corriente" ? "selected" : ""}>Al Corriente</option>
                                         <option value="Moroso" ${fila.status === "Moroso" ? "selected" : ""}>Moroso</option>
                                     </select>
