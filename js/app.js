@@ -835,7 +835,7 @@ formulario.addEventListener("submit", (e) => {
 
                                         if (data.length > 0) {
                                             // Pago ya registrado, mostrar alerta
-                                            alert("Este pago comprobante ya no se puede volver a ocupar");
+                                            alert("Este comprobante ya no se puede volver a ocupar");
 
                                             document.getElementById("fechaPago").value = "";
                                             document.getElementById("montoPago").value = "";
@@ -1083,6 +1083,15 @@ function procesarPDF(datos) {
                 document.getElementById('clavederastreo').innerText = clavederastreo || 'No se encontró concepto';
 
 
+                if (!monto || !fecha || !beneficiario || !conceptoPago){
+                    alert("Comprobante no valido")
+                    document.getElementById("fechaPago").value = "";
+                    document.getElementById("montoPago").value = "";
+                    document.getElementById("beneficiarioPago").value = "";
+                    document.getElementById("conceptodelpago").value = "";
+                    document.getElementById("clavederastreo").value = "";
+                    divpagocargado.style.display = "none";
+                }
             });
         });
     });
@@ -1147,7 +1156,7 @@ function procesarImagen(datos) {
         document.getElementById('conceptodelpago').innerText = conceptoPago || 'No se encontró concepto';
         document.getElementById('clavederastreo').innerText = refeyclave || 'No se encontró concepto';
 
-        if (!monto || !fecha || !beneficiario || !conceptoPago || !referenciaNumerica || !claveRastreo) {
+        if (!monto || !fecha || !beneficiario || !conceptoPago || !refeyclave) {
             console.log("segunda validacion")
 
             const regexMonto2 = /\$\s?(\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2}))/; // Coincide con el formato de monto: $XXX,XXX.XX o $XXX.XX
@@ -1187,6 +1196,18 @@ function procesarImagen(datos) {
             document.getElementById('beneficiarioPago').innerText = beneficiario2 || 'No se encontró beneficiario';
             document.getElementById('conceptodelpago').innerText = conceptoPago2 || 'No se encontró concepto';
             document.getElementById('clavederastreo').innerText = refeyclave2 || 'No se encontró concepto';
+
+            if (!monto2 || !fecha2 || !beneficiario2 || !conceptoPago2 || !refeyclave2 ){
+                alert("Comprobante no valido")
+                document.getElementById("fechaPago").value = "";
+                document.getElementById("montoPago").value = "";
+                document.getElementById("beneficiarioPago").value = "";
+                document.getElementById("conceptodelpago").value = "";
+                document.getElementById("clavederastreo").value = "";
+                divpagocargado.style.display = "none";
+            }
+
+
             }
     });
 }
@@ -1643,3 +1664,4 @@ function eliminarRegistro(domcodificado){
         return null; // O maneja el error de alguna otra manera
     }
 }
+
