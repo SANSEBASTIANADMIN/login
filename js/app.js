@@ -835,7 +835,7 @@ formulario.addEventListener("submit", (e) => {
 
                                         if (data.length > 0) {
                                             // Pago ya registrado, mostrar alerta
-                                            alert("Este pago con clave de rastreo " + clavederastreoSpan + " ya está registrado");
+                                            alert("Este pago comprobante ya no se puede volver a ocupar");
 
                                             document.getElementById("fechaPago").value = "";
                                             document.getElementById("montoPago").value = "";
