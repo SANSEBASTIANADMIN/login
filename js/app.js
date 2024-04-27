@@ -1197,16 +1197,21 @@ function procesarImagen(datos) {
             document.getElementById('conceptodelpago').innerText = conceptoPago2 || 'No se encontró concepto';
             document.getElementById('clavederastreo').innerText = refeyclave2 || 'No se encontró concepto';
 
-            if (!fecha2){
+            if (!fecha2 || !conceptoPago2){
 
                 const regexFecha3 = /rea oe\s+([\w\/]+ - [\d:]+)/;
                 const fechaMatch3 = text.match(regexFecha3);
                 const fecha3 = fechaMatch3 ? fechaMatch3[1] : null;
                 console.log("Tercera validación")
-
                 console.log(fecha3)
 
+                const regexConceptoPago3 = /por\s+el\s+concepto\s+“([^”]+)"/;
+                const conceptoPagoMatch3 = text.match(regexConceptoPago3);
+                const conceptoPago3 = conceptoPagoMatch3 ? conceptoPagoMatch3[1] : null;
+                console.log(conceptoPago3)
+
                 document.getElementById('fechaPago').innerText = fecha3 || 'No se encontró fecha';
+                document.getElementById('conceptodelpago').innerText = conceptoPago3 || 'No se encontró concepto';
 
                 if (!fecha3){
 
@@ -1218,15 +1223,10 @@ function procesarImagen(datos) {
                     document.getElementById("clavederastreo").value = "";
                     divpagocargado.style.display = "none";
                 }
-
-
             }
-
-
-            }
+        }
     });
 }
-
 
 // JavaScript para habilitar la selección de múltiples opciones con un solo clic
 document.getElementById("mespago").addEventListener("click", function(event) {
