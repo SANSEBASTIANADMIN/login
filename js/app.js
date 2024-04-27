@@ -1199,11 +1199,18 @@ function procesarImagen(datos) {
 
             if (!fecha2 || !conceptoPago2){
 
-                const regexFecha3 = /rea oe\s+([\w\/]+ - [\d:]+)/;
+                console.log("Texto proporcionado:");
+                console.log(text);
+                
+                const regexFecha3 = /\d{1,2}\/(?:Ene|Feb|Mar|Abr|May|Jun|Jul|Ago|Sep|Oct|Nov|Dic)\/\d{4}\s+-\s+\d{1,2}:\d{2}/;
                 const fechaMatch3 = text.match(regexFecha3);
-                const fecha3 = fechaMatch3 ? fechaMatch3[1] : null;
-                console.log("Tercera validación")
-                console.log(fecha3)
+                console.log("Coincidencia encontrada:");
+                console.log(fechaMatch3);
+                
+                const fecha3 = fechaMatch3 ? fechaMatch3[0] : null;
+                console.log("Tercera validación:")
+                console.log(fecha3);
+                
 
                 const regexConceptoPago3 = /por\s+el\s+concepto\s+“([^”]+)"/;
                 const conceptoPagoMatch3 = text.match(regexConceptoPago3);
@@ -1227,6 +1234,7 @@ function procesarImagen(datos) {
         }
     });
 }
+
 
 // JavaScript para habilitar la selección de múltiples opciones con un solo clic
 document.getElementById("mespago").addEventListener("click", function(event) {
