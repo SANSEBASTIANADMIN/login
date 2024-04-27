@@ -1167,7 +1167,7 @@ function procesarImagen(datos) {
 
             const regexFecha2 = /Fecha y hora de operación\s+([\w\/]+ - [\d:]+)/;
             const fechaMatch2 = text.match(regexFecha2);
-            const fecha2 = fechaMatch2 ? fechaMatch2[0] : null;
+            const fecha2 = fechaMatch2 ? fechaMatch2[1] : null;
             console.log(fecha2)
 
             const regexBeneficiario2 = /SAN\sSEBASTIAN/ // Coincide con "COLONOS SAN SEBASTIAN AC"
@@ -1197,14 +1197,29 @@ function procesarImagen(datos) {
             document.getElementById('conceptodelpago').innerText = conceptoPago2 || 'No se encontró concepto';
             document.getElementById('clavederastreo').innerText = refeyclave2 || 'No se encontró concepto';
 
-            if (!monto2 || !fecha2 || !beneficiario2 || !conceptoPago2 || !refeyclave2 ){
-                alert("Comprobante no valido")
-                document.getElementById("fechaPago").value = "";
-                document.getElementById("montoPago").value = "";
-                document.getElementById("beneficiarioPago").value = "";
-                document.getElementById("conceptodelpago").value = "";
-                document.getElementById("clavederastreo").value = "";
-                divpagocargado.style.display = "none";
+            if (!fecha2){
+
+                const regexFecha3 = /rea oe\s+([\w\/]+ - [\d:]+)/;
+                const fechaMatch3 = text.match(regexFecha3);
+                const fecha3 = fechaMatch3 ? fechaMatch3[1] : null;
+                console.log("Tercera validación")
+
+                console.log(fecha3)
+
+                document.getElementById('fechaPago').innerText = fecha3 || 'No se encontró fecha';
+
+                if (!fecha3){
+
+                    alert("Comprobante no valido")
+                    document.getElementById("fechaPago").value = "";
+                    document.getElementById("montoPago").value = "";
+                    document.getElementById("beneficiarioPago").value = "";
+                    document.getElementById("conceptodelpago").value = "";
+                    document.getElementById("clavederastreo").value = "";
+                    divpagocargado.style.display = "none";
+                }
+
+
             }
 
 
