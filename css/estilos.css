@@ -830,6 +830,9 @@ summary::before {
   color:  #0178d2;
 }
 
+.mespago .select{
+  height: 300px;
+}
 
 
 /* Estilo para el hover del elemento select con la clase "mespago" */
@@ -838,6 +841,7 @@ summary::before {
   border: 1px solid rgba(37, 149, 190, 0.5); /* Agrega un contorno con un color semitransparente */
   color: #040404;
   height: 270px;
+  
 }
 
 
