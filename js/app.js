@@ -1679,36 +1679,3 @@ function eliminarRegistro(domcodificado){
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var selectElement = document.getElementById('mespago');
-    var options = selectElement.options;
-
-    // Verificar si el dispositivo es un dispositivo móvil
-    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-    // Adjuntar eventos según el tipo de dispositivo
-    if (isMobile) {
-        // Eventos táctiles para dispositivos móviles
-        selectElement.addEventListener('touchstart', function (event) {
-            event.preventDefault(); // Evitar el comportamiento predeterminado del toque
-            var target = event.target;
-
-            if (target.tagName === 'OPTION') {
-                var isSelected = target.selected;
-                target.selected = !isSelected;
-            }
-        });
-    } else {
-        // Eventos de ratón para dispositivos de escritorio
-        selectElement.addEventListener('mousedown', function (event) {
-            var target = event.target;
-
-            if (target.tagName === 'OPTION') {
-                var isSelected = target.selected;
-                target.selected = !isSelected;
-            }
-        });
-    }
-});
-
-
