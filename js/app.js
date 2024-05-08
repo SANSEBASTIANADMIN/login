@@ -293,80 +293,118 @@ formulario.addEventListener("submit", (e) => {
                             }
 
                             function updatePaymentHistory() {
-                                        paymentHistory2024.style.display = "block";
-                                        tags.style.display = "none";
-                                        btndcerrarsesion.style.display = "none"
-                                        divbotonhistorico.style.display = "none";
-                                        divbotonpago.style.display = "none";
-                                        divbotonreservar.style.display = "none";
-                                        divbotonvisitas.style.display = "none";
-                                        segurichat.style.display = "none";
-                                        divregreso.style.display = "block";
+                                paymentHistory2024.style.display = "block";
+                                tags.style.display = "none";
+                                btndcerrarsesion.style.display = "none";
+                                divbotonhistorico.style.display = "none";
+                                divbotonpago.style.display = "none";
+                                divbotonreservar.style.display = "none";
+                                divbotonvisitas.style.display = "none";
+                                segurichat.style.display = "none";
+                                divregreso.style.display = "block";
+                                console.log(indice);
+                            
+                                fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        ene2024Span.textContent = (data[indice].ene2024);
+                                        feb2024Span.textContent = (data[indice].feb2024);
+                                        mar2024Span.textContent = (data[indice].mar2024);
+                                        abr2024Span.textContent = (data[indice].abr2024);
+                                        may2024Span.textContent = (data[indice].may2024);
+                                        jun2024Span.textContent = (data[indice].jun2024);
+                                        jul2024Span.textContent = (data[indice].jul2024);
+                                        ago2024Span.textContent = (data[indice].ago2024);
+                                        sep2024Span.textContent = (data[indice].sep2024);
+                                        oct2024Span.textContent = (data[indice].oct2024);
+                                        nov2024Span.textContent = (data[indice].nov2024);
+                                        dic2024Span.textContent = (data[indice].dic2024);
+                                        console.log("Pagos actualizados");
+                                    });
                             }
 
-                            function generarrecibopdf (){
+                            function generarrecibopdf() {
                                 // Obtener la fila correspondiente al botón clicado
                                 var fila = event.target.closest('tr');
                                 
                                 // Obtener los datos de la fila
                                 var datosFila = fila.querySelectorAll('td');
-                            
+                                
                                 // Obtener el texto de cada elemento td y guardarlo en variables
                                 var mes = datosFila[0].textContent.trim(); // Mes
                                 var idMes = datosFila[1].querySelector('span').id; // ID del mes
                                 var cantidad = datosFila[1].querySelector('span').textContent.trim(); // Cantidad
-                            
+                                
                                 // Verificar si la cantidad está vacía
                                 if (cantidad === "") {
                                     alert("Aún no hay un pago aplicado a este mes");
                                     return; // Salir de la función
-                                }
-                                else{
+                                } else {
                                     var año = idMes.substring(3); // Extraer los caracteres a partir del cuarto (el año)
                                     var now = new Date();
                                     var folio = now.getFullYear() + pad(now.getMonth() + 1) + pad(now.getDate()) + pad(now.getHours()) + pad(now.getMinutes()) + pad(now.getSeconds());
-
+                                    
                                     // Función para agregar ceros a la izquierda si es necesario
                                     function pad(number) {
                                         return (number < 10 ? '0' : '') + number;
                                     }
-                            
+                                    
                                     // Crear un nuevo objeto jsPDF
                                     const { jsPDF } = window.jspdf;
-                                    var doc = new jsPDF();
-
-                                    var fontSize = 10;
+                                    var doc = new jsPDF({
+                                        orientation: 'landscape',
+                                        unit: 'mm',
+                                        format: [216, 140] // Tamaño personalizado: 216mm x 140mm (media carta horizontal)
+                                    });
+                                    
+                                    var fontSize = 12;
                                     doc.setFontSize(fontSize);
                                     doc.setTextColor(1, 62, 106); // RGB: 1, 62, 106
-
-                                
+                                    
                                     // Agregar la información al PDF
                                     doc.setTextColor(255, 0, 0); // RGB: 255, 0, 0 (rojo)
-                                    doc.text("Folio: " + folio, 160, 10, null, null, 'right'); // Folio alineado a la derecha
+                                    doc.text("Folio: " + folio, 160, 20); // Folio alineado a la derecha
                                     doc.setTextColor(0, 0, 0); // RGB: 0, 0, 0 (negro)
-                                    doc.text("Fecha: " + new Date().toLocaleDateString(), 160, 20, null, null, 'right'); // Fecha de hoy alineada a la derecha
-
-                                    doc.setTextColor(1, 62, 106); // RGB: 1, 62, 106
-                                    doc.text("Estimado(a) "  + cliente, 10, 30); // Nombre del cliente
-
+                                    doc.text("Fecha: " + new Date().toLocaleDateString(), 174, 25); // Fecha de hoy alineada a la derecha
+                                    
+                                    doc.setTextColor(1, 120, 210); // RGB para el color hexadecimal 0178d2
+                                    doc.text("Estimado(a) " + cliente, 10, 50); // Nombre del cliente
+                                    
                                     doc.setTextColor(0, 0, 0); // RGB: 0, 0, 0 (negro)
-                                    doc.text("Es un placer informarte que hemos recibido tu comprobante de pago por la cantidad de " + cantidad, 10, 40, null, null, 'left')
-                                    doc.text("correspondiente al mes de " + mes + " " + año + " de tu propiedad ubicada en " + domicilio, 10, 50, null, null, 'left')
-                                    doc.text("Cada contribución es esencial para asegurar el buen estado de nuestras áreas comunes y servicios.", 10, 60, null, null, 'left');
-                                    doc.text("Agradecemos tu puntualidad y compromiso con el mantenimiento de nuestra comunidad.", 10, 70, null, null, 'left');
-                                    doc.text("Este documento tiene carácter informativo y no constituye un instrumento para el acceso a amenidades o servicios.", 10, 80, null, null, 'left');
-
-                                    doc.setTextColor(1, 62, 106); // RGB: 1, 62, 106
-                                    doc.text("Atentamente: La Mesa Directiva de Colonos San Sebastián..", 10, 90);
-
-                                    var imgData = 'logorecibos.png'; // Reemplaza esto con la URL de tu imagen
-                                    doc.addImage(imgData, 'JPEG', 10, 100, 100, 100); // Ajusta las coordenadas y el tamaño según sea necesario
-                                
-                                
+                                    var text = [
+                                        "Es un placer informarte que hemos recibido tu comprobante de pago por la cantidad de $" + cantidad,
+                                        "correspondiente al mes de " + mes + " " + año + " de tu propiedad ubicada en " + domicilio,
+                                        "Cada contribución es esencial para asegurar el buen estado de nuestras áreas comunes y servicios.",
+                                        "Agradecemos tu puntualidad y compromiso con el mantenimiento de nuestra comunidad.",
+                                        "Este documento tiene carácter informativo. El pago será respaldado con el CEP o estado de cuenta y no constituye un instrumento para el acceso a amenidades o servicios"
+                                    ];
+                                    
+                                    // Guardar el estado actual de las propiedades de la instancia del documento
+                                    doc.saveGraphicsState();
+                                    
+                                    // Establecer el color y el grosor de la línea del rectángulo
+                                    doc.setDrawColor(1, 120, 210); // Color del margen (gris claro)
+                                    doc.setLineWidth(1); // Grosor de la línea
+                                    
+                                    // Dibujar un rectángulo alrededor del contenido
+                                    doc.roundedRect(5, 5, doc.internal.pageSize.width - 10, doc.internal.pageSize.height - 10, 10, 10);
+                                    
+                                    // Restaurar el estado guardado
+                                    doc.restoreGraphicsState();
+                                    
+                                    // Agregar el contenido del texto
+                                    doc.text(text, 10, 65, { align: 'justify', maxWidth: 190 });
+                                    
+                                    doc.setTextColor(1, 120, 210); // RGB para el color hexadecimal 0178d2
+                                    doc.text("Atentamente: La Mesa Directiva de Privada San Sebastian", 10, 100);
+                                    
+                                    var imgData = 'Fraccify.png'; // Reemplaza esto con la URL de tu imagen
+                                    doc.addImage(imgData, 'JPEG', 10, 10, 30, 30); // Ajusta las coordenadas y el tamaño según sea necesario
+                                    
                                     // Guardar el PDF
                                     doc.save("recibo_" + mes.toLowerCase() + "_" + año + ".pdf");
                                 }
-                            }
+                            } 
 
                             function registrarReserva() {
 
@@ -1234,6 +1272,15 @@ function procesarImagen(datos) {
         }
     });
 }
+
+
+// JavaScript para habilitar la selección de múltiples opciones con un solo clic
+document.getElementById("mespago").addEventListener("click", function(event) {
+    var target = event.target;
+    if (target.tagName === "OPTION") {
+        target.selected = !target.selected;
+    }
+});
   
 function removeSpecialCharacters(input) {
   // Reemplaza caracteres especiales y acentos con una expresión regular
@@ -1678,4 +1725,5 @@ function eliminarRegistro(domcodificado){
         return null; // O maneja el error de alguna otra manera
     }
 }
+
 
