@@ -113,7 +113,7 @@ formulario.addEventListener("submit", (e) => {
         // Redirigir a la página deseada
         window.location.href = "index2.html";
     } else {
-        fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
+        fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
             //actualización
             .then((response) => response.json())
             .then((data) => {
@@ -259,7 +259,7 @@ formulario.addEventListener("submit", (e) => {
                                 dom: domiciliocod,
                             };
                             
-                            const urlregistro = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/registros";
+                            const urlregistro = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/registros";
                             const opciones = {
                                 method: "POST",
                                 headers: {
@@ -304,7 +304,7 @@ formulario.addEventListener("submit", (e) => {
                                 divregreso.style.display = "block";
                                 console.log(indice);
                             
-                                fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
+                                fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
                                     .then((response) => response.json())
                                     .then((data) => {
                                         ene2024Span.textContent = (data[indice].ene2024);
@@ -443,7 +443,7 @@ formulario.addEventListener("submit", (e) => {
                                                     
                                 if (statuscod === "Al Corriente") {
                                     
-                                    const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/reservaciones";
+                                    const url = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/reservaciones";
                                     const opciones = {
                                         method: "POST",
                                         headers: {
@@ -495,7 +495,7 @@ formulario.addEventListener("submit", (e) => {
                             }
                             
                             function verificarDisponibilidad(fecha, tiporeserva) {
-                                const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/reservaciones";
+                                const url = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/reservaciones";
                                 
                                 // Realizar una consulta para obtener los registros en la misma fecha y amenidad
                                 return fetch(url)
@@ -523,7 +523,7 @@ formulario.addEventListener("submit", (e) => {
                             function toggleMisReservas() {
                                 console.log("actualizándose")
                                 const domicilio = domicilioSpan.textContent;
-                                fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/reservaciones")
+                                fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/reservaciones")
                                     .then((response) => response.json())
                                     .then((data) => {
                                         console.log(domiciliocod);
@@ -571,7 +571,7 @@ formulario.addEventListener("submit", (e) => {
                                 
                             function eliminarreservacion(amenidad, fecha, domiciliocod) {
                                 // Obtener la URL de la API
-                                const apiURL = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/reservaciones";
+                                const apiURL = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/reservaciones";
                                 
                                 // Realizar una solicitud GET para obtener los datos de la hoja de cálculo
                                 fetch(apiURL)
@@ -719,7 +719,7 @@ formulario.addEventListener("submit", (e) => {
                                     Tipo: tipoSpan,
                                 };
                             
-                                const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/visitas";
+                                const url = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/visitas";
                             
                                 const opciones = {
                                     method: "POST",
@@ -860,7 +860,7 @@ formulario.addEventListener("submit", (e) => {
                                 
                                 // Verificar si el pago ya ha sido aplicado
 
-                                const urlVerificacion = `https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/pagos/clavederastreo/${encodeURIComponent(clavederastreoSpan)}`;
+                                const urlVerificacion = `https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/pagos/clavederastreo/${encodeURIComponent(clavederastreoSpan)}`;
                                 console.log(urlVerificacion);
                                 
                                 
@@ -917,7 +917,7 @@ formulario.addEventListener("submit", (e) => {
                                     };
     
                             
-                                    const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/pagos";
+                                    const url = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/pagos";
                                     const opciones = {
                                         method: "POST",
                                         headers: {
@@ -1310,7 +1310,7 @@ document.getElementById("inicarsesionadmin").addEventListener("click", () => {
     const usuarioInput = document.getElementById("admin-username").value;
     const contraseñaInput = document.getElementById("admin-contrasena").value;
 
-    fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/admin")
+    fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/admin")
         .then((response) => response.json())
         .then((data) => {
             const correoCifradoInput = cifrarCorreo(usuarioInput);
@@ -1330,7 +1330,7 @@ document.getElementById("inicarsesionadmin").addEventListener("click", () => {
                     contenedoradmin.style.display = "block";
                     homepage.style.display = "none";
 
-                    fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
+                    fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
                     .then((response) => response.json())
                     .then((data) => {
 
@@ -1448,7 +1448,7 @@ function actualizarDato(valor, campo, domcodificado) {
         console.log("Campo:", campo);
         console.log("Índice:", domcodificado);
 
-        fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
+        fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
             .then((response) => response.json())
             .then((data) => {
                 const domcodificados = data.map((fila) => fila.dom);
@@ -1467,7 +1467,7 @@ function actualizarDato(valor, campo, domcodificado) {
                     [campo]: valorActualizado,
                 };
 
-                const url = `https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios/${indice}`;
+                const url = `https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios/${indice}`;
                 console.log("URL:", url);
                 // Realizar la solicitud PATCH para actualizar los datos
                 fetch(url, {
@@ -1572,7 +1572,7 @@ function agregarresidente () {
         console.log(newusarname);
         console.log(domcif);
 
-        const urlVerificacion = `https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios/dom/${(domcif)}`;
+        const urlVerificacion = `https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios/dom/${(domcif)}`;
         console.log(urlVerificacion);
 
         fetch(urlVerificacion)
@@ -1589,7 +1589,7 @@ function agregarresidente () {
                     correo: correocif,
                     password: passwordcif,
                 };
-                const url = "https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios";
+                const url = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios";
 
                 const opciones = {
                     method: "POST",
@@ -1615,7 +1615,7 @@ function agregarresidente () {
                         }, 3000);
 
                         setTimeout(() => {
-                            fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
+                            fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
                                 .then((response) => response.json())
                                 .then((data) => {
                                     generarTabla("alba-registros", data.filter((registro) => registro.dom.startsWith("IkFMQk")));
@@ -1670,7 +1670,7 @@ function cerrarAdminPanel2() {
 
 function eliminarRegistro(domcodificado){
     if (sesionIniciada) {
-        fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
+        fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
             .then((response) => response.json())
             .then((data) => {
                 const domcodificados = data.map((fila) => fila.dom);
@@ -1679,7 +1679,7 @@ function eliminarRegistro(domcodificado){
 
                 if (indice !== -1) {
                     // Realizar la solicitud DELETE para eliminar el registro
-                    const url = `https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios/${indice}`;
+                    const url = `https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios/${indice}`;
                     fetch(url, {
                         method: "DELETE",
                         mode: "cors",
@@ -1690,7 +1690,7 @@ function eliminarRegistro(domcodificado){
                         alert("Registro eliminado correctamente:");
 
                         setTimeout(() => {
-                            fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/propietarios")
+                            fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
                                 .then((response) => response.json())
                                 .then((data) => {
                                     generarTabla("alba-registros", data.filter((registro) => registro.dom.startsWith("IkFMQk")));
@@ -1725,5 +1725,4 @@ function eliminarRegistro(domcodificado){
         return null; // O maneja el error de alguna otra manera
     }
 }
-
 
