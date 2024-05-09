@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Función para obtener los datos del API y agregar los registros
     function obtenerYAgregarRegistros2() {
         console.log("actualizando");
-        fetch("https://sheet.best/api/sheets/37c91a6b-da47-4255-be74-0abb82402f7e/tabs/visitas")
+        fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/visitas")
             .then((response) => response.json())
             .then((data) => {
                 console.log(data); // Imprime los datos obtenidos desde la API
