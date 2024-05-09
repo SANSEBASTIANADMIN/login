@@ -853,7 +853,6 @@ formulario.addEventListener("submit", (e) => {
                                 const fechaHoraActual = new Date();
                                 const fechaHoraFormateada = fechaHoraActual.toLocaleString();
                                 const mesPagoSelect = document.getElementById("mespago").value;
-                                console.log(selectedOptions);
                                 
                                 // Verificar si el pago ya ha sido aplicado
 
