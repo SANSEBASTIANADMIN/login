@@ -910,7 +910,7 @@ formulario.addEventListener("submit", (e) => {
                                             fechapago: fechaPagoSpan,
                                             monto: montoPagoSpan,
                                             concepto: conceptodelpagoPagoSpan,
-                                            aplicarpara : selectedOptions,
+                                            aplicarpara : mesPagoSelect,
                                             clavederastreo : clavederastreoSpan,
                                         };
         
