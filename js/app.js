@@ -837,8 +837,6 @@ formulario.addEventListener("submit", (e) => {
                             }
 
 
-
-                            ///
                             function enviardatospago() { 
 
                                 if (boton3.disabled) {
@@ -854,8 +852,7 @@ formulario.addEventListener("submit", (e) => {
                                 const clavederastreoSpan = document.getElementById("clavederastreo").textContent;
                                 const fechaHoraActual = new Date();
                                 const fechaHoraFormateada = fechaHoraActual.toLocaleString();
-                                const mesPagoSelect = document.getElementById("mespago");
-                                const selectedOptions = Array.from(mesPagoSelect.options).filter(option => option.selected).map(option => option.value);
+                                const mesPagoSelect = document.getElementById("mespago").value;
                                 console.log(selectedOptions);
                                 
                                 // Verificar si el pago ya ha sido aplicado
@@ -863,84 +860,85 @@ formulario.addEventListener("submit", (e) => {
                                 const urlVerificacion = `https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/pagos/clavederastreo/${encodeURIComponent(clavederastreoSpan)}`;
                                 console.log(urlVerificacion);
                                 
-                                
-                                fetch(urlVerificacion)
-                                    .then((response) => response.json())
-                                    .then((data) => {
-                                        console.log(data)
-                                        console.log(data.length)
-
-
-                                        if (data.length > 0) {
-                                            // Pago ya registrado, mostrar alerta
-                                            alert("Este comprobante ya no se puede volver a ocupar");
-
-                                            document.getElementById("fechaPago").value = "";
-                                            document.getElementById("montoPago").value = "";
-                                            document.getElementById("beneficiarioPago").value = "";
-                                            document.getElementById("conceptodelpago").value = "";
-                                            document.getElementById("clavederastreo").value = "";
-                                            divpagocargado.style.display = "none";
-
-
-                                        } else {
-                                            // Pago no registrado, proceder a enviar los datos
-                                            enviarDatos();
-
-                                            alert("Tu pago fue enviado, se procedera a su revisión y aplicación")
-                                            document.getElementById("fechaPago").value = "";
-                                            document.getElementById("montoPago").value = "";
-                                            document.getElementById("beneficiarioPago").value = "";
-                                            document.getElementById("conceptodelpago").value = "";
-                                            document.getElementById("clavederastreo").value = "";
-                                            divpagocargado.style.display = "none";
-
-
-                                        }
-                                    })
-                                    .catch((error) => {
-                                        console.error("Error al verificar los datos", error);
-                                    });
-                            
-                                function enviarDatos() {
-                                    const datos = {
-                                        registro: fechaHoraFormateada,
-                                        dom: domiciliocod,
-                                        nombre: clientecod,
-                                        domds: domicilio,
-                                        beneficiario: beneficiarioPagoSpan,
-                                        fechapago: fechaPagoSpan,
-                                        monto: montoPagoSpan,
-                                        concepto: conceptodelpagoPagoSpan,
-                                        aplicarpara : selectedOptions,
-                                        clavederastreo : clavederastreoSpan,
-                                    };
-    
-                            
-                                    const url = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/pagos";
-                                    const opciones = {
-                                        method: "POST",
-                                        headers: {
-                                            "Content-Type": "application/json"
-                                        },
-                                        body: JSON.stringify(datos)
-                                    };
-                            
-                                    fetch(url, opciones)
+                                if (mesPagoSelect=== "") {
+                                    alert("Debe selecionar el mes al que desea que se aplique su pago")
+                                } else {
+                                    fetch(urlVerificacion)
                                         .then((response) => response.json())
                                         .then((data) => {
-                                            // Lógica después de enviar datos
+                                            console.log(data)
+                                            console.log(data.length)
+
+
+                                            if (data.length > 0) {
+                                                // Pago ya registrado, mostrar alerta
+                                                alert("Este comprobante ya no se puede volver a ocupar");
+
+                                                document.getElementById("fechaPago").value = "";
+                                                document.getElementById("montoPago").value = "";
+                                                document.getElementById("beneficiarioPago").value = "";
+                                                document.getElementById("conceptodelpago").value = "";
+                                                document.getElementById("clavederastreo").value = "";
+                                                divpagocargado.style.display = "none";
+
+
+                                            } else {
+                                                // Pago no registrado, proceder a enviar los datos
+                                                enviarDatos();
+
+                                                alert("Tu pago fue enviado, se procedera a su revisión y aplicación")
+                                                document.getElementById("fechaPago").value = "";
+                                                document.getElementById("montoPago").value = "";
+                                                document.getElementById("beneficiarioPago").value = "";
+                                                document.getElementById("conceptodelpago").value = "";
+                                                document.getElementById("clavederastreo").value = "";
+                                                divpagocargado.style.display = "none";
+
+
+                                            }
                                         })
                                         .catch((error) => {
-                                            console.error("Error al enviar los datos a la hoja de cálculo", error);
+                                            console.error("Error al verificar los datos", error);
                                         });
+                            
+                                    function enviarDatos() {
+                                        const datos = {
+                                            registro: fechaHoraFormateada,
+                                            dom: domiciliocod,
+                                            nombre: clientecod,
+                                            domds: domicilio,
+                                            beneficiario: beneficiarioPagoSpan,
+                                            fechapago: fechaPagoSpan,
+                                            monto: montoPagoSpan,
+                                            concepto: conceptodelpagoPagoSpan,
+                                            aplicarpara : selectedOptions,
+                                            clavederastreo : clavederastreoSpan,
+                                        };
+        
+                                
+                                        const url = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/pagos";
+                                        const opciones = {
+                                            method: "POST",
+                                            headers: {
+                                                "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify(datos)
+                                        };
+                                
+                                        fetch(url, opciones)
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                // Lógica después de enviar datos
+                                            })
+                                            .catch((error) => {
+                                                console.error("Error al enviar los datos a la hoja de cálculo", error);
+                                            });
+                                    }
+
+                                    timer = setTimeout(activarBoton, tiempoEspera);
+
                                 }
-
-                                timer = setTimeout(activarBoton, tiempoEspera);
-
                             }
-
-                            ///
                             
                             function regresar() {
                                 paymentHistory2024.style.display = "none";
@@ -1274,13 +1272,6 @@ function procesarImagen(datos) {
 }
 
 
-// JavaScript para habilitar la selección de múltiples opciones con un solo clic
-document.getElementById("mespago").addEventListener("click", function(event) {
-    var target = event.target;
-    if (target.tagName === "OPTION") {
-        target.selected = !target.selected;
-    }
-});
   
 function removeSpecialCharacters(input) {
   // Reemplaza caracteres especiales y acentos con una expresión regular
