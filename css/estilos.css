@@ -12,10 +12,11 @@ body {
     justify-content: center;
 }
 * {
-	padding: 0;
+  padding: 0;
 	margin: 0;
 	box-sizing: border-box;
 }
+
 
 .contenedor {
     width: 300px;
@@ -25,8 +26,10 @@ body {
     background: #fff;
     min-height: 10vh;
     display: grid;
-    margin: 20px; /* Agregar margen */
-    
+    margin-right: 30px; /* Agregar margen */
+    margin-left: 30px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 @media screen and (max-width: 150px) {
@@ -58,7 +61,7 @@ body {
 }
 .columna-izquierda2,
 .columna-derecha2 {
-	width: 60%; /* Ajusta el ancho segÃºn tus necesidades */
+	width: 60%; /* Ajusta el ancho según tus necesidades */
 }
 .columna-izquierda2 img {
 	max-width: 90%; /* Asegura que la imagen no sobrepase su contenedor */
@@ -99,7 +102,7 @@ label {
     border: none;
     border-radius: 5px;
     padding: 0 20px 0 45px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     background: #f3f3f3eb;
     color: #013E6A;
     font-family: 'Quicksand', sans-serif;
@@ -124,7 +127,7 @@ button {
     font-family: 'Quicksand', sans-serif;
     font-size: 14px;
     border-radius: 8px;
-    margin-top: 20px;
+    margin-top: 10px;
     background: #013e6a00;
     height: 50px;
     color: #013e6a;
@@ -132,7 +135,7 @@ button {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    border: 2px solid #013e6a;
+    border: 2px solid #013E6A;
     cursor: pointer;
     transition: .3s ease all;
     outline: none;
@@ -199,20 +202,19 @@ button svg {
 }
 
 .form-select {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 14px;
-    color: #333;
-    background-color: #f8f9fa;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    padding: 12px 16px;
-    cursor: pointer;
-    transition:
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  color: #333;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 12px 16px;
+  cursor: pointer;
 }
 
 #status {
 	color: rgb(65, 113, 226); /* Color del texto */
-	font-weight: bold; /* Para hacer el texto mÃ¡s llamativo */
+	font-weight: bold; /* Para hacer el texto más llamativo */
 }
 
 /* Estilos para el contenedor de botones */
@@ -302,7 +304,7 @@ button svg {
   
 
   .contenedorx1-input {
-	width: calc(100vw - 40px); /* Ajusta el ancho segÃºn tu diseÃ±o */
+	width: calc(100vw - 40px); /* Ajusta el ancho según tu diseño */
 	margin: 0 auto;
 	padding: 5px;
 	border-radius: 5px;
@@ -311,7 +313,7 @@ button svg {
   }
   
   #tipo-visita {
-	font-size: 16px; /* Ajusta el tamaÃ±o de letra */
+	font-size: 16px; /* Ajusta el tamaño de letra */
 	width: 100%;
 	padding: 5px 10px;
 	border: none;
@@ -332,7 +334,7 @@ button svg {
     color: var(--secundario); /* Color del texto */
     border: 2px solid var(--primario); /* Borde */
     border-radius: 5px; /* Borde redondeado */
-    transition: background-color 0.3s ease; /* TransiciÃ³n suave */
+    transition: background-color 0.3s ease; /* Transición suave */
 }
 
 .custom-select .select-selected:hover {
@@ -358,7 +360,7 @@ button svg {
 .custom-select .select-items div {
     /* Estilos para las opciones */
     padding: 10px 15px; /* Ajusta el espaciado interno */
-    transition: background-color 0.3s ease; /* TransiciÃ³n suave */
+    transition: background-color 0.3s ease; /* Transición suave */
 }
 
 .custom-select .select-items div:hover {
@@ -376,7 +378,7 @@ select {
   border: none;
   border-radius: 5px;
   padding: 0 20px 0 45px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   background: #f3f3f3eb;
   color: #013E6A;
   font-family: 'Quicksand', sans-serif;
@@ -387,7 +389,7 @@ select {
 /* Estilos al enfocar el elemento select */
 select:focus {
     /* Borde */ 
-    /* Elimina el estilo de selecciÃ³n nativo */
+    /* Elimina el estilo de selección nativo */
     outline: none;
 }
 
@@ -424,7 +426,7 @@ select:focus {
 .registro-item {
   border: 1px solid #013E6A; /* Marco de 1px de grosor y color gris claro */
   padding: 10px; /* Espaciado interior de 10px */
-  font-size: 12px; /* TamaÃ±o de fuente de 12px */
+  font-size: 12px; /* Tamaño de fuente de 12px */
   margin-bottom: 10px; /* Margen inferior de 10px */
   border-radius: 8px; /* Esquinas ligeramente ovaladas */
 }
@@ -432,7 +434,7 @@ select:focus {
 .registro-item {
   border: 1px solid #013E6A; /* Marco de 1px de grosor y color gris claro */
   padding: 10px; /* Espaciado interior de 10px */
-  font-size: 12px; /* TamaÃ±o de fuente de 12px */
+  font-size: 12px; /* Tamaño de fuente de 12px */
   margin-bottom: 10px; /* Margen inferior de 10px */
   border-radius: 8px; /* Esquinas ligeramente ovaladas */
 }
@@ -452,7 +454,7 @@ select:focus {
   }
 
 .dropdown-title{
-  color: rgb(37, 150, 190);
+  color: #0271CD;
   padding: 10px 15px
   }
   #loader {
@@ -496,9 +498,9 @@ select:focus {
 
 .table-custom td {
   border: 0px solid #ffffff00;
-  text-align: center; /* Esto alinearÃ¡ el contenido horizontalmente */
-  vertical-align: bottom; /* Esto alinearÃ¡ el contenido verticalmente hacia abajo */
-  padding: 8px; /* Ajusta el padding segÃºn sea necesario */
+  text-align: center; /* Esto alineará el contenido horizontalmente */
+  vertical-align: bottom; /* Esto alineará el contenido verticalmente hacia abajo */
+  padding: 8px; /* Ajusta el padding según sea necesario */
 }
 
 .contenedorhome {
@@ -519,7 +521,7 @@ select:focus {
 }
 
 #adminPanel {
-  width: 370px;
+  width: 30px;
   max-width: 370px;
   max-height: 90%;
   border-radius: 10px;
@@ -541,9 +543,6 @@ select:focus {
   color: rgb(37, 150, 190);
   padding: 0px 25px;
 }
-
-
-
 
 
 
@@ -587,13 +586,13 @@ select:focus {
   display: none; /* Ocultar por defecto */
 }
 
-/* Estilo para las filas de detalle cuando estÃ¡n abiertas */
+/* Estilo para las filas de detalle cuando están abiertas */
 .detalle.abierto {
   display: table-row; /* Mostrar como fila de tabla */
 }
 
 
-/* Estilos para las filas de las tablas mÃ¡s pequeÃ±as */
+/* Estilos para las filas de las tablas más pequeñas */
 
 /* Estilos para las celdas */
 th, td {
@@ -602,22 +601,39 @@ th, td {
   padding: 8px;
 }
 
-.tablaporcada{
-  width: 100%;
+.calle-box .tablaporcada{
+  width: 280px;
+  color: black;
+  background-color: #013e6a27;
+  content: "\002B" !important; /* Código Unicode para el signo de más (+) */
 }
 
-.fila-roja {
+.calle-box summary::before {
+  content: "\002B" !important; /* Código Unicode para el signo de más (+) */
+  display: inline-block;
+  margin-right: 0.5em; /* Espacio entre el icono y el texto */
+  color: #013E6A; /* Color del icono */
+}
+
+.calle-box details[open] > summary::before {
+  content: "\2212" !important; /* Código Unicode para el signo de menos (-) */
+  color: #013E6A; /* Color del icono cuando el detalle está abierto */
+}
+
+
+.calle-box .fila-roja {
   color: red;
-  width: 100%;  
-  font-weight: bold; /* Agregar negrita */
+  width: 275px;
+  font-weight: bold;
   background: rgba(255, 0, 0, 0.232);
 }
 
+
 .fila-roja2 {
   color: red;
-  width: 100%;  
+  width: 275px;  
   font-weight: bold; /* Agregar negrita */
-  content: "\f06a"; /* CÃ³digo Unicode del icono de alerta */
+  content: "\f06a"; /* Código Unicode del icono de alerta */
   margin-right: 5px; /* Espacio entre el icono y el texto */
 }
 
@@ -663,13 +679,13 @@ th, td {
 }
 
 .calle-registros{
-  width: 380px;
+  width: 295px;
   position: center;
   overflow: hidden;
   left: 50%; /* Establece el 50% del ancho del viewport */
   background: #fff;
   display: grid;
-  margin: 15px; /* Agregar margen */
+  margin: 0px; /* Agregar margen */
   overflow: hidden;
   bottom: 0;
   border: none; 
@@ -699,23 +715,20 @@ th, td {
   bottom: 0;
 }
 
-.calle-box{
-  border: none; 
-}
 
 
 /* Estilo para el icono de abrir */
 summary::before {
-  content: "\002B" !important; /* CÃ³digo Unicode para el signo de mÃ¡s (+) */
+  content: "\002B" !important; /* Código Unicode para el signo de más (+) */
   display: inline-block;
   margin-right: 0.5em; /* Espacio entre el icono y el texto */
-  color: #013E6A;
+  color: rgb(37, 150, 190);
 }
 
 /* Estilo para el icono de cerrar */
 details[open] > summary::before {
-  content: "\2212" !important; /* CÃ³digo Unicode para el signo de menos (-) */
-  color: #013E6A;
+  content: "\2212" !important; /* Código Unicode para el signo de menos (-) */
+  color: rgb(37, 150, 190);
 }
 
 summary {
@@ -733,7 +746,7 @@ summary::before {
   max-width: 370px;
   height: 700px;
   max-height: 100%;
-  background: linear-gradient(to bottom, rgb(255, 255, 255) 75%, #013E6A); /* Degradado de arriba hacia abajo */
+  background: linear-gradient(to bottom, rgb(255, 255, 255) 85% , #013E6A); /* Degradado de arriba hacia abajo */
   border-radius: 10px 10px 10px 10px;
   position: absolute;
   bottom: 0;
@@ -758,7 +771,7 @@ summary::before {
   cursor: pointer;
   font-size: 14px;
   text-decoration: underline;
-  margin-top: 0px; /* Ajusta el margen superior segÃºn sea necesario */
+  margin-top: 0px; /* Ajusta el margen superior según sea necesario */
   height: 15px;
 }
 
@@ -769,7 +782,7 @@ summary::before {
   cursor: pointer;
   font-size: 14px;
   text-decoration: underline;
-  margin-top: 0px; /* Ajusta el margen superior segÃºn sea necesario */
+  margin-top: 0px; /* Ajusta el margen superior según sea necesario */
   height: 15px;
 
 }
@@ -790,11 +803,11 @@ summary::before {
 .tituloavdp {
   margin-top: 0;
   text-align: center;
-  color: #0178d2;
+  color: #0271CD;
 }
 
 .contenedoradmin{
-  width: 420px;
+  width: 320px;
   max-width: 95%;
   max-height: 90%;
   border-radius: 10px 10px 10px 10px;
@@ -811,13 +824,151 @@ summary::before {
 }
 
 .tituloavisos{
-  color:  #0178d2;
+  color:  #0271CD;
 }
 
 
 
-.option-seleccionada {
-  color: red;
+.encabezado {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.encabezado img {
+	max-width: 40%; /* Asegura que la imagen no sobrepase su contenedor */
+	height: auto;
+}
+
+/* Estilo base para el summary dentro de un .calle-boxss */
+.calle-boxss summary {
+  cursor: pointer;
+  outline: none; /* Elimina el contorno predeterminado en algunos navegadores */
+  background-color: #013E6A;
+  width: 380px;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  padding: 10px;
+}
+
+.calle-box summary{
+  cursor: pointer;
+  outline: none; /* Elimina el contorno predeterminado en algunos navegadores */
+  background-color: #013E6A;
+  width: 300px;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+  padding: 5px; 
+  margin-bottom: 10px; /* Agrega margen inferior de 10px entre los elementos */
+}
+
+.tablaporcada2 {
+  width: 380px;
+  color: black;
+  background-color: #00000002;
+}
+
+.tablaporcada {
+  width: 380px;
+  color: black;
+  background-color: #00000002;
+}
+
+.registro-itemss {
+  color: black;
+  border: 1px solid #013E6A; /* Marco de 1px de grosor y color gris claro */
+  padding: 5px; /* Espaciado interior de 10px */
+  font-size: 12px; /* Tamaño de fuente de 12px */
+  margin-bottom: 10px; /* Margen inferior de 10px */
+  border-radius: 8px; /* Esquinas ligeramente ovaladas */
+  width: 350px;
+}
+
+.calle-registrosss{
+  width: 100%;
+  position: center;
+  overflow: hidden;
+  left: 40%; /* Establece el 50% del ancho del viewport */
+  background: #fff;
+  overflow: hidden;
+  bottom: 0;
+  border: none; 
+  padding: 10px;
+  font-size: 12px;
+}
+
+.header2{
+  margin-bottom: 40px;
+  text-align: center; /* Centra el texto horizontalmente */
+}
+
+
+#busqueda-domicilio {
+  padding: 5px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease-in-out;
+  font-size: 12px;
+
+}
+
+#busqueda-domicilio:focus {
+  outline: none;
+  border-color: #007bff; /* Cambia el color del borde al enfocar el campo */
+}
+
+.seguridad{
+  width: 280px;
+  max-width: 95%;
+  max-height: 90%;
+  border-radius: 10px 10px 10px 10px;
+  position: center;
+  overflow: hidden;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  background: #fff;
+  min-height: 10vh;
+  display: grid;
+  margin: 10px; /* Agregar margen */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  bottom: 0;
+}
+
+.row2{
+  width: 380px;
+  display: flex;
+  justify-content: space-between;
+  justify-content: flex-start;
+  /* align-items: flex-start; */
+  align-items: center;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.columna-izquierda3 {
+  text-align: center; /* Centra horizontalmente el contenido */
+}
+
+.columna-izquierda3 img {
+  max-width: 36%; /* Tamaño máximo para la imagen */
+  margin-left: auto; /* Auto-margen a la izquierda */
+  margin-right: auto; /* Auto-margen a la derecha */
+}
+
+.header3{
+  text-align: center; /* Centra el texto horizontalmente */
 }
 
 #divpagos {
