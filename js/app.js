@@ -520,6 +520,8 @@ formulario.addEventListener("submit", (e) => {
                                     });
                             }
                             
+
+
                             function toggleMisReservas() {
                                 console.log("actualizándose")
                                 const domicilio = domicilioSpan.textContent;
@@ -528,7 +530,7 @@ formulario.addEventListener("submit", (e) => {
                                     .then((data) => {
                                         console.log(domiciliocod);
                                         // Filtrar los registros que coinciden con domicilioSpan
-                                        const registrosFiltrados = data.filter((registro) => registro.dom.startsWith(domiciliocod));
+                                        const registrosFiltrados = data.filter((registro) => registro.dom && registro.dom.startsWith(domiciliocod));
                                         console.log(registrosFiltrados);
                                         // Procesar los datos filtrados y agregarlos a los contenedores de calle
                                         agregarRegistros("divmisreservas", registrosFiltrados);
@@ -910,7 +912,7 @@ formulario.addEventListener("submit", (e) => {
                                             fechapago: fechaPagoSpan,
                                             monto: montoPagoSpan,
                                             concepto: conceptodelpagoPagoSpan,
-                                            aplicarpara : mesPagoSelect,
+                                            aplicarpara : selectedOptions,
                                             clavederastreo : clavederastreoSpan,
                                         };
         
@@ -933,9 +935,6 @@ formulario.addEventListener("submit", (e) => {
                                                 console.error("Error al enviar los datos a la hoja de cálculo", error);
                                             });
                                     }
-
-                                    timer = setTimeout(activarBoton, tiempoEspera);
-
                                 }
                             }
                             
@@ -1715,5 +1714,6 @@ function eliminarRegistro(domcodificado){
         return null; // O maneja el error de alguna otra manera
     }
 }
+
 
 
