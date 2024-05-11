@@ -1385,7 +1385,7 @@ function generarTabla(contenedorId, data) {
                 const claseFila2 = fila.status === "Moroso" ? "fila-roja2" : "tablaporcada2";
 
                 tablaHTML += `<tr>`;
-                tablaHTML += `<td><details><summary class="${claseFila2}">${calle}</summary>`;    
+                tablaHTML += `<td><details><summary class="${claseFila}">${calle}</summary>`;    
                 tablaHTML += `<table class="${claseFila}" border="0">`;    
                 tablaHTML += '<tr>';
                 tablaHTML += `<tr><td>Residente</td><td><input class="datostext" type="text" value="${clienteComillas}" onchange="actualizarDato(this.value, 'Cliente', '${domcodificado}')"></td></tr>`;
