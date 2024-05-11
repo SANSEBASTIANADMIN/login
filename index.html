@@ -396,26 +396,28 @@
 						<li>
 						</li>
 					</ul>
-				</details>			
+				</details>	
+				
 				<details id="divreservar" class="dropdown">
 					<summary class="dropdown-title">Realizar reservación</summary>
 					<div class="dropdown-content">
 						<div class="contenedorformulario">
 							<div class="contenedor">
-								<label for="fechadereserva">Seleccionar fecha:</label>
-								<input class="input" type="date" id="fechareserva" placeholder="Ingresa fecha" required></input>
-								<label for="horaInicio">Hora de inicio:</label>
-								<input class="input" type="time" id="horaInicio" name="horaInicio" required>
-								<label for="horaFin">Hora de fin:</label>
-								<input class="input" type="time" id="horaFin" name="horaFin" required>
 								<label>¿Qué deseas reservar?</label>
-								<select id="tiporeserva" required>
+								<select id="tiporeserva" required onchange="actualizarHoras()">
 									<option value="">Tipo de reservación</option>
 									<option value="Casa Club">Casa Club</option>
 									<option value="Asador">Asador</option>
 									<option value="Alberca">Alberca</option>
 								</select>
-								<div class="btnreservar" id="confirmarreserca" >	
+								<label for="fechadereserva">Seleccionar fecha:</label>
+								<input class="input" type="date" id="fechareserva" placeholder="Ingresa fecha" required>
+								<label for="horaInicio">Hora de inicio:</label>
+								<input class="input" type="time" id="horaInicio" name="horaInicio" required>
+								<label for="horaFin">Hora de fin:</label>
+								<input class="input" type="time" id="horaFin" name="horaFin" required>
+								<p> </p>
+								<div class="btnreservar" id="confirmarreserca" >    
 									<button type="submit" id="btnparaconfirmarreserca" class="btn">
 										Enviar solicitud
 									</button>
@@ -423,7 +425,7 @@
 							</div>
 						</div>
 					</div>
-				</details>					
+				</details>										
 				<details id="misreservsas" class="dropdown">
 					<summary class="dropdown-title">Mis Reservaciones</summary>
 					<div class="dropdown-content" id="divmisreservas">

@@ -5,12 +5,6 @@ const inicio = document.getElementById("inicio");
 const propietarioSpan = document.getElementById("propietario");
 const domicilioSpan = document.getElementById("domicilio");
 const correoSpan = document.getElementById("correo"); // Agregado el span para mostrar el correo
-const tag1Span = document.getElementById("tag1");
-const tag2Span = document.getElementById("tag2");
-const tag3Span = document.getElementById("tag3");
-const tag4Span = document.getElementById("tag4");
-const tag5Span = document.getElementById("tag5");
-const tag6Span = document.getElementById("tag6");
 const statusSpan = document.getElementById("status");
 const ene2024Span = document.getElementById("ene2024");
 const feb2024Span = document.getElementById("feb2024");
@@ -38,6 +32,12 @@ const nov2023Span = document.getElementById("nov2023");
 const dic2023Span = document.getElementById("dic2023");
 const selectYear = document.getElementById("selectYear"); 
 const tags = document.getElementById("tags");
+const tag1Span = document.getElementById("tag1");
+const tag2Span = document.getElementById("tag2");
+const tag3Span = document.getElementById("tag3");
+const tag4Span = document.getElementById("tag4");
+const tag5Span = document.getElementById("tag5");
+const tag6Span = document.getElementById("tag6");
 const paymentHistory2024 = document.getElementById("paymentHistory2024");
 const homepage = document.getElementById("homepage");
 const botones = document.getElementById("botones");
@@ -70,6 +70,8 @@ const namevisita3Span = document.getElementById("namevisita3");
 const fechavisita3Span = document.getElementById("fechavisita3");
 const domdvisistaSpan = document.getElementById("domdvisista");
 const divpagocargado = document.getElementById("pagocargado");
+const divseguridad = document.getElementById("seguridad");
+const sheetID = "f0115907-7bd6-484a-b9be-a5e10b4fe3bd";
 
 
 
@@ -113,8 +115,9 @@ formulario.addEventListener("submit", (e) => {
         // Redirigir a la página deseada
         window.location.href = "index2.html";
     } else {
-        fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
-            //actualización
+        const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
+        fetch(urlProp)
+             //actualización
             .then((response) => response.json())
             .then((data) => {
 
@@ -144,53 +147,27 @@ formulario.addEventListener("submit", (e) => {
                             const domicilio = atob(data[indice].dom); // Accede directamente al domicilio en lugar de usar map
                             const domiciliocod = data[indice].dom; // Accede directamente al domicilio en lugar de usar map
 
+                            const status = data[indice].status;
+                            const statuscod = data[indice].status;      
+                            
                             const tag1 = atob(data[indice].tag1);
                             const tag2 = atob(data[indice].tag2);
                             const tag3 = atob(data[indice].tag3);
                             const tag4 = atob(data[indice].tag4);
                             const tag5 = atob(data[indice].tag5);
                             const tag6 = atob(data[indice].tag6);
-                            const status = data[indice].status;
-                            const statuscod = data[indice].status;
 
-                            ene2023Span.textContent = (data[indice].ene2023);
-                            feb2023Span.textContent = (data[indice].feb2023);
-                            mar2023Span.textContent = (data[indice].mar2023);
-                            abr2023Span.textContent = (data[indice].abr2023);
-                            may2023Span.textContent = (data[indice].may2023);
-                            jun2023Span.textContent = (data[indice].jun2023);
-                            jul2023Span.textContent = (data[indice].jul2023);
-                            ago2023Span.textContent = (data[indice].ago2023);
-                            sep2023Span.textContent = (data[indice].sep2023);
-                            oct2023Span.textContent = (data[indice].oct2023);
-                            nov2023Span.textContent = (data[indice].nov2023);
-                            dic2023Span.textContent = (data[indice].dic2023);
-                            ene2024Span.textContent = (data[indice].ene2024);
-                            feb2024Span.textContent = (data[indice].feb2024);
-                            mar2024Span.textContent = (data[indice].mar2024);
-                            abr2024Span.textContent = (data[indice].abr2024);
-                            may2024Span.textContent = (data[indice].may2024);
-                            jun2024Span.textContent = (data[indice].jun2024);
-                            jul2024Span.textContent = (data[indice].jul2024);
-                            ago2024Span.textContent = (data[indice].ago2024);
-                            sep2024Span.textContent = (data[indice].sep2024);
-                            oct2024Span.textContent = (data[indice].oct2024);
-                            nov2024Span.textContent = (data[indice].nov2024);
-                            dic2024Span.textContent = (data[indice].dic2024);
-                            
-
-                            propietarioSpan.textContent = cliente;
-                            domicilioSpan.textContent = domicilio;
-                            domdvisistaSpan.textContent = domicilio;
-
-
-                            correoSpan.textContent = usuarioInput; // Muestra el correo ingresado
                             tag1Span.textContent = tag1;
                             tag2Span.textContent = tag2;
                             tag3Span.textContent = tag3;
                             tag4Span.textContent = tag4;
                             tag5Span.textContent = tag5;
                             tag6Span.textContent = tag6;
+
+                            propietarioSpan.textContent = cliente;
+                            domicilioSpan.textContent = domicilio;
+                            domdvisistaSpan.textContent = domicilio;
+                            correoSpan.textContent = usuarioInput; // Muestra el correo ingresado
                             statusSpan.textContent = status;
 
                             homepage.style.display = "none";
@@ -228,19 +205,7 @@ formulario.addEventListener("submit", (e) => {
                             document.getElementById("btnrecibooct2024").addEventListener("click", generarrecibopdf);
                             document.getElementById("btnrecibonov2024").addEventListener("click", generarrecibopdf);
                             document.getElementById("btnrecibodic2024").addEventListener("click", generarrecibopdf);
-                            document.getElementById("btnreciboene2023").addEventListener("click", generarrecibopdf);
-                            document.getElementById("btnreciboene2023").addEventListener("click", generarrecibopdf);
-                            document.getElementById("btnrecibofeb2023").addEventListener("click", generarrecibopdf);
-                            document.getElementById("btnrecibomar2023").addEventListener("click", generarrecibopdf);
-                            document.getElementById("btnreciboabr2023").addEventListener("click", generarrecibopdf);
-                            document.getElementById("btnrecibomay2023").addEventListener("click", generarrecibopdf);
-                            document.getElementById("btnrecibojun2023").addEventListener("click", generarrecibopdf);
-                            document.getElementById("btnrecibojul2023").addEventListener("click", generarrecibopdf);
-                            document.getElementById("btnreciboago2023").addEventListener("click", generarrecibopdf);
-                            document.getElementById("btnrecibosep2023").addEventListener("click", generarrecibopdf);
-                            document.getElementById("btnrecibooct2023").addEventListener("click", generarrecibopdf);
-                            document.getElementById("btnrecibonov2023").addEventListener("click", generarrecibopdf);
-                            document.getElementById("btnrecibodic2023").addEventListener("click", generarrecibopdf);
+
                             document.getElementById("borrardatos").addEventListener("click", borrarElementos);
 
                             var boton = document.getElementById("btnparaconfirmarreserca");                            
@@ -259,7 +224,7 @@ formulario.addEventListener("submit", (e) => {
                                 dom: domiciliocod,
                             };
                             
-                            const urlregistro = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/registros";
+                            const urlregistro = `https://sheet.best/api/sheets/${sheetID}/tabs/registros`;
                             const opciones = {
                                 method: "POST",
                                 headers: {
@@ -303,8 +268,9 @@ formulario.addEventListener("submit", (e) => {
                                 segurichat.style.display = "none";
                                 divregreso.style.display = "block";
                                 console.log(indice);
-                            
-                                fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
+
+                                const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
+                                fetch(urlProp)
                                     .then((response) => response.json())
                                     .then((data) => {
                                         ene2024Span.textContent = (data[indice].ene2024);
@@ -322,6 +288,7 @@ formulario.addEventListener("submit", (e) => {
                                         console.log("Pagos actualizados");
                                     });
                             }
+                            
 
                             function generarrecibopdf() {
                                 // Obtener la fila correspondiente al botón clicado
@@ -396,7 +363,7 @@ formulario.addEventListener("submit", (e) => {
                                     doc.text(text, 10, 65, { align: 'justify', maxWidth: 190 });
                                     
                                     doc.setTextColor(1, 120, 210); // RGB para el color hexadecimal 0178d2
-                                    doc.text("Atentamente: La Mesa Directiva de Privada San Sebastian", 10, 100);
+                                    doc.text("Atentamente: La Mesa Directiva de Privada Santa Cecilia.", 10, 100);
                                     
                                     var imgData = 'Fraccify.png'; // Reemplaza esto con la URL de tu imagen
                                     doc.addImage(imgData, 'JPEG', 10, 10, 30, 30); // Ajusta las coordenadas y el tamaño según sea necesario
@@ -405,6 +372,7 @@ formulario.addEventListener("submit", (e) => {
                                     doc.save("recibo_" + mes.toLowerCase() + "_" + año + ".pdf");
                                 }
                             } 
+                            
 
                             function registrarReserva() {
 
@@ -443,7 +411,7 @@ formulario.addEventListener("submit", (e) => {
                                                     
                                 if (statuscod === "Al Corriente") {
                                     
-                                    const url = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/reservaciones";
+                                    const url = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones`;
                                     const opciones = {
                                         method: "POST",
                                         headers: {
@@ -495,7 +463,7 @@ formulario.addEventListener("submit", (e) => {
                             }
                             
                             function verificarDisponibilidad(fecha, tiporeserva) {
-                                const url = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/reservaciones";
+                                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones`;
                                 
                                 // Realizar una consulta para obtener los registros en la misma fecha y amenidad
                                 return fetch(url)
@@ -521,11 +489,11 @@ formulario.addEventListener("submit", (e) => {
                             }
                             
 
-
                             function toggleMisReservas() {
                                 console.log("actualizándose")
                                 const domicilio = domicilioSpan.textContent;
-                                fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/reservaciones")
+                                const urlmisreservas = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones`
+                                fetch(urlmisreservas)
                                     .then((response) => response.json())
                                     .then((data) => {
                                         console.log(domiciliocod);
@@ -538,6 +506,97 @@ formulario.addEventListener("submit", (e) => {
                                     .catch((error) => {
                                         console.error(error);
                                     });
+                            }
+                            
+                            function confirmacionvyp() {
+                                if (boton2.disabled) {
+                                    return; // Evitar ejecutar la función si ya está en curso
+                                }
+                                desactivarBoton(); // Desactivar el botón al inicio de la función
+                            
+                                confirmacion.style.display = "none";
+                                divqr.style.display = "block";  
+                                datoscorrectosvisitas.style.display = "block"; 
+                                divnuevoregistro.style.display = "block";
+                                divregreso.style.display = "block";
+                                const domicilio = domicilioSpan.textContent;
+                                const propietario = propietarioSpan.textContent;
+                                const namevisitaSpan = document.getElementById("namevisita").value;
+                                const fechavisitaSpan = document.getElementById("fechavisita").value;
+                                const fechaHoraActual = new Date();
+                                const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+                            
+                                const propietarioAbreviado = propietario.slice(0, 2).toUpperCase();
+                                const domicilioAbreviado = domicilio.slice(0, 2).toUpperCase();
+                                const namevisitaAbreviado = namevisitaSpan.slice(0, 2).toUpperCase();
+                                const fechaSinEspacios = fechavisitaSpan.replace(/\s/g, ''); // Eliminar espacios de la fecha
+                                const fechaHoraRegistroSinEspacios = fechaHoraFormateada.replace(/\s/g, ''); // Eliminar espacios de la fechaHoraRegistro
+                                const idUnico = `${propietarioAbreviado}${domicilioAbreviado}${namevisitaAbreviado}${fechaSinEspacios}${fechaHoraRegistroSinEspacios}`;
+                                console.log(idUnico);
+                            
+                                const tipoSpan = document.getElementById("tipo").value;
+                                console.log(domicilio, propietario, namevisitaSpan, tipoSpan, fechavisitaSpan);
+                            
+                                const datos = {
+                                    propietario: clientecod,
+                                    domicilio: domiciliocod,
+                                    namevisita: namevisitaSpan,
+                                    fecha: fechavisitaSpan,
+                                    tipo: tipoSpan,
+                                    fechaHoraRegistro: fechaHoraFormateada,
+                                    idunico: idUnico,
+                                };
+                            
+                                const qrData = {
+                                    Casa: domicilio,
+                                    Nombre: namevisitaSpan,
+                                    Fecha: fechavisitaSpan,
+                                    Tipo: tipoSpan,
+                                };
+                            
+                                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/visitas`;
+                            
+                                const opciones = {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify(datos)
+                                };
+                            
+                                // Enviar los datos a la hoja de cálculo
+                                fetch(url, opciones)
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        // Alerta de éxito después de enviar los datos
+                                        alert("Tu solicitud para el ingreso de " + namevisitaSpan + " el " + fechavisitaSpan + " fue enviada");
+                            
+                                        // Generar el contenido para el QR
+                                        const qrContent = JSON.stringify(qrData);
+                                        
+                                        // Clonar qrElement para evitar problemas de agregar un elemento ya existente
+                                        const qrElementClone = qrElement.cloneNode(true);
+                            
+                                        // Generar el código QR y mostrarlo en la página
+                                        new QRCode(qrElementClone, qrContent);
+                            
+                                        // Obtener el contenedor donde se desea agregar el código QR
+                                        const contenedorQR = document.getElementById('qrElement');
+                            
+                                        // Limpiar el contenedor antes de agregar el código QR clonado
+                                        contenedorQR.innerHTML = '';
+                            
+                                        // Agregar el código QR al contenedor
+                                        contenedorQR.appendChild(qrElementClone);
+                            
+                                        // Llamar a las funciones para borrar elementos y regresar
+                                        //borrarElementos();
+                                        //regresar();
+                                    })
+                                    .catch((error) => {
+                                        console.error("Error al enviar los datos a la hoja de cálculo", error);
+                                    });
+                                timer = setTimeout(activarBoton, tiempoEspera);
                             }
                             
                             
@@ -573,7 +632,7 @@ formulario.addEventListener("submit", (e) => {
                                 
                             function eliminarreservacion(amenidad, fecha, domiciliocod) {
                                 // Obtener la URL de la API
-                                const apiURL = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/reservaciones";
+                                const apiURL = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones`;
                                 
                                 // Realizar una solicitud GET para obtener los datos de la hoja de cálculo
                                 fetch(apiURL)
@@ -646,6 +705,7 @@ formulario.addEventListener("submit", (e) => {
 
                                 const contenedorCalendario = document.getElementById("contenedorCalendario");
                                 const calendarioIframe = document.createElement("iframe");
+
                                 calendarioIframe.setAttribute("src", "https://calendar.google.com/calendar/embed?src=37177ba39d333f7ac9edfc4ae9571b75e2562da9e2887771191bab6db82b5aee%40group.calendar.google.com&ctz=America%2FMexico_City");
                                 calendarioIframe.setAttribute("style", "border: 0");
                                 calendarioIframe.setAttribute("width", "800");
@@ -671,95 +731,9 @@ formulario.addEventListener("submit", (e) => {
                                 divamenidades.style.display = "none";
                                 borrarElementos();
                             }
-                            
-                            
-                            function confirmacionvyp() {
-                                if (boton2.disabled) {
-                                    return; // Evitar ejecutar la función si ya está en curso
-                                }
-                                desactivarBoton(); // Desactivar el botón al inicio de la función
-
-                                confirmacion.style.display = "none";
-                                divqr.style.display = "block";  
-                                datoscorrectosvisitas.style.display = "block"; 
-                                divnuevoregistro.style.display = "block";
-                                divregreso.style.display = "block";
-                                const domicilio = domicilioSpan.textContent;
-                                const propietario = propietarioSpan.textContent;
-                                const namevisitaSpan = document.getElementById("namevisita").value;
-                                const fechavisitaSpan = document.getElementById("fechavisita").value;
-                                const fechaHoraActual = new Date();
-                                const fechaHoraFormateada = fechaHoraActual.toLocaleString();
-                            
-                                const propietarioAbreviado = propietario.slice(0, 2).toUpperCase();
-                                const domicilioAbreviado = domicilio.slice(0, 2).toUpperCase();
-                                const namevisitaAbreviado = namevisitaSpan.slice(0, 2).toUpperCase();
-                                const fechaSinEspacios = fechavisitaSpan.replace(/\s/g, ''); // Eliminar espacios de la fecha
-                                const fechaHoraRegistroSinEspacios = fechaHoraFormateada.replace(/\s/g, ''); // Eliminar espacios de la fechaHoraRegistro
-                                const idUnico = `${propietarioAbreviado}${domicilioAbreviado}${namevisitaAbreviado}${fechaSinEspacios}${fechaHoraRegistroSinEspacios}`;
-                                console.log(idUnico)
-
 
                             
-                                const tipoSpan = document.getElementById("tipo").value;
-                                console.log(domicilio, propietario, namevisitaSpan, tipoSpan, fechavisitaSpan, tipoSpan);
-                            
-                                const datos = {
-                                    propietario: clientecod,
-                                    domicilio: domiciliocod,
-                                    namevisita: namevisitaSpan,
-                                    fecha: fechavisitaSpan,
-                                    tipo: tipoSpan,
-                                    fechaHoraRegistro: fechaHoraFormateada,
-                                    idunico: idUnico,
-                                };
-                            
-                                const qrData = {
-                                    Casa: domicilio,
-                                    Nombre: namevisitaSpan,
-                                    Fecha: fechavisitaSpan,
-                                    Tipo: tipoSpan,
-                                };
-                            
-                                const url = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/visitas";
-                            
-                                const opciones = {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify(datos)
-                                };
-                            
-                                // Enviar los datos a la hoja de cálculo
-                                fetch(url, opciones)
-                                    .then((response) => response.json())
-                                    .then((data) => {
-                                        // Alerta de éxito después de enviar los datos
-                                        alert("Tu solicitud para el ingreso de " + namevisitaSpan + " el " + fechavisitaSpan + " fue enviada");
-                                        
-                                        // Generar el contenido para el QR
-                                        const qrContent = JSON.stringify(qrData);
-                                        
-                                        // Generar el código QR y mostrarlo en la página
-                                        new QRCode(qrElement, qrContent);
-                                        
-                                        // Obtener el contenedor donde se desea agregar el código QR
-                                        const contenedorQR = document.getElementById('qrElement');
-                                        
-                                        // Agregar el código QR al contenedor
-                                        contenedorQR.appendChild(qrElement);
-                            
-                            
-                                        // Llamar a las funciones para borrar elementos y regresar
-                                        //borrarElementos();
-                                        //regresar();
-                                    })
-                                    .catch((error) => {
-                                        console.error("Error al enviar los datos a la hoja de cálculo", error);
-                                    });
-                                timer = setTimeout(activarBoton, tiempoEspera);
-                            }
+
                             
                             function borrarElementos() {
                                 const namevisita2Span = document.getElementById("namevisita2");
@@ -837,32 +811,32 @@ formulario.addEventListener("submit", (e) => {
                                     alert("Domicilio con adeudo, actualmente no tiene derecho al ingreso de visitas o proveedores");
                                 }
                             }
-
-
                             function enviardatospago() { 
 
                                 if (boton3.disabled) {
                                     return; // Evitar ejecutar la función si ya está en curso
                                 }
                                 desactivarBoton(); // Desactivar el botón al inicio de la función
+                                let fechaPagoSpan = document.getElementById("fechaPago").textContent;
+                                let montoPagoSpan = document.getElementById("montoPago").textContent;
+                                let beneficiarioPagoSpan = document.getElementById("beneficiarioPago").textContent;
+                                let conceptodelpagoPagoSpan = document.getElementById("conceptodelpago").textContent;
+                                let clavederastreoSpan = document.getElementById("clavederastreo").textContent;
+                                let fechaHoraActual = new Date();
+                                let fechaHoraFormateada = fechaHoraActual.toLocaleString();
+                                let mesPagoSelect = document.getElementById("mespago").value;
+                                const inputArchivo = document.getElementById("archivo");
 
-
-                                const fechaPagoSpan = document.getElementById("fechaPago").textContent;
-                                const montoPagoSpan = document.getElementById("montoPago").textContent;
-                                const beneficiarioPagoSpan = document.getElementById("beneficiarioPago").textContent;
-                                const conceptodelpagoPagoSpan = document.getElementById("conceptodelpago").textContent;
-                                const clavederastreoSpan = document.getElementById("clavederastreo").textContent;
-                                const fechaHoraActual = new Date();
-                                const fechaHoraFormateada = fechaHoraActual.toLocaleString();
-                                const mesPagoSelect = document.getElementById("mespago").value;
                                 
                                 // Verificar si el pago ya ha sido aplicado
 
-                                const urlVerificacion = `https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/pagos/clavederastreo/${encodeURIComponent(clavederastreoSpan)}`;
+                                const urlVerificacion = `https://sheet.best/api/sheets/${sheetID}/tabs/pagos/clavederastreo/${encodeURIComponent(clavederastreoSpan)}`;
                                 console.log(urlVerificacion);
-                                
+
                                 if (mesPagoSelect=== "") {
                                     alert("Debe selecionar el mes al que desea que se aplique su pago")
+                                    timer = setTimeout(activarBoton, tiempoEspera);
+
                                 } else {
                                     fetch(urlVerificacion)
                                         .then((response) => response.json())
@@ -870,38 +844,43 @@ formulario.addEventListener("submit", (e) => {
                                             console.log(data)
                                             console.log(data.length)
 
-
                                             if (data.length > 0) {
                                                 // Pago ya registrado, mostrar alerta
                                                 alert("Este comprobante ya no se puede volver a ocupar");
+                                                timer = setTimeout(activarBoton, tiempoEspera);
+
 
                                                 document.getElementById("fechaPago").value = "";
                                                 document.getElementById("montoPago").value = "";
                                                 document.getElementById("beneficiarioPago").value = "";
                                                 document.getElementById("conceptodelpago").value = "";
                                                 document.getElementById("clavederastreo").value = "";
-                                                divpagocargado.style.display = "none";
+                                                inputArchivo.value = "";
 
+                                                divpagocargado.style.display = "none";
 
                                             } else {
                                                 // Pago no registrado, proceder a enviar los datos
+                                                grabarpago();
                                                 enviarDatos();
 
-                                                alert("Tu pago fue enviado, se procedera a su revisión y aplicación")
+                                                alert("Pago por " + montoPagoSpan +" aplicado a " + mesPagoSelect)
+
+
+                                                
                                                 document.getElementById("fechaPago").value = "";
                                                 document.getElementById("montoPago").value = "";
                                                 document.getElementById("beneficiarioPago").value = "";
                                                 document.getElementById("conceptodelpago").value = "";
                                                 document.getElementById("clavederastreo").value = "";
                                                 divpagocargado.style.display = "none";
-
-
+                                                timer = setTimeout(activarBoton, tiempoEspera);
                                             }
                                         })
                                         .catch((error) => {
                                             console.error("Error al verificar los datos", error);
                                         });
-                            
+                                
                                     function enviarDatos() {
                                         const datos = {
                                             registro: fechaHoraFormateada,
@@ -912,12 +891,12 @@ formulario.addEventListener("submit", (e) => {
                                             fechapago: fechaPagoSpan,
                                             monto: montoPagoSpan,
                                             concepto: conceptodelpagoPagoSpan,
-                                            aplicarpara : selectedOptions,
+                                            aplicarpara : mesPagoSelect,
                                             clavederastreo : clavederastreoSpan,
                                         };
         
                                 
-                                        const url = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/pagos";
+                                        const url = `https://sheet.best/api/sheets/${sheetID}/tabs/pagos`;
                                         const opciones = {
                                             method: "POST",
                                             headers: {
@@ -935,8 +914,39 @@ formulario.addEventListener("submit", (e) => {
                                                 console.error("Error al enviar los datos a la hoja de cálculo", error);
                                             });
                                     }
+
+                                    function grabarpago(){
+
+                                        console.log("el indice es");
+                                        console.log(indice);
+
+
+                                        const pagoaplicado ={
+                                            [mesPagoSelect]: montoPagoSpan,
+                                        }
+                                        const url = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios/${indice}`;
+                                        console.log("URL:", url);
+                                        // Realizar la solicitud PATCH para actualizar los datos
+                                        fetch(url, {
+                                            method: "PATCH",
+                                            mode: "cors",
+                                            headers: {
+                                                "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify(pagoaplicado)
+                                                })
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                console.log("Pago aplicado");
+                                            })
+                                            .catch((error) => {
+                                                console.error("Error al aplicar el pago", error);
+                                        });
+                                     }
+                                                                     
                                 }
                             }
+
                             
                             function regresar() {
                                 paymentHistory2024.style.display = "none";
@@ -1270,7 +1280,6 @@ function procesarImagen(datos) {
 }
 
 
-  
 function removeSpecialCharacters(input) {
   // Reemplaza caracteres especiales y acentos con una expresión regular
   input.value = input.value.replace(/[^A-Za-z\s]/g, '');
@@ -1299,7 +1308,8 @@ document.getElementById("inicarsesionadmin").addEventListener("click", () => {
     const usuarioInput = document.getElementById("admin-username").value;
     const contraseñaInput = document.getElementById("admin-contrasena").value;
 
-    fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/admin")
+    const urlAdmin = `https://sheet.best/api/sheets/${sheetID}/tabs/admin`;
+    fetch(urlAdmin)
         .then((response) => response.json())
         .then((data) => {
             const correoCifradoInput = cifrarCorreo(usuarioInput);
@@ -1318,8 +1328,8 @@ document.getElementById("inicarsesionadmin").addEventListener("click", () => {
                     const contenedoradmin = document.getElementById("contenedoradmin");
                     contenedoradmin.style.display = "block";
                     homepage.style.display = "none";
-
-                    fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
+                    const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
+                    fetch(urlProp)
                     .then((response) => response.json())
                     .then((data) => {
 
@@ -1372,7 +1382,7 @@ function generarTabla(contenedorId, data) {
 
             // Iterar sobre las filas de la calle actual
             filasPorCalle[calle].forEach(({ fila, index }) => {
-                const domcodificado = fila.dom
+                const domcodificado = fila.dom;
                 const domDecodificado = atob(fila.dom);
                 const domComillas = domDecodificado.replace(/"/g, '');
                 const clienteDecodificado = atob(fila.Cliente);
@@ -1383,6 +1393,8 @@ function generarTabla(contenedorId, data) {
                 const passwordComillas = passwordDecodificado.replace(/"/g, '');
                 const claseFila = fila.status === "Moroso" ? "fila-roja" : "tablaporcada";
                 const claseFila2 = fila.status === "Moroso" ? "fila-roja2" : "tablaporcada2";
+                const celular = fila.cel
+
 
                 tablaHTML += `<tr>`;
                 tablaHTML += `<td><details><summary class="${claseFila}">${calle}</summary>`;    
@@ -1390,6 +1402,7 @@ function generarTabla(contenedorId, data) {
                 tablaHTML += '<tr>';
                 tablaHTML += `<tr><td>Residente</td><td><input class="datostext" type="text" value="${clienteComillas}" onchange="actualizarDato(this.value, 'Cliente', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr><td>Usuario</td><td><input class="datostext" type="text" value="${correoSinComillas}" onchange="actualizarDato(this.value, 'correo', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Celular</td><td><input class="datostext" type="tel" value="${celular}" onchange="actualizarDato(this.value, 'cel', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr><td>Contraseña</td><td><input class="datostext" type="text" value="${passwordComillas}" onchange="actualizarDato(this.value, 'password', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr>
                                 <td>Estatus</td>
@@ -1421,7 +1434,6 @@ function generarTabla(contenedorId, data) {
         });
         
         tablaHTML += '</table>';
-        
         contenedor.innerHTML = tablaHTML;
     } else {
         console.error("Error: La sesión no está iniciada");
@@ -1437,7 +1449,8 @@ function actualizarDato(valor, campo, domcodificado) {
         console.log("Campo:", campo);
         console.log("Índice:", domcodificado);
 
-        fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
+        const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
+        fetch(urlProp)
             .then((response) => response.json())
             .then((data) => {
                 const domcodificados = data.map((fila) => fila.dom);
@@ -1456,7 +1469,7 @@ function actualizarDato(valor, campo, domcodificado) {
                     [campo]: valorActualizado,
                 };
 
-                const url = `https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios/${indice}`;
+                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios/${indice}`;
                 console.log("URL:", url);
                 // Realizar la solicitud PATCH para actualizar los datos
                 fetch(url, {
@@ -1540,8 +1553,9 @@ function agregarresidente () {
         const newname = document.getElementById("new-name").value;
         const newusarname = document.getElementById("new-username").value;
         const newcontrasena = document.getElementById("new-contrasena").value;
+        const newcel = document.getElementById("new-cel").value;
 
-        if (!newname || !newusarname || !newcontrasena || !newcalle || !newnum) {
+        if (!newname || !newusarname || !newcontrasena || !newcalle || !newnum || !newcel) {
             alert("Por favor, complete todos los campos.");
             setTimeout(() => {
                 clicActivograbarnweregistro = true;
@@ -1561,7 +1575,7 @@ function agregarresidente () {
         console.log(newusarname);
         console.log(domcif);
 
-        const urlVerificacion = `https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios/dom/${(domcif)}`;
+        const urlVerificacion = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios/dom/${(domcif)}`;
         console.log(urlVerificacion);
 
         fetch(urlVerificacion)
@@ -1577,9 +1591,11 @@ function agregarresidente () {
                     dom: domcif,
                     correo: correocif,
                     password: passwordcif,
+                    status : "Al Corriente",
+                    cel: newcel,
                 };
-                const url = "https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios";
 
+                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
                 const opciones = {
                     method: "POST",
                     headers: {
@@ -1598,15 +1614,19 @@ function agregarresidente () {
                         document.getElementById("new-contrasena").value = "";
                         document.getElementById("new-calle").value = "";
                         document.getElementById("new-num").value = "";
+                        document.getElementById("new-cel").value = "";
+
 
                         setTimeout(() => {
                             clicActivograbarnweregistro = true;
                         }, 3000);
 
                         setTimeout(() => {
-                            fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
+                            const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
+                            fetch(urlProp)
                                 .then((response) => response.json())
                                 .then((data) => {
+
                                     generarTabla("alba-registros", data.filter((registro) => registro.dom.startsWith("IkFMQk")));
                                     generarTabla("caballeros-registros", data.filter((registro) => registro.dom.startsWith("IkNBQkFMTEVST")));
                                     generarTabla("esmeralda-registros", data.filter((registro) => registro.dom.startsWith("IkVTTUVSQUxEQ")));
@@ -1659,7 +1679,8 @@ function cerrarAdminPanel2() {
 
 function eliminarRegistro(domcodificado){
     if (sesionIniciada) {
-        fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
+        const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
+        fetch(urlProp)
             .then((response) => response.json())
             .then((data) => {
                 const domcodificados = data.map((fila) => fila.dom);
@@ -1668,7 +1689,7 @@ function eliminarRegistro(domcodificado){
 
                 if (indice !== -1) {
                     // Realizar la solicitud DELETE para eliminar el registro
-                    const url = `https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios/${indice}`;
+                    const url = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios/${indice}`;
                     fetch(url, {
                         method: "DELETE",
                         mode: "cors",
@@ -1679,9 +1700,12 @@ function eliminarRegistro(domcodificado){
                         alert("Registro eliminado correctamente:");
 
                         setTimeout(() => {
-                            fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
+                            const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
+                            fetch(urlProp)
                                 .then((response) => response.json())
                                 .then((data) => {
+
+
                                     generarTabla("alba-registros", data.filter((registro) => registro.dom.startsWith("IkFMQk")));
                                     generarTabla("caballeros-registros", data.filter((registro) => registro.dom.startsWith("IkNBQkFMTEVST")));
                                     generarTabla("esmeralda-registros", data.filter((registro) => registro.dom.startsWith("IkVTTUVSQUxEQ")));
@@ -1715,5 +1739,58 @@ function eliminarRegistro(domcodificado){
     }
 }
 
+document.getElementById("botonCopiarCompartir").addEventListener("click", async function() {
+    // Obtener la imagen del código QR
+    const qrImg = document.getElementById("qrElement").querySelector("img");
 
+    // Crear un blob de la imagen
+    const blob = await fetch(qrImg.src).then(response => response.blob());
+
+    // Copiar la imagen al portapapeles
+    await navigator.clipboard.write([
+        new ClipboardItem({ "image/png": blob })
+    ]);
+
+    // Obtener los datos adicionales que deseas copiar
+    const domicilio = domicilioSpan.textContent;
+    const propietario = propietarioSpan.textContent;
+    const namevisitaSpan = document.getElementById("namevisita").value;
+    const fechavisitaSpan = document.getElementById("fechavisita").value;
+    const ubicacion = "https://maps.app.goo.gl/aNL8eUJEJdaRGCgK8";
+
+    // Construir el mensaje a compartir
+    const mensaje = `
+        Datos de la visita:
+        Domicilio: ${domicilio}
+        Propietario: ${propietario}
+        Nombre de la visita: ${namevisitaSpan}
+        Fecha de la visita: ${fechavisitaSpan}
+        Ubicación: ${ubicacion}
+    `;
+
+    // Copiar el texto al portapapeles
+    await navigator.clipboard.writeText(mensaje);
+
+    // Alertar al usuario que la imagen y el texto han sido copiados
+    alert("La imagen del código QR y el texto han sido copiados al portapapeles.");
+});
+
+
+function actualizarHoras() {
+    var tipoReserva = document.getElementById("tiporeserva").value;
+    if (tipoReserva === "Casa Club") {
+        document.getElementById("horaInicio").value = "10:00";
+        document.getElementById("horaFin").value = "18:00";
+        document.getElementById("horaInicio").disabled = true;
+        document.getElementById("horaFin").disabled = true;
+    } else if (tipoReserva === "Asador") {
+        document.getElementById("horaInicio").value = "10:00";
+        document.getElementById("horaFin").value = "18:00";
+        document.getElementById("horaInicio").disabled = true;
+        document.getElementById("horaFin").disabled = true;
+    } else {
+        document.getElementById("horaInicio").disabled = false;
+        document.getElementById("horaFin").disabled = false;
+    }
+}
 
