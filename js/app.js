@@ -339,7 +339,7 @@ formulario.addEventListener("submit", (e) => {
                                     
                                     doc.setTextColor(0, 0, 0); // RGB: 0, 0, 0 (negro)
                                     var text = [
-                                        "Es un placer informarte que hemos recibido tu comprobante de pago por la cantidad de $" + cantidad,
+                                        "Es un placer informarte que hemos recibido tu comprobante de pago por la cantidad de " + cantidad,
                                         "correspondiente al mes de " + mes + " " + año + " de tu propiedad ubicada en " + domicilio,
                                         "Cada contribución es esencial para asegurar el buen estado de nuestras áreas comunes y servicios.",
                                         "Agradecemos tu puntualidad y compromiso con el mantenimiento de nuestra comunidad.",
