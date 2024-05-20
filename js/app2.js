@@ -122,3 +122,4 @@ document.addEventListener("DOMContentLoaded", function() {
     // Llamar a las funciones una vez al cargar la página para cargar los registros iniciales
     obtenerYAgregarRegistros2();
 });
+
