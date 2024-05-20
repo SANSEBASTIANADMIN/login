@@ -6,6 +6,7 @@ const propietarioSpan = document.getElementById("propietario");
 const domicilioSpan = document.getElementById("domicilio");
 const correoSpan = document.getElementById("correo"); // Agregado el span para mostrar el correo
 const statusSpan = document.getElementById("status");
+const adeudoSpan = document.getElementById("adeudo");
 const ene2024Span = document.getElementById("ene2024");
 const feb2024Span = document.getElementById("feb2024");
 const mar2024Span = document.getElementById("mar2024");
@@ -148,6 +149,7 @@ formulario.addEventListener("submit", (e) => {
                             const domiciliocod = data[indice].dom; // Accede directamente al domicilio en lugar de usar map
 
                             const status = data[indice].status;
+                            const adeudo = data[indice].adeudo;
                             const statuscod = data[indice].status;      
                             
                             const tag1 = atob(data[indice].tag1);
@@ -157,18 +159,32 @@ formulario.addEventListener("submit", (e) => {
                             const tag5 = atob(data[indice].tag5);
                             const tag6 = atob(data[indice].tag6);
 
-                            tag1Span.textContent = tag1;
-                            tag2Span.textContent = tag2;
-                            tag3Span.textContent = tag3;
-                            tag4Span.textContent = tag4;
-                            tag5Span.textContent = tag5;
-                            tag6Span.textContent = tag6;
+                            const tag1sinComillas = tag1.replace(/"/g, '');
+                            const tag2sinComillas = tag2.replace(/"/g, '');
+                            const tag3sinComillas = tag3.replace(/"/g, '');
+                            const tag4sinComillas = tag4.replace(/"/g, '');
+                            const tag5sinComillas = tag5.replace(/"/g, '');
+                            const tag6sinComillas = tag6.replace(/"/g, '');
 
-                            propietarioSpan.textContent = cliente;
-                            domicilioSpan.textContent = domicilio;
+
+                            tag1Span.textContent = tag1sinComillas;
+                            tag2Span.textContent = tag2sinComillas;
+                            tag3Span.textContent = tag3sinComillas;
+                            tag4Span.textContent = tag4sinComillas;
+                            tag5Span.textContent = tag5sinComillas;
+                            tag6Span.textContent = tag6sinComillas;
+
+                            const clientesinComillas = cliente.replace(/"/g, '');
+                            const domiciliosinComillas = domicilio.replace(/"/g, '');
+
+
+                            propietarioSpan.textContent = clientesinComillas;
+                            domicilioSpan.textContent = domiciliosinComillas;
                             domdvisistaSpan.textContent = domicilio;
                             correoSpan.textContent = usuarioInput; // Muestra el correo ingresado
                             statusSpan.textContent = status;
+                            adeudoSpan.textContent = adeudo;
+
 
                             homepage.style.display = "none";
                             btndcerrarsesion.style.display = "block"
@@ -285,6 +301,21 @@ formulario.addEventListener("submit", (e) => {
                                         oct2024Span.textContent = (data[indice].oct2024);
                                         nov2024Span.textContent = (data[indice].nov2024);
                                         dic2024Span.textContent = (data[indice].dic2024);
+
+                                        ene2023Span.textContent = (data[indice].ene2023);
+                                        feb2023Span.textContent = (data[indice].feb2023);
+                                        mar2023Span.textContent = (data[indice].mar2023);
+                                        abr2023Span.textContent = (data[indice].abr2023);
+                                        may2023Span.textContent = (data[indice].may2023);
+                                        jun2023Span.textContent = (data[indice].jun2023);
+                                        jul2023Span.textContent = (data[indice].jul2023);
+                                        ago2023Span.textContent = (data[indice].ago2023);
+                                        sep2023Span.textContent = (data[indice].sep2023);
+                                        oct2023Span.textContent = (data[indice].oct2023);
+                                        nov2023Span.textContent = (data[indice].nov2023);
+                                        dic2023Span.textContent = (data[indice].dic2023);
+                                        adeudoSpan.textContent = (data[indice].adeudo);
+
                                         console.log("Pagos actualizados");
                                     });
                             }
@@ -1404,15 +1435,8 @@ function generarTabla(contenedorId, data) {
                 tablaHTML += `<tr><td>Usuario</td><td><input class="datostext" type="text" value="${correoSinComillas}" onchange="actualizarDato(this.value, 'correo', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr><td>Celular</td><td><input class="datostext" type="tel" value="${celular}" onchange="actualizarDato(this.value, 'cel', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr><td>Contraseña</td><td><input class="datostext" type="text" value="${passwordComillas}" onchange="actualizarDato(this.value, 'password', '${domcodificado}')"></td></tr>`;
-                tablaHTML += `<tr>
-                                <td>Estatus</td>
-                                <td>
-                                    <select class="identificadormora" onchange="actualizarDato(this.value, 'status', '${domcodificado}')">
-                                        <option value="Al Corriente" ${fila.status === "Al Corriente" ? "selected" : ""}>Al Corriente</option>
-                                        <option value="Moroso" ${fila.status === "Moroso" ? "selected" : ""}>Moroso</option>
-                                    </select>
-                                </td>
-                            </tr>`;
+                tablaHTML += `<tr><td>Estatus</td><td>${fila.status}</td></tr>`;
+                tablaHTML += `<tr><td>Adeudo</td><td>${fila.adeudo}</td></tr>`;
                 tablaHTML += `<tr><td>Ene 2024</td><td><input class="pago" type="text" value="${fila.ene2024}" onchange="actualizarDato(this.value, 'ene2024', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr><td>Feb 2024</td><td><input class="pago" type="text" value="${fila.feb2024}" onchange="actualizarDato(this.value, 'feb2024', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr><td>Mar 2024</td><td><input class="pago" type="text" value="${fila.mar2024}" onchange="actualizarDato(this.value, 'mar2024', '${domcodificado}')"></td></tr>`;
@@ -1425,6 +1449,18 @@ function generarTabla(contenedorId, data) {
                 tablaHTML += `<tr><td>Oct 2024</td><td><input class="pago" type="text" value="${fila.oct2024}" onchange="actualizarDato(this.value, 'oct2024', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr><td>Nov 2024</td><td><input class="pago" type="text" value="${fila.nov2024}" onchange="actualizarDato(this.value, 'nov2024', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr><td>Dic 2024</td><td><input class="pago" type="text" value="${fila.dic2024}" onchange="actualizarDato(this.value, 'dic2024', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Ene 2023</td><td><input class="pago" type="text" value="${fila.ene2023}" onchange="actualizarDato(this.value, 'ene2023', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Feb 2023</td><td><input class="pago" type="text" value="${fila.feb2023}" onchange="actualizarDato(this.value, 'feb2023', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Mar 2023</td><td><input class="pago" type="text" value="${fila.mar2023}" onchange="actualizarDato(this.value, 'mar2023', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Abr 2023</td><td><input class="pago" type="text" value="${fila.abr2023}" onchange="actualizarDato(this.value, 'abr2023', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>May 2023</td><td><input class="pago" type="text" value="${fila.may2023}" onchange="actualizarDato(this.value, 'may2023', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Jun 2023</td><td><input class="pago" type="text" value="${fila.jun2023}" onchange="actualizarDato(this.value, 'jun2023', '${domcodificado}'})"></td></tr>`;
+                tablaHTML += `<tr><td>Jul 2023</td><td><input class="pago" type="text" value="${fila.jul2023}" onchange="actualizarDato(this.value, 'jul2023', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Ago 2023</td><td><input class="pago" type="text" value="${fila.ago2023}" onchange="actualizarDato(this.value, 'ago2023', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Sep 2023</td><td><input class="pago" type="text" value="${fila.sep2023}" onchange="actualizarDato(this.value, 'sep2023', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Oct 2023</td><td><input class="pago" type="text" value="${fila.oct2023}" onchange="actualizarDato(this.value, 'oct2023', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Nov 2023</td><td><input class="pago" type="text" value="${fila.nov2023}" onchange="actualizarDato(this.value, 'nov2023', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Dic 2023</td><td><input class="pago" type="text" value="${fila.dic2023}" onchange="actualizarDato(this.value, 'dic2023', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `</table>`;
                 tablaHTML += `<button class="boton-eliminar" onclick="eliminarRegistro('${domcodificado}')">Eliminar</button>`;
                 tablaHTML += `</details></td>`;

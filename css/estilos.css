@@ -217,6 +217,16 @@ button svg {
 	font-weight: bold; /* Para hacer el texto más llamativo */
 }
 
+
+#adeudo {
+	color: rgb(65, 113, 226); /* Color del texto */
+	font-weight: bold; /* Para hacer el texto más llamativo */
+}
+
+#iniciodatos{
+  font-size: 12px;
+}
+
 /* Estilos para el contenedor de botones */
 .button-container {
     display: flex;
@@ -226,6 +236,8 @@ button svg {
     flex-direction: row;
     align-content: center;
 }
+
+
   
   /* Estilos para los botones */
   .btn {
@@ -252,6 +264,7 @@ button svg {
 	margin: 0;
 	border-collapse: separate;
 	text-align: left;
+  padding: 0px 0px;
   }
 
   td {
@@ -431,13 +444,16 @@ select:focus {
   border-radius: 8px; /* Esquinas ligeramente ovaladas */
 }
 
-.registro-item {
-  border: 1px solid #013E6A; /* Marco de 1px de grosor y color gris claro */
+.registro-item-mora {
+  border: 1px solid #b00000; /* Marco de 1px de grosor y color gris claro */
+  background-color: #b000001e;
   padding: 10px; /* Espaciado interior de 10px */
   font-size: 12px; /* Tamaño de fuente de 12px */
   margin-bottom: 10px; /* Margen inferior de 10px */
   border-radius: 8px; /* Esquinas ligeramente ovaladas */
 }
+
+
 
 .btn2 {
 	width: 200px; /* Maintains the desired width */
@@ -455,7 +471,7 @@ select:focus {
 
 .dropdown-title{
   color: #0271CD;
-  padding: 10px 15px
+  padding: 10px 40px
   }
   #loader {
     display: none;
@@ -602,7 +618,7 @@ th, td {
 }
 
 .calle-box .tablaporcada{
-  width: 280px;
+  width: 275px;
   color: black;
   background-color: #013e6a27;
   content: "\002B" !important; /* Código Unicode para el signo de más (+) */
@@ -987,4 +1003,35 @@ summary::before {
 }
 
 
+.columna-logoseguridad,
+.columna-derecha2 {
+	width: 40%; /* Ajusta el ancho según tus necesidades */
+}
+.columna-logoseguridad img {
+	max-width: 80%; /* Asegura que la imagen no sobrepase su contenedor */
+	height: auto;
+}
+#seguridad{
+  width: 300px;
+}
 
+.tituloseguridad {
+  font-size: 14px;
+  color: #0178d2;
+}
+
+.calle-boxmorosos summary {
+  cursor: pointer;
+  outline: none;
+  background: rgba(255, 0, 0, 0.232);
+  width: 300px;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 10px;
+  color: red;
+  font-weight: bold;
+}

@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Variable para almacenar los idunico ya agregados
-    const idunicosAgregados = new Set();
+    // Variable para almacenar los valores únicos ya agregados
+    const valoresUnicosAgregados = new Set();
 
-    // Función para obtener los datos del API y agregar los registros
+    // Función para obtener los datos del API y agregar los registros de hoy
     function obtenerYAgregarRegistros2() {
         console.log("actualizando");
         fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/visitas")
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 agregarRegistros("esmeralda-registros", registrosHoy.filter((registro) => registro.domicilio.startsWith("IkVTTUVSQUxEQ")));
                 agregarRegistros("eros-registros", registrosHoy.filter((registro) => registro.domicilio.startsWith("IkVST1")));
                 agregarRegistros("magdalena-registros", registrosHoy.filter((registro) => registro.domicilio.startsWith("Ik1BR0RBTEVOQ")));
-                agregarRegistros("ibiza-registros", registrosHoy.filter((registro) => registro.domicilio.startsWith("IklCSVpBIg")));
+                agregarRegistros("ibiza-registros", registrosHoy.filter((registro) => registro.domicilio.startsWith("IklCSVpBI")));
                 agregarRegistros("hierro-registros", registrosHoy.filter((registro) => registro.domicilio.startsWith("IkhJRVJSTy")));
             })
             .catch((error) => {
@@ -27,12 +27,46 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     }
 
+    // Función para obtener y agregar registros de morosos
+    function obtenerdomconmora() {
+        console.log("Obteniendo registros de morosos...");
+        fetch("https://sheet.best/api/sheets/f0115907-7bd6-484a-b9be-a5e10b4fe3bd/tabs/propietarios")
+            .then((response) => response.json())
+            .then((data) => {
+                // Filtrar y agregar los registros con estado "Moroso" (sin importar la fecha)
+                const registrosMorosos = data.filter((registro) => registro.status.startsWith("Moroso"));
+                agregarRegistrosMorosos("morosos-registros", registrosMorosos);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    // Función para agregar registros de morosos
+    function agregarRegistrosMorosos(contenedorId, registros) {
+        const contenedor = document.getElementById(contenedorId);
+        registros.forEach(registro => {
+            // Verificar si el valor único (dom) ya se ha agregado
+            if (!valoresUnicosAgregados.has(registro.dom)) {
+                const registroHTML = `
+                    <div id="div${registro.dom}" class="registro-item-mora">
+                        <p><strong>Domicilio:</strong> ${atob(registro.dom)}</p>
+                        <p><strong>Adeudo Total:</strong> ${registro.adeudo}</p>
+                    </div>
+                `;
+                contenedor.insertAdjacentHTML('beforeend', registroHTML);
+                // Agregar el valor único (dom) al conjunto de valores únicos ya agregados
+                valoresUnicosAgregados.add(registro.dom);
+            }
+        });
+    }
+
     // Función para agregar registros a un contenedor de calle
     function agregarRegistros(contenedorId, registros) {
         const contenedor = document.getElementById(contenedorId);
         registros.forEach(registro => {
             // Verificar si el idunico ya se ha agregado
-            if (!idunicosAgregados.has(registro.idunico)) {
+            if (!valoresUnicosAgregados.has(registro.idunico)) {
                 const registroHTML = `
                     <div id="div${registro.idunico}" class="registro-item">
                         <p><strong>Domicilio:</strong> ${atob(registro.domicilio)}</p>
@@ -43,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 `;
                 contenedor.insertAdjacentHTML('beforeend', registroHTML);
                 // Agregar el idunico al conjunto de idunico ya agregados
-                idunicosAgregados.add(registro.idunico);
+                valoresUnicosAgregados.add(registro.idunico);
             }
         });
     }
@@ -81,7 +115,13 @@ document.addEventListener("DOMContentLoaded", function() {
         obtenerYAgregarRegistros2();
     });
 
-    // Llamar a la función una vez al cargar la página para cargar los registros iniciales
+    // Event listener para el clic en el elemento details
+    document.getElementById("calle-morosos").addEventListener("toggle", function() {
+        if (this.open) {
+            obtenerdomconmora();
+        }
+    });
+
+    // Llamar a las funciones una vez al cargar la página para cargar los registros iniciales
     obtenerYAgregarRegistros2();
 });
-
