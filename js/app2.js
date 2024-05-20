@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Variable para almacenar los valores únicos ya agregados
-    const valoresUnicosAgregados = new Set();
+    // Variable para almacenar los idunico ya agregados
+    const idunicosAgregados = new Set();
 
     // Función para obtener los datos del API y agregar los registros de hoy
     function obtenerYAgregarRegistros2() {
@@ -45,19 +45,16 @@ document.addEventListener("DOMContentLoaded", function() {
     // Función para agregar registros de morosos
     function agregarRegistrosMorosos(contenedorId, registros) {
         const contenedor = document.getElementById(contenedorId);
+        // Vaciar el contenedor antes de agregar nuevos registros
+        contenedor.innerHTML = '';
         registros.forEach(registro => {
-            // Verificar si el valor único (dom) ya se ha agregado
-            if (!valoresUnicosAgregados.has(registro.dom)) {
-                const registroHTML = `
-                    <div id="div${registro.dom}" class="registro-item-mora">
-                        <p><strong>Domicilio:</strong> ${atob(registro.dom)}</p>
-                        <p><strong>Adeudo Total:</strong> ${registro.adeudo}</p>
-                    </div>
-                `;
-                contenedor.insertAdjacentHTML('beforeend', registroHTML);
-                // Agregar el valor único (dom) al conjunto de valores únicos ya agregados
-                valoresUnicosAgregados.add(registro.dom);
-            }
+            const registroHTML = `
+                <div id="div${registro.dom}" class="registro-item-mora">
+                    <p><strong>Domicilio:</strong> ${atob(registro.dom)}</p>
+                    <p><strong>Adeudo Total:</strong> ${registro.adeudo}</p>
+                </div>
+            `;
+            contenedor.insertAdjacentHTML('beforeend', registroHTML);
         });
     }
 
@@ -66,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const contenedor = document.getElementById(contenedorId);
         registros.forEach(registro => {
             // Verificar si el idunico ya se ha agregado
-            if (!valoresUnicosAgregados.has(registro.idunico)) {
+            if (!idunicosAgregados.has(registro.idunico)) {
                 const registroHTML = `
                     <div id="div${registro.idunico}" class="registro-item">
                         <p><strong>Domicilio:</strong> ${atob(registro.domicilio)}</p>
@@ -77,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 `;
                 contenedor.insertAdjacentHTML('beforeend', registroHTML);
                 // Agregar el idunico al conjunto de idunico ya agregados
-                valoresUnicosAgregados.add(registro.idunico);
+                idunicosAgregados.add(registro.idunico);
             }
         });
     }
