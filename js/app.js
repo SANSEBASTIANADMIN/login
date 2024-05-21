@@ -1713,6 +1713,17 @@ function cerrarAdminPanel2() {
     adminPanel.style.padding = "0px";
 }
 
+function expandAdminPanel3() {
+    var adminPanel = document.getElementById("adminPanel3");
+    adminPanel.style.height = "1550px";
+    adminPanel.style.padding = "20px";
+}
+function cerrarAdminPanel3() {
+    var adminPanel = document.getElementById("adminPanel3");
+    adminPanel.style.height = "0%";
+    adminPanel.style.padding = "0px";
+}
+
 function eliminarRegistro(domcodificado){
     if (sesionIniciada) {
         const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
@@ -1775,41 +1786,7 @@ function eliminarRegistro(domcodificado){
     }
 }
 
-document.getElementById("botonCopiarCompartir").addEventListener("click", async function() {
-    // Obtener la imagen del código QR
-    const qrImg = document.getElementById("qrElement").querySelector("img");
 
-    // Crear un blob de la imagen
-    const blob = await fetch(qrImg.src).then(response => response.blob());
-
-    // Copiar la imagen al portapapeles
-    await navigator.clipboard.write([
-        new ClipboardItem({ "image/png": blob })
-    ]);
-
-    // Obtener los datos adicionales que deseas copiar
-    const domicilio = domicilioSpan.textContent;
-    const propietario = propietarioSpan.textContent;
-    const namevisitaSpan = document.getElementById("namevisita").value;
-    const fechavisitaSpan = document.getElementById("fechavisita").value;
-    const ubicacion = "https://maps.app.goo.gl/aNL8eUJEJdaRGCgK8";
-
-    // Construir el mensaje a compartir
-    const mensaje = `
-        Datos de la visita:
-        Domicilio: ${domicilio}
-        Propietario: ${propietario}
-        Nombre de la visita: ${namevisitaSpan}
-        Fecha de la visita: ${fechavisitaSpan}
-        Ubicación: ${ubicacion}
-    `;
-
-    // Copiar el texto al portapapeles
-    await navigator.clipboard.writeText(mensaje);
-
-    // Alertar al usuario que la imagen y el texto han sido copiados
-    alert("La imagen del código QR y el texto han sido copiados al portapapeles.");
-});
 
 
 function actualizarHoras() {
@@ -1830,3 +1807,32 @@ function actualizarHoras() {
     }
 }
 
+
+
+function ocultarfecha(){
+    var tipoinforme = document.getElementById("tipoinforme").value;
+    const datePickerContainer = document.getElementById('datePickerContainer');
+    console.log(tipoinforme)
+    if (tipoinforme === 'Propietarios') {
+        datePickerContainer.style.display = "none";
+    } else {
+        datePickerContainer.style.display = "block";
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const detailsElements = document.querySelectorAll('details');
+
+    detailsElements.forEach(detail => {
+        detail.addEventListener('click', function() {
+            if (!this.open) { // Only proceed if the details element is not already open
+                detailsElements.forEach(otherDetail => {
+                    if (otherDetail !== this && otherDetail.open) {
+                        otherDetail.removeAttribute('open');
+                    }
+                });
+            }
+        });
+    });
+});

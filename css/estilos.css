@@ -146,6 +146,26 @@ input:focus {
 }
 
 
+button {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    border-radius: 8px;
+    margin-top: 10px;
+    background: #013e6a00;
+    height: 50px;
+    color: #013e6a;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border: 2px solid #013E6A;
+    cursor: pointer;
+    transition: .3s ease all;
+    outline: none;
+    width: 231px;
+    border-radius: 20px;
+
+}
 
 button:hover {
     background: rgb(37, 150, 190);
@@ -173,7 +193,7 @@ select:hover {
   background: #fff;
   min-height: 10vh;
   display: grid;
-  margin: 5px; /* Agregar margen */ 
+  margin: 0px; /* Agregar margen */ 
 }
 
 button svg {
@@ -308,7 +328,7 @@ button svg {
   }
   
   .formulario2 {
-    width: 280px;
+    width: 370px;
 	  display: flex; /* Activate flexbox for the form */
 	  flex-direction: column; /* Stack elements vertically */
 	  border: 35px;
@@ -513,6 +533,11 @@ select:focus {
   outline: none;
   flex-direction: column-reverse;
   justify-content: space-around;
+}
+
+.buttonrecibos:hover {
+  background: rgb(37, 150, 190);
+  border: 1px solid white /* Corregido */
 }
 
 .table-custom td {
@@ -1096,6 +1121,9 @@ summary::before {
   margin: 0px 0;
   font-size: 1px;
   text-align: center;
+  border-radius: 10px;
+  overflow: hidden; /* Para asegurar que el border-radius funcione */
+  border: 1px solid #013E6A;
 }
 .table-custom th, .table-custom td {
   padding: 5px 10px;
@@ -1108,8 +1136,14 @@ summary::before {
   text-transform: uppercase;
 }
 .table-custom tbody tr:nth-child(even) {
-  background-color: #f3f3f3;
+  background-color: #013e6a24;
 }
+
+.table-custom tbody tr:nth-child(odd) {
+  background-color: #013e6a4c; /* Color de fondo para filas impares */
+}
+
+
 .table-custom tbody tr:hover {
   background-color: #f1f1f1;
 }
@@ -1117,4 +1151,29 @@ summary::before {
   background: rgb(37, 150, 190);
   border: rgb(37, 150, 190);
   color: white;
+}
+
+
+.divreservar{
+  padding: 0px 0px;
+}
+
+.btnreservar{
+  padding: 10px 10px;
+}
+
+#btnenviaringreso{
+  padding: 10px 12px;
+}
+
+
+.contenedorformulariovisita {
+  width: 80px;
+}
+
+
+#divingresos {
+  width: 100%;
+  color: red;
+  padding: 10px 10px 10px 10px; /* Padding en el orden: top, right, bottom, left */
 }

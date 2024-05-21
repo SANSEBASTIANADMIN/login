@@ -318,10 +318,10 @@
 				</details>
 			</div>
 		</div>
-		<div clas="contenedorformulario" id="divingresos" style="display: none;">
+		<div clas="divingresos" id="divingresos" style="display: none;">
 			<div>
-				<div class="contenedorformulariovisita">
-					<form class="formulario2" id="formulario2">
+				<div>
+					<form id="contenedorformulario">
 						<div class="contenedor-input">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
 								<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -393,7 +393,7 @@
 		</div>
 		<div id="divamenidades" class="divamenidades" style="display: none;">
 			<div class="formulario2">	
-				<details id="divcalendario" class="dropdown">
+				<details id="divcalendario" class="contenedorformulario">
 					<summary onclick="toggleCalendar()" class="dropdown-title">Mostrar Calendario</summary>
 					<ul id="contenedorCalendario" class="conetnedordetails">
 						<li>
@@ -401,7 +401,7 @@
 					</ul>
 				</details>	
 				
-				<details id="divreservar" class="dropdown">
+				<details id="divreservar" class="contenedorformulario">
 					<summary class="dropdown-title">Realizar reservación</summary>
 					<div class="dropdown-content">
 						<div class="contenedorformularioreserva">
@@ -429,7 +429,7 @@
 						</div>
 					</div>
 				</details>										
-				<details id="misreservsas" class="dropdown">
+				<details id="misreservsas" class="contenedorformulario">
 					<summary class="dropdown-title">Mis Reservaciones</summary>
 					<div class="conetnedordetails" id="divmisreservas">
 					</div>
