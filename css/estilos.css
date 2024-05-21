@@ -1091,3 +1091,9 @@ summary::before {
 	outline: none; /* Maintains the removal of outline */
   border-radius: 20px;
 }
+
+.conetnedordetails{
+  width: 340px;
+  align-items: center; /* Centra los elementos horizontalmente */
+  padding: 0 15px;
+}
