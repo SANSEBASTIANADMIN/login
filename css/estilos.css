@@ -1093,7 +1093,14 @@ summary::before {
 }
 
 .conetnedordetails{
-  width: 340px;
+  width: 350px;
   align-items: center; /* Centra los elementos horizontalmente */
   padding: 0 15px;
+}
+
+.contenedorformularioreserva{
+ width: 370PX;
+ align-items: center;
+ padding: 1px 1px;
+ margin-bottom: 1px;
 }
