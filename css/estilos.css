@@ -146,26 +146,6 @@ input:focus {
 }
 
 
-button {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 14px;
-    border-radius: 8px;
-    margin-top: 10px;
-    background: #013e6a00;
-    height: 50px;
-    color: #013e6a;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    border: 2px solid #013E6A;
-    cursor: pointer;
-    transition: .3s ease all;
-    outline: none;
-    width: 231px;
-    border-radius: 20px;
-
-}
 
 button:hover {
     background: rgb(37, 150, 190);
@@ -519,7 +499,7 @@ select:focus {
   font-family: 'Quicksand', sans-serif;
   font-size: 12px;
   border-radius: 5px;
-  margin-top: 20px;
+  margin-top: 2px;
   height: 16px;
   color: #013E6A;
   background: #013e6a00;
@@ -1103,4 +1083,38 @@ summary::before {
  align-items: center;
  padding: 1px 1px;
  margin-bottom: 1px;
+}
+
+
+.dropdown{
+ padding: 0px 25px;
+}
+
+.table-custom {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0px 0;
+  font-size: 1px;
+  text-align: center;
+}
+.table-custom th, .table-custom td {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  vertical-align: middle; /* Centra verticalmente */
+}
+.table-custom thead th {
+  background-color: #009879;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+.table-custom tbody tr:nth-child(even) {
+  background-color: #f3f3f3;
+}
+.table-custom tbody tr:hover {
+  background-color: #f1f1f1;
+}
+.table-custom-highlight tbody tr:hover {
+  background: rgb(37, 150, 190);
+  border: rgb(37, 150, 190);
+  color: white;
 }
