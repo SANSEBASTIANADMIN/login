@@ -48,8 +48,17 @@ body {
 	justify-content: flex-start;
 	/*align-items: flex-start;*/
 	align-items: center;
-
+  font-size: 12px;
 }
+
+.row1 {
+	display: flex;
+	/*justify-content: space-between;*/
+	justify-content: flex-start;
+	/*align-items: flex-start;*/
+	align-items: center;
+}
+
 .row h1,
 .row p,
 .row span {
@@ -59,12 +68,25 @@ body {
 .titulo {
     color: #0178d2;
 }
+.columna-izquierda2{
+  align-items: center;
+}
+
+.columna-izquierda4 {
+	width: 100%; /* Ajusta el ancho según tus necesidades */
+}
+.columna-izquierda4 img {
+	max-width: 110%; /* Asegura que la imagen no sobrepase su contenedor */
+	height: auto;
+}
+
+
 .columna-izquierda2,
 .columna-derecha2 {
-	width: 60%; /* Ajusta el ancho según tus necesidades */
+	width: 50%; /* Ajusta el ancho según tus necesidades */
 }
 .columna-izquierda2 img {
-	max-width: 90%; /* Asegura que la imagen no sobrepase su contenedor */
+	max-width: 150%; /* Asegura que la imagen no sobrepase su contenedor */
 	height: auto;
 }
 
@@ -75,7 +97,8 @@ body {
 }
 
 .header {
-    margin-bottom: 40px;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 .header h1 {
@@ -775,6 +798,24 @@ summary::before {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
 }
 
+#adminPanel3 {
+  width: 370px;
+  max-width: 370px;
+  height: 700px;
+  max-height: 100%;
+  background: linear-gradient(to bottom, rgb(255, 255, 255) 85% , #013E6A); /* Degradado de arriba hacia abajo */
+  border-radius: 10px 10px 10px 10px;
+  position: absolute;
+  bottom: 0;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  transform: translateX(-50%); /* Centra el panel horizontalmente */
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s ease-in-out, padding 0.5s ease-in-out;
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
 #encabezadoadmin{
   display: flex;
   flex-direction: column;
@@ -1034,4 +1075,19 @@ summary::before {
   margin-bottom: 10px;
   color: red;
   font-weight: bold;
+}
+
+.btnadmin{
+  width: 200px; /* Maintains the desired width */
+	height: 30px; /* Maintains the desired height */
+	min-width: 150px; /* Maintains the minimum width */
+	margin: 2px; /* Maintains the margin */
+	padding: 10px 20px; /* Maintains the padding for button comfort */
+	text-align: start; /* Aligns the text to the left */
+	border-radius: 5px; /* Maintains the border radius */
+	font-size: 13px; /* Reduces the font size to 12px */
+	font-weight: 500; /* Maintains the font weight */
+	transition: all 0.3s ease; /* Maintains the transition effect */
+	outline: none; /* Maintains the removal of outline */
+  border-radius: 20px;
 }

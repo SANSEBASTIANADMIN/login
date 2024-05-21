@@ -17,13 +17,13 @@
 		<div class="contenedorhome">
 			<div class="columna-izquierda">
 				<div class="registro activo" id="registro">
-					<div class="row">
+					<div class="row1">
 						<div class="header">
 							<h2 class="titulo">¡Privada San Sebastian!</h2>
 							<p>Inicio de sesión</p>
 							<p>Residentes</p>
 						</div>
-						<div class="columna-izquierda2">
+						<div class="columna-izquierda4">
 							<img src="Fraccify.png" alt="Descripción de la imagen">
 						</div>
 					</div>
@@ -64,13 +64,13 @@
 					<div class="toggle-container">
 						<div class="toggle">
 							<div class="toggle-panel toggle-left" id="adminPanel">
-								<div class="row">
+								<div class="row1">
 									<div class="header">
 										<h2 class="titulo">Bienvenido administrador</h2>
 										<p>Inicio de sesión</p>
 										<p> </p>
 									</div>
-									<div class="columna-izquierda2">
+									<div class="columna-izquierda4">
 										<img src="Fraccify.png" alt="Descripción de la imagen">
 									</div>
 								</div>
@@ -111,8 +111,8 @@
 	
 
 	<div class="contenedorhome" id="inicio" style="display: none;">
-		<div id="iniciodatos" class="contenedor">
-			<div class="contenedor">
+		<div id="columna-izquierda" class="contenedor">
+			<div class="registro activo">
 				<div class="row">
 					<div>
 						<p class="titulo">¡Bienvenido(a)!<p1>
@@ -542,13 +542,18 @@
 		<div>
 			<div id="encabezadoadmin">
 				<div id="cerrarsesionadmin">	
-					<button type="submit" class="btn">
+					<button type="submit" class="btnadmin">
 						Cerrar Sesión
 					</button>
 				</div>
 				<div id="agregarregistro">	
-					<button type="submit" onclick="expandAdminPanel2()" class="btn">
+					<button type="submit" onclick="expandAdminPanel2()" class="btnadmin">
 						Agregar Registro
+					</button>
+				</div>
+				<div id="descargarinformes">	
+					<button type="submit" onclick="expandAdminPanel3()" class="btnadmin">
+						Descargar informes
 					</button>
 				</div>
 			</div>
@@ -616,13 +621,13 @@
 				<div class="toggle-container">
 					<div class="toggle">
 						<div class="toggle-panel toggle-left" id="adminPanel2">
-							<div class="row">
+							<div class="row1">
 								<div class="header">
 									<h2 class="titulo">Nuevo registro</h2>
 									<p>Ingresa los datos para el registro de nuevo residente</p>
 									<p> </p>
 								</div>
-								<div class="columna-izquierda2">
+								<div class="columna-izquierda4">
 									<img src="Fraccify.png" alt="Descripción de la imagen">
 								</div>
 							</div>
@@ -652,7 +657,35 @@
 							<button id="" onclick="cerrarAdminPanel2()">Regresar</button>
 						</div>
 					</div>
-				</div>  
+				</div>
+				<div>
+					<div class="toggle-container">
+						<div class="toggle">
+							<div class="toggle-panel toggle-left" id="adminPanel3">
+								<p>Seleciona el informe que deseas obtener></p>
+								<select id="tipoinforme" required onchange="ocultarfecha()">
+									<option value="">Selecciona el informe</option>
+									<option value="pagos">Pagos</option>
+									<option value="reservas">Reservaciones</option>
+									<option value="visitasyproveedores">Visitas y Proveedores</option>
+									<option value="Propietarios">Propietarios</option>
+								</select>
+								<div id="datePickerContainer" class="date-picker-container">
+									<label for="fecha-inicio">Fecha inicio:</label>
+									<input class="input" type="date" id="fecha-inicioreporte" name="fecha-inicio">
+									<label for="fecha-fin">Fecha fin:</label>
+									<input class="input" type="date" id="fecha-finreporte" name="fecha-fin">
+								</div>
+								<div>
+									<button class="btn" id="generarinforme">Generar informe</button>
+								</div>
+								<div>
+									<button class="btn" id="" onclick="cerrarAdminPanel3()">Regresar</button>
+								</div>							
+							</div>
+						</div>
+					</div>
+				</div>	
 			</div>
 		</div>
 	</div>
