@@ -1163,7 +1163,7 @@ summary::before {
 }
 
 #btnenviaringreso{
-  padding: 10px 12px;
+  padding: 0px 0px;
 }
 
 
@@ -1176,4 +1176,25 @@ summary::before {
   width: 100%;
   color: red;
   padding: 10px 10px 10px 10px; /* Padding en el orden: top, right, bottom, left */
+}
+
+
+.formulario4 {
+  width: 310px;
+  display: flex; /* Activate flexbox for the form */
+  flex-direction: column; /* Stack elements vertically */
+  border: 35px;
+}
+
+.table-table-borderless {
+  margin: 0;
+  border-collapse: collapse; /* Usar 'collapse' en lugar de 'separate' para reducir el espacio entre celdas */
+  text-align: left;
+  padding: 0; /* Eliminar el padding */
+  border-spacing: 0; /* Asegurarse de que no haya espacio entre celdas */
+}
+
+.table-table-borderless td, .table-table-borderless th {
+  padding: 0; /* Eliminar el padding de las celdas */
+  margin: 0; /* Eliminar el margen de las celdas */
 }
