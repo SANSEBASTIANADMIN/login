@@ -66,7 +66,7 @@ body {
 }
 
 .titulo {
-    color: #0178d2;
+    color: rgb(37, 150, 190);
 }
 .columna-izquierda2{
   align-items: center;
@@ -584,8 +584,8 @@ select:focus {
 }
 
 .contenedorformulariovisita{
-  color: rgb(37, 150, 190);
-  padding: 0px 25px;
+  color: rgba(0, 0, 0, 0.428);
+  padding: 0px 10px;
 }
 
 
@@ -1167,14 +1167,12 @@ summary::before {
 }
 
 
-.contenedorformulariovisita {
-  width: 80px;
-}
+
 
 
 #divingresos {
   width: 100%;
-  color: red;
+  color: rgb(37, 150, 190);
   padding: 10px 10px 10px 10px; /* Padding en el orden: top, right, bottom, left */
 }
 

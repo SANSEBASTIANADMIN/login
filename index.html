@@ -403,6 +403,7 @@
 					<div class="dropdown-content">
 						<div class="contenedorformularioreserva">
 							<div class="conetnedordetails">
+								<div>
 								<label>¿Qué deseas reservar?</label>
 								<select id="tiporeserva" required onchange="actualizarHoras()">
 									<option value="">Tipo de reservación</option>
@@ -410,12 +411,19 @@
 									<option value="Asador">Asador</option>
 									<option value="Alberca">Alberca</option>
 								</select>
+								</div>
+								<div>
 								<label for="fechadereserva">Seleccionar fecha:</label>
 								<input class="input" type="date" id="fechareserva" placeholder="Ingresa fecha" required>
+								</div>
+								<div>
 								<label for="horaInicio">Hora de inicio:</label>
 								<input class="input" type="time" id="horaInicio" name="horaInicio" required>
+								</div>
+								<div>
 								<label for="horaFin">Hora de fin:</label>
 								<input class="input" type="time" id="horaFin" name="horaFin" required>
+								</div>
 								<p> </p>
 								<div class="btnreservar" id="confirmarreserca" >    
 									<button type="submit" id="btnparaconfirmarreserca" class="btn">
