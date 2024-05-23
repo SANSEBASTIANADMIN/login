@@ -1196,3 +1196,19 @@ summary::before {
   padding: 0; /* Eliminar el padding de las celdas */
   margin: 0; /* Eliminar el margen de las celdas */
 }
+
+.inputfecha {
+  height: 50px;
+  line-height: 50px;
+  font-size: 14px;
+  width: 250PX;
+  border: none;
+  border-radius: 5px;
+  padding: 0 20px 0 45px;
+  margin-bottom: 0px;
+  background: #f3f3f3eb;
+  color: #013E6A;
+  font-family: 'Quicksand', sans-serif;
+  border: 2px solid transparent;
+  transition: .3s ease all;
+}
