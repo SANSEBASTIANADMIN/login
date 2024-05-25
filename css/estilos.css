@@ -638,16 +638,21 @@ select:focus {
 /* Estilos para las celdas */
 th, td {
   text-align: left;
-  padding: 8px;
+  font-weight: normal; /* Asegúrate de que la fuente no sea negrita */
+  color: black;
+
 }
 
+
 .calle-box .tablaporcada{
+  font-weight: bold; /* Agregar negrita */
   width: 100%;
-  color: black;
-  background-color: #729bb8cc;
-  content: "\002B" !important; /* Código Unicode para el signo de más (+) */
+  /* color: black; */
+  background-color: #727272cc;
+  content: "\002B" !important;
   border-radius: 5px;
 }
+
 
 
 .calle-box summary::before {
@@ -664,10 +669,11 @@ th, td {
 
 
 .calle-box .fila-roja {
-  color: red;
+  color: #000000fa;
   width: 100%;
   font-weight: bold;
-  background: rgba(255, 0, 0, 0.232);
+  background: rgb(255 0 0 / 48%);
+  border-radius: 5px;
 }
 
 
@@ -676,13 +682,13 @@ th, td {
   width: 275px;  
   font-weight: bold; /* Agregar negrita */
   content: "\f06a"; /* Código Unicode del icono de alerta */
-  margin-right: 5px; /* Espacio entre el icono y el texto */
+  border-radius: 5px;
 }
 
 .pago{
   height: 20px;
   line-height: 0px;
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 0px;
   padding: 0px 0px 0px 0px;
   margin-bottom: 0px;
@@ -696,7 +702,7 @@ th, td {
 .datostext {
   height: 20px;
   line-height: 0px;
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 0px;
   padding: 0px 0px 0px 0px;
   margin-bottom: 0px;
@@ -739,7 +745,7 @@ th, td {
 }
 
 .calle-registros tr:nth-child(odd) {
-  background-color: rgba(53, 98, 130, 0.2);
+  background-color: rgba(53, 98, 130, 0.063);
 }
 
 .tablacompleta{
