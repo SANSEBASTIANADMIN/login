@@ -429,10 +429,7 @@ select:focus {
     outline: none;
 }
 
-* {
-  padding: 1px;
-  box-sizing: border-box;
-}
+
 
 #qrElement {
   padding: 10px;
@@ -640,17 +637,18 @@ select:focus {
 
 /* Estilos para las celdas */
 th, td {
-  border: 1px solid #ffffff;
   text-align: left;
   padding: 8px;
 }
 
 .calle-box .tablaporcada{
-  width: 275px;
+  width: 100%;
   color: black;
-  background-color: #013e6a27;
+  background-color: #729bb8cc;
   content: "\002B" !important; /* Código Unicode para el signo de más (+) */
+  border-radius: 5px;
 }
+
 
 .calle-box summary::before {
   content: "\002B" !important; /* Código Unicode para el signo de más (+) */
@@ -667,7 +665,7 @@ th, td {
 
 .calle-box .fila-roja {
   color: red;
-  width: 275px;
+  width: 100%;
   font-weight: bold;
   background: rgba(255, 0, 0, 0.232);
 }
@@ -723,7 +721,8 @@ th, td {
 }
 
 .calle-registros{
-  width: 295px;
+  padding: 15px 25px 0px 0px;
+  width: 100%;
   position: center;
   overflow: hidden;
   left: 50%; /* Establece el 50% del ancho del viewport */
@@ -744,9 +743,7 @@ th, td {
 }
 
 .tablacompleta{
-  width: 400px;
-  max-height: 100%;
-  border-radius: 10px 10px 10px 10px;
+  width: 100%;
   position: center;
   overflow: hidden;
   left: 10%; /* Establece el 50% del ancho del viewport */
@@ -754,9 +751,11 @@ th, td {
   min-height: 10vh;
   display: grid;
   padding: 0px 0px 0px 2px;
-  margin: 5px; /* Agregar margen */
+  margin: 15px; /* Agregar margen */
   overflow: hidden;
   bottom: 0;
+
+
 }
 
 
@@ -824,6 +823,7 @@ summary::before {
 #encabezadoadmin{
   display: flex;
   flex-direction: column;
+  margin: 15px;
 }
 
 .boton-eliminar {
@@ -872,7 +872,7 @@ summary::before {
   width: 320px;
   max-width: 95%;
   max-height: 90%;
-  border-radius: 10px 10px 10px 10px;
+  border-radius: 20px 20px 20px 20px;
   position: center;
   overflow: hidden;
   left: 50%; /* Establece el 50% del ancho del viewport */
@@ -883,6 +883,14 @@ summary::before {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
   overflow: hidden;
   bottom: 0;
+  margin: 1;
+
+  /* Añadido para ocupar más espacio en la pantalla */
+  width: 95%; /* O ajusta a la anchura deseada */
+  height: 95%; /* O ajusta a la altura deseada */
+  max-width: 95%; /* Para asegurarse de que no sobrepase el contenedor */
+  max-height: 95%; /* Para asegurarse de que no sobrepase el contenedor */
+  box-sizing: border-box; /* Para incluir padding y border en el tamaño total */
 }
 
 .tituloavisos{
@@ -909,20 +917,19 @@ summary::before {
   cursor: pointer;
   outline: none; /* Elimina el contorno predeterminado en algunos navegadores */
   background-color: #013E6A;
-  width: 380px;
+  width: 100%;
   color: white;
   border-radius: 8px;
   display: flex;
   font-size: 16px;
   align-items: center;
-  padding: 10px;
 }
 
 .calle-box summary{
   cursor: pointer;
   outline: none; /* Elimina el contorno predeterminado en algunos navegadores */
   background-color: #013E6A;
-  width: 300px;
+  width: 95%;
   color: white;
   border-radius: 8px;
   display: flex;
@@ -938,11 +945,6 @@ summary::before {
   background-color: #00000002;
 }
 
-.tablaporcada {
-  width: 380px;
-  color: black;
-  background-color: #00000002;
-}
 
 .registro-itemss {
   color: black;
@@ -955,7 +957,7 @@ summary::before {
 }
 
 .calle-registrosss{
-  width: 100%;
+  width: ;
   position: center;
   overflow: hidden;
   left: 40%; /* Establece el 50% del ancho del viewport */
