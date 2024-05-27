@@ -1462,7 +1462,7 @@ function generarTabla(contenedorId, data) {
                 tablaHTML += `<tr><td>Nov 2023</td><td><input class="pago" type="text" value="${fila.nov2023}" onchange="actualizarDato(this.value, 'nov2023', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr><td>Dic 2023</td><td><input class="pago" type="text" value="${fila.dic2023}" onchange="actualizarDato(this.value, 'dic2023', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `</table>`;
-                tablaHTML += `<button class="boton-eliminar" onclick="eliminarRegistro('${domcodificado}')">Eliminar</button>`;
+                tablaHTML += `<!--<button class="boton-eliminar" onclick="eliminarRegistro('${domcodificado}')">Eliminar</button>-->`;
                 tablaHTML += `</details></td>`;
                 tablaHTML += `</tr>`;
             });
