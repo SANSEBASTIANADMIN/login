@@ -49,32 +49,28 @@
         <p>Nombre Visita: <span id="nom"></span></p>
         <p>Fecha: <span id="fecha"></span></p>
         <p>Tipo: <span id="tipo"></span></p>
-        <p>ID: <span id="idUnico"></span></p>
-        <button type="submit" class="btn">
-          Volver a escanear
-        </button>      </div>
+        <p>ID: <span id="idUnico"></span></p>  
+      </div>
     </div> 
     <div id="contenedorhomerojo"   class="contenedorhomerojo" style="display: none;">
       <div class="datosrojo">
         <h1>QR invalido</h1>
-        <button type="submit" class="btn">
-          Volver a escanear
-        </button>      </div>
+				<div id="cerrarsesion">	
+					<button type="submit" class="btn">
+						Cerrar Sesión
+					</button>
+				</div>      
+      </div>
     </div>
     <div id="qryautilizado"   class="contenedorhomerojo" style="display: none;">
       <div class="datosrojo">
         <h1>Código QR ya utilizado para ingresar en caseta principal</h1>
-        <h1>  No se puede volver a usar</h1>
-        <button type="submit" class="btn">
-          Volver a escanear
-        </button>      </div>
+        <h1>  No se puede volver a usar</h1>   
+      </div>
     </div>
     <div id="qrconotrafecha"   class="contenedorhomerojo" style="display: none;">
       <div class="datosrojo">
         <h1>La fecha del Código QR no corresponde al día de hoy</h1>
-        <button type="submit" class="btn">
-          Volver a escanear
-        </button>
       </div>
     </div>
     <audio id="audioScaner" src="assets/sonido.mp3"></audio>

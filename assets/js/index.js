@@ -13,9 +13,6 @@ const divqrconotrafecha = document.getElementById("qrconotrafecha");
 const btndcerrarsesion = document.getElementById("cerrarsesion");
 
 
-document.getElementById("cerrarsesion").addEventListener("click", function () {
-  window.location.reload();
-});
 
 const btnScanQR = document.getElementById("btn-scan-qr");
 let scanning = false;
