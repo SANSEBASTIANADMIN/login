@@ -1104,7 +1104,7 @@ summary::before {
 }
 
 .dropdown {
-  padding: 0px 25px;
+  padding: 0px 0px;
 }
 
 .table-custom {
