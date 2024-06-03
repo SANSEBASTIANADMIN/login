@@ -474,7 +474,7 @@ select:focus {
 
 .dropdown-title {
   color: #0271cd;
-  padding: 10px 10px;
+  padding: 10px 40px;
 }
 #loader {
   display: none;
@@ -1085,16 +1085,14 @@ summary::before {
 }
 
 .contenedorformularioreserva {
-  width: 350px;
-  padding: 1px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
+  width: 370px;
   align-items: center;
+  padding: 1px 1px;
+  margin-bottom: 1px;
 }
 
 .dropdown {
-  padding: 0px 10px;
+  padding: 0px 25px;
 }
 
 .table-custom {
