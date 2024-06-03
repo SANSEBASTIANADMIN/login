@@ -12,8 +12,8 @@ body {
   justify-content: center;
 }
 * {
-  padding: 0;
-  margin: 3px;
+  padding: 0px;
+  margin: 5px;
   box-sizing: border-box;
 }
 
@@ -474,7 +474,7 @@ select:focus {
 
 .dropdown-title {
   color: #0271cd;
-  padding: 10px 40px;
+  padding: 10px 10px;
 }
 #loader {
   display: none;
@@ -1085,14 +1085,16 @@ summary::before {
 }
 
 .contenedorformularioreserva {
-  width: 370px;
+  width: 350px;
+  padding: 1px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 1px 1px;
-  margin-bottom: 1px;
 }
 
 .dropdown {
-  padding: 0px 25px;
+  padding: 0px 10px;
 }
 
 .table-custom {

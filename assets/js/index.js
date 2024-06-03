@@ -10,8 +10,6 @@ const divverde = document.getElementById("contenedorhomeverde");
 const divrojo = document.getElementById("contenedorrojo");
 const divrojoyauqr = document.getElementById("qryautilizado");
 const divqrconotrafecha = document.getElementById("qrconotrafecha");
-const btndcerrarsesion = document.getElementById("cerrarsesion");
-
 
 
 const btnScanQR = document.getElementById("btn-scan-qr");
@@ -70,12 +68,20 @@ qrcode.callback = (respuesta) => {
         `Fecha: ${Fecha}, Nombre: ${Nombre}, Tipo: ${Tipo}, ID: ${ID}`
       );
 
-      const hoy = new Date();
-      const fechaHoy = hoy.toISOString().split("T")[0]; // Obtener la fecha de hoy en formato YYYY-MM-DD
+      const obtenerFechaHoy = () => {
+        const hoy = new Date();
+        return new Intl.DateTimeFormat('es-ES', { timeZone: 'America/Mexico_City', year: 'numeric', month: '2-digit', day: '2-digit' }).format(hoy);
+      };
+      // Formatear la fecha para obtener el formato YYYY-MM-DD
+      const formatearFecha = (fecha) => {
+        const partes = fecha.split('/');
+        return `${partes[2]}-${partes[1]}-${partes[0]}`;
+      };
+
+      const fechaHoy = formatearFecha(obtenerFechaHoy());
       console.log("Validando fecha")
       console.log(fechaHoy)
       console.log(Fecha)
-
 
       if (Fecha !== fechaHoy) {
         // La fecha del QR no es la de hoy

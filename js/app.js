@@ -192,11 +192,17 @@ formulario.addEventListener("submit", (e) => {
               inicio.style.display = "block";
               botones.style.display = "block";
 
-              document.getElementById("fechavisita").setAttribute("min", today);
-              document
-                .getElementById("fechareserva")
-                .setAttribute("min", today);
+              const today = new Date();
+              const offset = today.getTimezoneOffset();
+              today.setMinutes(today.getMinutes() - offset);
+          
+              // Formatear la fecha y hora en el formato ISO adecuado
+              const isoString = today.toISOString();
+              const localDateTime = isoString.slice(0, 16); // YYYY-MM-DDTHH:mm
 
+              document.getElementById("fechavisita").setAttribute("min", localDateTime);
+              document.getElementById("fechareserva").setAttribute("min", localDateTime);
+             
               document
                 .getElementById("divbotonhistorico")
                 .addEventListener("click", updatePaymentHistory);
