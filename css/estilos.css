@@ -1300,3 +1300,19 @@ summary::before {
 #btn-reload{
   background-color: rgba(255, 255, 255, 0.22);
 }
+
+#namevisita{
+  height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px 0px 10px;
+    margin-bottom: 0px;
+    background: #f3f3f3eb;
+    color: #013e6a;
+    font-family: "Quicksand", sans-serif;
+    border: 2px solid transparent;
+    transition: 0.3s ease all;
+}
