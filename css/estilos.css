@@ -81,7 +81,7 @@ body {
 
 .columna-izquierda2,
 .columna-derecha2 {
-  width: 50%; /* Ajusta el ancho según tus necesidades */
+  width: 40%; /* Ajusta el ancho según tus necesidades */
 }
 .columna-izquierda2 img {
   max-width: 150%; /* Asegura que la imagen no sobrepase su contenedor */
@@ -474,7 +474,7 @@ select:focus {
 
 .dropdown-title {
   color: #0271cd;
-  padding: 10px 40px;
+  padding: 10px 10px;
 }
 #loader {
   display: none;
@@ -569,7 +569,7 @@ select:focus {
 
 .contenedorformulariovisita {
   color: rgba(0, 0, 0, 0.428);
-  padding: 0px 10px;
+  padding: 0px 0px;
 }
 
 .estatus {
@@ -601,6 +601,13 @@ select:focus {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
   overflow: hidden;
   bottom: 0;
+}
+
+.formulario4 {
+  width: 280px;
+  display: flex; /* Activate flexbox for the form */
+  flex-direction: column; /* Stack elements vertically */
+  border: 35px;
 }
 
 .tablapropietarios th,
@@ -1079,9 +1086,14 @@ summary::before {
 }
 
 .conetnedordetails {
-  width: 350px;
+  width: 310px;
   align-items: center; /* Centra los elementos horizontalmente */
   padding: 0 15px;
+}
+
+#fechareserva{
+  width: 270px;
+
 }
 
 .contenedorformularioreserva {
@@ -1152,10 +1164,15 @@ summary::before {
 }
 
 .formulario4 {
-  width: 310px;
+  width: 280px;
   display: flex; /* Activate flexbox for the form */
   flex-direction: column; /* Stack elements vertically */
   border: 35px;
+}
+
+#fechavisita{
+  width: 270px;
+
 }
 
 .table-table-borderless {
