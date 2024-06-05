@@ -1341,7 +1341,8 @@ function procesarPDF(datos) {
           : null;
         console.log(primerDato);
         console.log(segundoDato);
-        clavederastreo = primerDato + " " + segundoDato;
+        const clavederastreosinf = primerDato + " " + segundoDato;
+        const clavederastreo =clavederastreosinf.replace(/[-\/]/g, '');
         console.log(clavederastreo);
 
         // Mostrar los datos en el HTML
