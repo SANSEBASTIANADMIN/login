@@ -823,6 +823,10 @@ formulario.addEventListener("submit", (e) => {
                 function eliminarreservacion(amenidad, fecha, domiciliocod) {
                   // Obtener la URL de la API
                   const apiURL = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones`;
+                  const mensajeConfirmacion = `¿Estás seguro de que deseas cancelar la reservación de ${amenidad} el ${fecha}?`;
+                  const confirmacion = confirm(mensajeConfirmacion);
+
+                  if (confirmacion) {
 
                   // Realizar una solicitud GET para obtener los datos de la hoja de cálculo
                   fetch(apiURL)
@@ -841,12 +845,17 @@ formulario.addEventListener("submit", (e) => {
                       console.log(domiciliocod);
                       console.log(indice);
 
+                      let fechaHoraActual = new Date();
+                      let fechaHoraFormateada = fechaHoraActual.toLocaleString();
+
                       // Si se encuentra el índice, construir la URL de la solicitud PUT para actualizar la fila
                       if (indice !== -1) {
                         const updateURL = `${apiURL}/${indice}`;
 
                         // Definir los datos que deseas actualizar
-                        const newData = { eliminar: "Cancelada" }; // Aquí puedes poner la leyenda que quieras
+                        const newData = { eliminar: "Cancelada",
+                          fechadecancelacion: fechaHoraFormateada,
+                        }; // Aquí puedes poner la leyenda que quieras
 
                         // Configurar la solicitud PUT
                         const requestOptions = {
@@ -888,7 +897,8 @@ formulario.addEventListener("submit", (e) => {
                         error
                       );
                     });
-                }
+                  }
+                }  
               }
 
               function calendario() {
@@ -1327,6 +1337,7 @@ function procesarPDF(datos) {
           /(?<=Monto IVA Referencia numérica Clave de rastreo  \d{2} de [a-zA-Z]+\sde\s\d{4}\s)(.+?)\s+\$/; // Coincide con cualquier texto después del texto indicado y seguido del siguiente "$"
         const conceptoPagoMatch = texto.match(regexConceptoPago);
         const conceptoPago = conceptoPagoMatch ? conceptoPagoMatch[1] : null;
+        
         console.log(conceptoPago);
 
         // Clave de rastreo
