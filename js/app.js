@@ -367,6 +367,7 @@ formulario.addEventListener("submit", (e) => {
                     nov2023Span.textContent = data[indice].nov2023;
                     dic2023Span.textContent = data[indice].dic2023;
                     adeudoSpan.textContent = data[indice].adeudo;
+                    statusSpan.textContent = data[indice].status;
 
                     console.log("Pagos actualizados");
                   });
