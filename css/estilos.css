@@ -1363,3 +1363,7 @@ summary::before {
 .columna-izquierda6 img {
   max-width: 100%; /* Asegura que la imagen no sobrepase su contenedor */
 }
+
+.contenedorescalle{
+  margin: 10px;
+}
