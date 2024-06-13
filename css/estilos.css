@@ -1245,7 +1245,6 @@ summary::before {
 
 .contenedorhomeverde {
   width: 370px;
-  height: 370px;
   max-width: 370px;
   max-height: 90%;
   border-radius: 10px 10px 10px 10px;
@@ -1315,4 +1314,64 @@ summary::before {
     font-family: "Quicksand", sans-serif;
     border: 2px solid transparent;
     transition: 0.3s ease all;
+}
+
+.camaraqr {
+  width: 350px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-items: center;
+  font-size: 12px;
+  flex-wrap: wrap;
+  align-content: space-around;
+  flex-direction: column;
+}
+
+
+.contenedorhomeazul {
+  width: 370px;
+  max-width: 370px;
+  max-height: 90%;
+  border-radius: 10px 10px 10px 10px;
+  position: center;
+  overflow: hidden;
+  margin: 10px;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  background:green;
+  min-height: 10vh;
+  display: grid;
+  margin: 10px; /* Agregar margen */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  bottom: 10px;
+  justify-content: center;
+  padding: 20px 20px 20px 20px;
+
+}
+
+.columna-izquierda5 {
+  width: 100%; /* Ajusta el ancho según tus necesidades */
+}
+.columna-izquierda5 img {
+  max-width: 100%; /* Asegura que la imagen no sobrepase su contenedor */
+}
+
+.row5 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column-reverse;
+}
+
+.header5 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.columna-izquierda6 {
+  width: 20%; /* Ajusta el ancho según tus necesidades */
+}
+.columna-izquierda6 img {
+  max-width: 100%; /* Asegura que la imagen no sobrepase su contenedor */
 }
