@@ -1205,17 +1205,6 @@ summary::before {
   transition: 0.3s ease all;
 }
 
-.camaraqr {
-  width: 350px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  align-items: center;
-  font-size: 12px;
-  flex-wrap: wrap;
-  align-content: space-around;
-  flex-direction: column;
-}
 
 .botonescamara {
   display: flex;
@@ -1317,7 +1306,6 @@ summary::before {
 }
 
 .camaraqr {
-  width: 350px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
