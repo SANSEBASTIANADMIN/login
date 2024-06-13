@@ -658,7 +658,7 @@ formulario.addEventListener("submit", (e) => {
                 confirmacion.style.display = "none";
                 divqr.style.display = "block";
                 datoscorrectosvisitas.style.display = "block";
-                divnuevoregistro.style.display = "block";
+                //divnuevoregistro.style.display = "block";
                 divregreso.style.display = "block";
                 const domicilio = domicilioSpan.textContent;
                 const propietario = propietarioSpan.textContent;
@@ -935,7 +935,7 @@ formulario.addEventListener("submit", (e) => {
 
               function nuevoregistro() {
                 divqr.style.display = "none";
-                divnuevoregistro.style.display = "none";
+                //divnuevoregistro.style.display = "none";
                 paymentHistory2024.style.display = "none";
                 tags.style.display = "block";
                 btndcerrarsesion.style.display = "block";
@@ -945,7 +945,7 @@ formulario.addEventListener("submit", (e) => {
                 divbotonvisitas.style.display = "block";
                 divingresos.style.display = "none";
                 segurichat.style.display = "none";
-                divnuevoregistro.style.display = "none";
+                //divnuevoregistro.style.display = "none";
                 divamenidades.style.display = "none";
                 borrarElementos();
               }
@@ -1187,7 +1187,7 @@ formulario.addEventListener("submit", (e) => {
                 divbotonvisitas.style.display = "block";
                 divingresos.style.display = "none";
                 segurichat.style.display = "block";
-                divnuevoregistro.style.display = "none";
+                //divnuevoregistro.style.display = "none";
                 divamenidades.style.display = "none";
                 divreservar.style.display = "none";
                 divpagos.style.display = "none";
@@ -2172,3 +2172,104 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+document.getElementById("downloadQrButton").addEventListener("click", async function() {
+  const qrElement = document.getElementById("qrElement");
+  html2canvas(qrElement).then(canvas => {
+      canvas.toBlob(function(blob) {
+          const imageUrl = URL.createObjectURL(blob);
+          const downloadLink = document.createElement("a");
+          downloadLink.href = imageUrl;
+          downloadLink.download = "captura_pantalla.png";
+          downloadLink.click();
+          URL.revokeObjectURL(imageUrl);
+      }, 'image/png');
+  });
+});
+
+document.getElementById("compartirQrButton").addEventListener("click", async function() {
+  //alert("Botón clickeado!");
+
+  const domicilio = document.getElementById("domicilio").textContent;
+  const propietario = document.getElementById("propietario").textContent;
+  const namevisitaSpan = document.getElementById("namevisita").value;
+  const fechavisitaSpan = document.getElementById("fechavisita").value;
+  //alert(`Datos obtenidos: ${namevisitaSpan}, ${fechavisitaSpan}, ${domicilio}, ${propietario}`);
+
+  const qrElement = document.getElementById("qrElement");
+  html2canvas(qrElement).then(async canvas => {
+      canvas.toBlob(async function(blob) {
+          try {
+              const imgbbUrl = await uploadToImgbb(blob);
+              //alert(`Imagen subida a imgbb: ${imgbbUrl}`);
+
+              const shortUrl = await shortenUrl(imgbbUrl);
+              //alert(`URL acortada: ${shortUrl}`);
+
+              const whatsappMessage1 = `Hola ${namevisitaSpan}`;
+              const whatsappMessage2 = `El residente ${propietario} te ha autorizado un acceso para su domicilio ${domicilio} para el ${fechavisitaSpan}`;
+              const whatsappMessage3 = `Muestra este QR a seguridad: ${shortUrl}`;
+              const whatsappMessage4 = `Ubicación: https://maps.app.goo.gl/MbB9UXEhoodqaW11A`;
+
+              const whatsappMessage = `${whatsappMessage1}\n\n${whatsappMessage2}\n\n${whatsappMessage3}\n\n${whatsappMessage4}`;
+
+              const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)}`;
+              //alert(`WhatsApp URL: ${whatsappUrl}`);
+
+              const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+              const whatsappApiUrl = isMobile ? whatsappUrl.replace('api.whatsapp.com', 'wa.me') : whatsappUrl;
+
+              //alert(`WhatsApp API URL: ${whatsappApiUrl}`);
+
+              window.open(whatsappUrl, "_blank");
+          } catch (error) {
+              alert(`Hubo un error al procesar la imagen: ${error.message}`);
+              console.error("Error al procesar la imagen:", error);
+          }
+      }, 'image/png');
+  });
+});
+
+async function uploadToImgbb(blob) {
+  //alert("Subiendo imagen a imgbb...");
+  const formData = new FormData();
+  formData.append("image", blob);
+
+  try {
+      const response = await fetch("https://api.imgbb.com/1/upload?key=7d47376285c786ea70e448881a02adf9", {
+          method: "POST",
+          body: formData
+      });
+
+      const responseText = await response.text();
+      if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status} - ${responseText}`);
+      }
+
+      const data = JSON.parse(responseText);
+      //alert("Imagen subida!");
+      return data.data.url;
+  } catch (error) {
+      //alert(`Error al subir la imagen: ${error.message}`);
+      console.error("Error al subir la imagen:", error);
+      throw error;
+  }
+}
+
+async function shortenUrl(url) {
+  //alert(`Acortando URL: ${url}`);
+  try {
+      const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`);
+      if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+      }
+      const shortUrl = await response.text();
+      //alert(`URL acortada: ${shortUrl}`);
+      return shortUrl;
+  } catch (error) {
+      //alert(`Error al acortar la URL: ${error.message}`);
+      console.error("Error al acortar la URL:", error);
+      throw error;
+  }
+}

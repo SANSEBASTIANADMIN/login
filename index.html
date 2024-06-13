@@ -370,19 +370,29 @@
 					</div>
 				</div>
 				<div id="divqr" style="display: none;">	
-					<div id="qrElement">
+					<div class="datosdelqr">
 						<p class="">Comparte este QR con: </p>
-							<p> </p>
-							<span class="titulo" id="namevisita3"></span>
-							<p> </p>
-							<span class="titulo" id="tipo3"></span>
-							<p> </p>
-							<span class="titulo" id="fechavisita3"></span>
-							<p> </p>
-							<span class="titulo" id="domdvisista"></span>
-							<p></p>
-							<p></p>
-							<p></p>
+						<p> </p>
+						<span class="titulo" id="namevisita3"></span>
+						<p> </p>
+						<span class="titulo" id="tipo3"></span>
+						<p> </p>
+						<span class="titulo" id="fechavisita3"></span>
+						<p> </p>
+						<span class="titulo" id="domdvisista"></span>
+					</div>
+					<div id="qrElement" class="qrElement">
+					</div>
+					<div class="copiarqr" style="display: none;">
+						<button class="btn" id="downloadQrButton">Descargar QR</button>
+					</div>
+					<div class="copiarqr">
+						<button class="btn" id="compartirQrButton">Compartir por WA</button>
+					</div>
+					<div id="nuevoregistro" class="copiarqr">	
+						<button type="submit" class="btn" onclick="nuevoregistro()">
+							Nuevo registro
+						</button>
 					</div>	
 				</div>
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	
@@ -529,13 +539,6 @@
 				<div id="cerrarsesion">	
 					<button type="submit" class="btn">
 						Cerrar Sesión
-					</button>
-				</div>
-			</div>
-			<div class="contenedor2 button-container">
-				<div id="nuevoregistro" style="display: none;">	
-					<button type="submit" class="btn" onclick="nuevoregistro()">
-						Nuevo registro
 					</button>
 				</div>
 			</div>
@@ -707,6 +710,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 	<script src="https://www.google.com/recaptcha/enterprise.js?render=6LdCILYpAAAAADl_Sm8WVoZTzGfv8RS_TiLLspJf"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/app2.js"></script>
 </body>
