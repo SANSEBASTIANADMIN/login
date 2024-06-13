@@ -367,6 +367,36 @@ document.addEventListener("DOMContentLoaded", function() {
           });
   }
 
+  function obtenerdomconmora() {
+    console.log("Obteniendo registros de morosos...");
+    fetch("https://sheet.best/api/sheets/2446d2ec-116c-4cb7-ac3c-150fd6be2066/tabs/propietarios")
+        .then((response) => response.json())
+        .then((data) => {
+            // Filtrar y agregar los registros con estado "Moroso" (sin importar la fecha)
+            const registrosMorosos = data.filter((registro) => registro.status.startsWith("Moroso"));
+            agregarRegistrosMorosos("morosos-registros", registrosMorosos);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
+    // Función para agregar registros de morosos
+    function agregarRegistrosMorosos(contenedorId, registros) {
+        const contenedor = document.getElementById(contenedorId);
+        // Vaciar el contenedor antes de agregar nuevos registros
+        contenedor.innerHTML = '';
+        registros.forEach(registro => {
+            const registroHTML = `
+                <div id="div${registro.dom}" class="registro-item-mora">
+                    <p><strong>Domicilio:</strong> ${atob(registro.dom)}</p>
+                    <p><strong>Adeudo Total:</strong> ${registro.adeudo}</p>
+                </div>
+            `;
+            contenedor.insertAdjacentHTML('beforeend', registroHTML);
+        });
+    }
+
   // Función para agregar registros a un contenedor de calle
   function agregarRegistros(contenedorId, registros) {
       const contenedor = document.getElementById(contenedorId);
@@ -439,6 +469,13 @@ document.addEventListener("DOMContentLoaded", function() {
           }
       });
   });
+
+      // Event listener para el clic en el elemento details
+      document.getElementById("calle-morosos").addEventListener("toggle", function() {
+        if (this.open) {
+            obtenerdomconmora();
+        }
+    });
 
   // Llamar a las funciones una vez al cargar la página para cargar los registros iniciales
   obtenerYAgregarRegistros2();
