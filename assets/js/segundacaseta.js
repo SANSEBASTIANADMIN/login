@@ -369,7 +369,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function obtenerdomconmora() {
     console.log("Obteniendo registros de morosos...");
-    fetch("https://sheet.best/api/sheets/2446d2ec-116c-4cb7-ac3c-150fd6be2066/tabs/propietarios")
+    const url = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
+    fetch(url)    
         .then((response) => response.json())
         .then((data) => {
             // Filtrar y agregar los registros con estado "Moroso" (sin importar la fecha)
