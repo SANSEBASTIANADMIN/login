@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Función para obtener los datos del API y agregar los registros de hoy
     function obtenerYAgregarRegistros2() {
         console.log("actualizando");
-        fetch("https://sheet.best/api/sheets/2446d2ec-116c-4cb7-ac3c-150fd6be2066/tabs/visitas")
+        fetch("https://sheet.best/api/sheets/3b310155-123f-4e34-ad83-6b5111ee07f3/tabs/visitas")
             .then((response) => response.json())
             .then((data) => {
                 console.log(data); // Imprime los datos obtenidos desde la API
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Función para obtener y agregar registros de morosos
     function obtenerdomconmora() {
         console.log("Obteniendo registros de morosos...");
-        fetch("https://sheet.best/api/sheets/2446d2ec-116c-4cb7-ac3c-150fd6be2066/tabs/propietarios")
+        fetch("https://sheet.best/api/sheets/3b310155-123f-4e34-ad83-6b5111ee07f3/tabs/propietarios")
             .then((response) => response.json())
             .then((data) => {
                 // Filtrar y agregar los registros con estado "Moroso" (sin importar la fecha)
