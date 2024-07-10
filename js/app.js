@@ -73,24 +73,33 @@ const domdvisistaSpan = document.getElementById("domdvisista");
 const divpagocargado = document.getElementById("pagocargado");
 const divseguridad = document.getElementById("seguridad");
 const sheetID = "3b310155-123f-4e34-ad83-6b5111ee07f3";
-
 let sesionIniciada = false;
 
-let checkbox = document.getElementById("avisoPrivacidad");
+let checkboxadp = document.getElementById("avisoPrivacidad");
 
-checkbox.addEventListener("click", function () {
-  let aceptoAvisoPrivacidad = checkbox.checked;
-  console.log("Valor actual del checkbox:", aceptoAvisoPrivacidad);
-  // Aquí puedes realizar cualquier otra acción que necesites con el valor del checkbox
+checkboxadp.addEventListener('click', function() {
+    let aceptoAvisoPrivacidad = checkboxadp.checked;
+    console.log("Valor actual del checkbox Aviso de Privacidad y terminos y condiciones:", aceptoAvisoPrivacidad);
+    // Aquí puedes realizar cualquier otra acción que necesites con el valor del checkbox
 });
 
-document.getElementById("cerrarsesion").addEventListener("click", function () {
+let checkboxrememberMe = document.getElementById("rememberMe");
+
+checkboxrememberMe.addEventListener('click', function() {
+    let rememberMe = checkboxrememberMe.checked;
+    console.log("Usuario y contraseña se guardaran:", rememberMe);
+    // Aquí puedes realizar cualquier otra acción que necesites con el valor del checkbox
+});
+
+document.getElementById("cerrarsesion").addEventListener("click", function() {
+  localStorage.removeItem('correoCifradoInput'); // Elimina el correo cifrado del localStorage
+  console.log("Borrando Usuario");
+  localStorage.removeItem('contraseñaCifrada'); // Elimina la contraseña cifrada del localStorage
+  console.log("Borrando contraseña"); 
   window.location.reload();
 });
 
-document
-  .getElementById("cerrarsesionadmin")
-  .addEventListener("click", function () {
+document.getElementById("cerrarsesionadmin").addEventListener("click", function () {
     window.location.reload();
   });
 
@@ -100,6 +109,1140 @@ function cifrarCorreo(valor) {
   var cifrado = btoa(String.fromCharCode.apply(null, bytes));
   return cifrado;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const correoCifradoGuardado = localStorage.getItem('correoCifradoInput');
+  const contraseñaGuardada = localStorage.getItem('contraseñasCifrada');
+
+  if (correoCifradoGuardado && contraseñaGuardada) {
+
+    console.log("Datos de sesión guardados:");
+    console.log("Usuario:", correoCifradoGuardado);
+    console.log("Contraseña:", contraseñaGuardada);
+
+    const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
+    fetch(urlProp)            //actualización
+        .then((response) => response.json())
+        .then((data) => {
+
+        const correoCifradoInput = correoCifradoGuardado
+        console.log(correoCifradoInput)
+        const correosCifrados = data.map((fila) => fila.correo);
+        const indice = correosCifrados.findIndex((correoCifrado) => correoCifrado === correoCifradoGuardado);
+        const contraseñasCifradas = data.map((fila) => fila.password);
+        console.log(indice)
+
+        if (indice !== -1) {
+          const contraseñaCifrada = contraseñasCifradas[indice];
+          console.log(contraseñaCifrada);
+
+            const contraseñaCifradoInput = contraseñaGuardada;
+            console.log(contraseñaCifradoInput);
+            if (contraseñaCifrada === contraseñaCifradoInput) {
+              console.log("Inicio de sesión exitoso");
+
+              const cliente = atob(data[indice].Cliente);
+              const clientecod = data[indice].Cliente; // Accede directamente al cliente en lugar de usar map
+
+              const domicilio = atob(data[indice].dom); // Accede directamente al domicilio en lugar de usar map
+              const domiciliocod = data[indice].dom; // Accede directamente al domicilio en lugar de usar map
+
+              const status = data[indice].status;
+              const adeudo = data[indice].adeudo;
+              const statuscod = data[indice].status;
+
+              const tag1 = atob(data[indice].tag1);
+              const tag2 = atob(data[indice].tag2);
+              const tag3 = atob(data[indice].tag3);
+              const tag4 = atob(data[indice].tag4);
+              const tag5 = atob(data[indice].tag5);
+              const tag6 = atob(data[indice].tag6);
+
+              const tag1sinComillas = tag1.replace(/"/g, "");
+              const tag2sinComillas = tag2.replace(/"/g, "");
+              const tag3sinComillas = tag3.replace(/"/g, "");
+              const tag4sinComillas = tag4.replace(/"/g, "");
+              const tag5sinComillas = tag5.replace(/"/g, "");
+              const tag6sinComillas = tag6.replace(/"/g, "");
+
+              tag1Span.textContent = tag1sinComillas;
+              tag2Span.textContent = tag2sinComillas;
+              tag3Span.textContent = tag3sinComillas;
+              tag4Span.textContent = tag4sinComillas;
+              tag5Span.textContent = tag5sinComillas;
+              tag6Span.textContent = tag6sinComillas;
+
+              const clientesinComillas = cliente.replace(/"/g, "");
+              const domiciliosinComillas = domicilio.replace(/"/g, "");
+
+              propietarioSpan.textContent = clientesinComillas;
+              domicilioSpan.textContent = domiciliosinComillas;
+              domdvisistaSpan.textContent = domicilio;
+              correoSpan.textContent = correoCifradoGuardado; // Muestra el correo ingresado
+              statusSpan.textContent = status;
+              adeudoSpan.textContent = adeudo;
+
+              homepage.style.display = "none";
+              btndcerrarsesion.style.display = "block";
+              tags.style.display = "block";
+              btndcerrarsesion.style.display = "block";
+              inicio.style.display = "block";
+              botones.style.display = "block";
+
+              const today = new Date();
+              const offset = today.getTimezoneOffset();
+              today.setMinutes(today.getMinutes() - offset);
+          
+              // Formatear la fecha y hora en el formato ISO adecuado
+              const isoString = today.toISOString();
+              const localDateTime = isoString.slice(0, 16); // YYYY-MM-DDTHH:mm
+
+              document.getElementById("fechavisita").setAttribute("min", localDateTime);
+              document.getElementById("fechareserva").setAttribute("min", localDateTime);
+            
+              document
+                .getElementById("divbotonhistorico")
+                .addEventListener("click", updatePaymentHistory);
+              document
+                .getElementById("divbotonpago")
+                .addEventListener("click", redireccionarPagos);
+              document
+                .getElementById("divregreso")
+                .addEventListener("click", regresar);
+              document
+                .getElementById("divbotonvisitas")
+                .addEventListener("click", ingresos);
+              document
+                .getElementById("divbotonvisitas")
+                .addEventListener("click", ingresos);
+              document
+                .getElementById("btnenviaringreso")
+                .addEventListener("click", enviarsdei);
+              document
+                .getElementById("datoscorrectosvisitas")
+                .addEventListener("click", confirmacionvyp);
+              document
+                .getElementById("nuevoregistro")
+                .addEventListener("click", nuevoregistro);
+              document
+                .getElementById("divbotonreservar")
+                .addEventListener("click", calendario);
+              document
+                .getElementById("confirmarreserca")
+                .addEventListener("click", registrarReserva);
+              document
+                .getElementById("misreservsas")
+                .addEventListener("click", toggleMisReservas);
+              document
+                .getElementById("enviarpago")
+                .addEventListener("click", enviardatospago);
+              document
+                .getElementById("btnreciboene2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibofeb2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibomar2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnreciboabr2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibomay2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibojun2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibojul2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnreciboago2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibosep2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibooct2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibonov2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibodic2024")
+                .addEventListener("click", generarrecibopdf);
+
+              document
+                .getElementById("borrardatos")
+                .addEventListener("click", borrarElementos);
+
+              var boton = document.getElementById("btnparaconfirmarreserca");
+              var boton2 = document.getElementById("generarvisitayqr");
+              var boton3 = document.getElementById("enviarpago");
+
+              var tiempoEspera = 5 * 1000; // 5 minutos en milisegundos
+              var timer; // variable para almacenar el temporizador
+
+              const fechaHoraActual = new Date();
+              const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+
+              const datosreg = {
+                registro: fechaHoraFormateada,
+                dom: domiciliocod,
+              };
+
+              const urlregistro = `https://sheet.best/api/sheets/${sheetID}/tabs/registros`;
+              const opciones = {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(datosreg), // Corregido aquí
+              };
+
+              fetch(urlregistro, opciones)
+                .then((response) => response.json())
+                .then((data) => {
+                  // Manejar la respuesta de la API si es necesario
+                })
+                .catch((error) => {
+                  console.error("Error al enviar datos a la API:", error);
+                });
+
+              function desactivarBoton() {
+                boton.disabled = true;
+                boton2.disabled = true;
+                boton3.disabled = true;
+              }
+
+              function activarBoton() {
+                boton.disabled = false;
+                boton2.disabled = false;
+                boton3.disabled = false;
+              }
+
+              function updatePaymentHistory() {
+                paymentHistory2024.style.display = "block";
+                tags.style.display = "none";
+                btndcerrarsesion.style.display = "none";
+                divbotonhistorico.style.display = "none";
+                divbotonpago.style.display = "none";
+                divbotonreservar.style.display = "none";
+                divbotonvisitas.style.display = "none";
+                segurichat.style.display = "none";
+                divregreso.style.display = "block";
+                console.log(indice);
+
+                const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
+                fetch(urlProp)
+                  .then((response) => response.json())
+                  .then((data) => {
+                    ene2024Span.textContent = data[indice].ene2024;
+                    feb2024Span.textContent = data[indice].feb2024;
+                    mar2024Span.textContent = data[indice].mar2024;
+                    abr2024Span.textContent = data[indice].abr2024;
+                    may2024Span.textContent = data[indice].may2024;
+                    jun2024Span.textContent = data[indice].jun2024;
+                    jul2024Span.textContent = data[indice].jul2024;
+                    ago2024Span.textContent = data[indice].ago2024;
+                    sep2024Span.textContent = data[indice].sep2024;
+                    oct2024Span.textContent = data[indice].oct2024;
+                    nov2024Span.textContent = data[indice].nov2024;
+                    dic2024Span.textContent = data[indice].dic2024;
+
+                    ene2023Span.textContent = data[indice].ene2023;
+                    feb2023Span.textContent = data[indice].feb2023;
+                    mar2023Span.textContent = data[indice].mar2023;
+                    abr2023Span.textContent = data[indice].abr2023;
+                    may2023Span.textContent = data[indice].may2023;
+                    jun2023Span.textContent = data[indice].jun2023;
+                    jul2023Span.textContent = data[indice].jul2023;
+                    ago2023Span.textContent = data[indice].ago2023;
+                    sep2023Span.textContent = data[indice].sep2023;
+                    oct2023Span.textContent = data[indice].oct2023;
+                    nov2023Span.textContent = data[indice].nov2023;
+                    dic2023Span.textContent = data[indice].dic2023;
+                    adeudoSpan.textContent = data[indice].adeudo;
+                    statusSpan.textContent = data[indice].status;
+
+                    console.log("Pagos actualizados");
+                  });
+              }
+
+              function generarrecibopdf() {
+                // Obtener la fila correspondiente al botón clicado
+                var fila = event.target.closest("tr");
+
+                // Obtener los datos de la fila
+                var datosFila = fila.querySelectorAll("td");
+
+                // Obtener el texto de cada elemento td y guardarlo en variables
+                var mes = datosFila[0].textContent.trim(); // Mes
+                var idMes = datosFila[1].querySelector("span").id; // ID del mes
+                var cantidad = datosFila[1]
+                  .querySelector("span")
+                  .textContent.trim(); // Cantidad
+
+                // Verificar si la cantidad está vacía
+                if (cantidad === "") {
+                  alert("Aún no hay un pago aplicado a este mes");
+                  return; // Salir de la función
+                } else {
+                  var año = idMes.substring(3); // Extraer los caracteres a partir del cuarto (el año)
+                  var now = new Date();
+                  var folio =
+                    now.getFullYear() +
+                    pad(now.getMonth() + 1) +
+                    pad(now.getDate()) +
+                    pad(now.getHours()) +
+                    pad(now.getMinutes()) +
+                    pad(now.getSeconds());
+
+                  // Función para agregar ceros a la izquierda si es necesario
+                  function pad(number) {
+                    return (number < 10 ? "0" : "") + number;
+                  }
+
+                  // Crear un nuevo objeto jsPDF
+                  const { jsPDF } = window.jspdf;
+                  var doc = new jsPDF({
+                    orientation: "landscape",
+                    unit: "mm",
+                    format: [216, 140], // Tamaño personalizado: 216mm x 140mm (media carta horizontal)
+                  });
+
+                  var fontSize = 12;
+                  doc.setFontSize(fontSize);
+                  doc.setTextColor(1, 62, 106); // RGB: 1, 62, 106
+
+                  // Agregar la información al PDF
+                  doc.setTextColor(255, 0, 0); // RGB: 255, 0, 0 (rojo)
+                  doc.text("Folio: " + folio, 160, 20); // Folio alineado a la derecha
+                  doc.setTextColor(0, 0, 0); // RGB: 0, 0, 0 (negro)
+                  doc.text(
+                    "Fecha: " + new Date().toLocaleDateString(),
+                    174,
+                    25
+                  ); // Fecha de hoy alineada a la derecha
+
+                  doc.setTextColor(1, 120, 210); // RGB para el color hexadecimal 0178d2
+                  doc.text("Estimado(a) " + cliente, 10, 50); // Nombre del cliente
+
+                  doc.setTextColor(0, 0, 0); // RGB: 0, 0, 0 (negro)
+                  var text = [
+                    "Es un placer informarte que hemos recibido tu comprobante de pago por la cantidad de " +
+                      cantidad,
+                    "correspondiente al mes de " +
+                      mes +
+                      " " +
+                      año +
+                      " de tu propiedad ubicada en " +
+                      domicilio,
+                    "Cada contribución es esencial para asegurar el buen estado de nuestras áreas comunes y servicios.",
+                    "Agradecemos tu puntualidad y compromiso con el mantenimiento de nuestra comunidad.",
+                    "Este documento tiene carácter informativo. El pago será respaldado con el CEP o estado de cuenta y no constituye un instrumento para el acceso a amenidades o servicios",
+                  ];
+
+                  // Guardar el estado actual de las propiedades de la instancia del documento
+                  doc.saveGraphicsState();
+
+                  // Establecer el color y el grosor de la línea del rectángulo
+                  doc.setDrawColor(1, 120, 210); // Color del margen (gris claro)
+                  doc.setLineWidth(1); // Grosor de la línea
+
+                  // Dibujar un rectángulo alrededor del contenido
+                  doc.roundedRect(
+                    5,
+                    5,
+                    doc.internal.pageSize.width - 10,
+                    doc.internal.pageSize.height - 10,
+                    10,
+                    10
+                  );
+
+                  // Restaurar el estado guardado
+                  doc.restoreGraphicsState();
+
+                  // Agregar el contenido del texto
+                  doc.text(text, 10, 65, { align: "justify", maxWidth: 190 });
+
+                  doc.setTextColor(1, 120, 210); // RGB para el color hexadecimal 0178d2
+                  doc.text(
+                    "Atentamente: La Mesa Directiva de Privada Santa Cecilia.",
+                    10,
+                    100
+                  );
+
+                  var imgData = "Fraccify.png"; // Reemplaza esto con la URL de tu imagen
+                  doc.addImage(imgData, "JPEG", 10, 10, 30, 30); // Ajusta las coordenadas y el tamaño según sea necesario
+
+                  // Guardar el PDF
+                  doc.save("recibo_" + mes.toLowerCase() + "_" + año + ".pdf");
+                }
+              }
+
+              function registrarReserva() {
+                if (boton.disabled) {
+                  return; // Evitar ejecutar la función si ya está en curso
+                }
+                desactivarBoton(); // Desactivar el botón al inicio de la función
+
+                const fechareserva =
+                  document.getElementById("fechareserva").value;
+                const horaInicio = document.getElementById("horaInicio").value;
+                const horaFin = document.getElementById("horaFin").value;
+                const tiporeserva =
+                  document.getElementById("tiporeserva").value;
+                const statusElement = document.getElementById("status");
+                const statusText = statusElement.textContent;
+                const fechaHoraActual = new Date();
+                const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+                const domicilio = domicilioSpan.textContent;
+                console.log(statuscod);
+
+                const datos = {
+                  registro: fechaHoraFormateada,
+                  dom: domiciliocod,
+                  nombre: clientecod,
+                  fecha: fechareserva,
+                  amenidad: tiporeserva,
+                  inicio: horaInicio,
+                  fin: horaFin,
+                  domds: domicilio,
+                };
+
+                if (
+                  fechareserva.trim() === "" ||
+                  horaInicio.trim() === "" ||
+                  horaFin.trim() === "" ||
+                  tiporeserva === ""
+                ) {
+                  alert(
+                    "Por favor, complete todos los campos antes de registrar la reserva."
+                  );
+                  return; // Detener la ejecución si hay campos vacíos
+                }
+
+                if (statuscod === "Al Corriente") {
+                  const url = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones`;
+                  const opciones = {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(datos),
+                  };
+
+                  // Verificar disponibilidad antes de enviar los datos
+                  verificarDisponibilidad(fechareserva, tiporeserva)
+                    .then((disponible) => {
+                      if (disponible) {
+                        fetch(url, opciones)
+                          .then((response) => response.json())
+                          .then((data) => {
+                            // Alerta de éxito después de enviar los datos
+                            alert(
+                              "Tu reservación para usar " +
+                                tiporeserva +
+                                " el " +
+                                fechareserva +
+                                " fue enviada"
+                            );
+                            console.log(fechareserva);
+                            console.log(tiporeserva);
+                            console.log(fechaHoraFormateada);
+                            console.log(domiciliocod);
+                            console.log(clientecod);
+                            console.log(fechareserva);
+                            console.log(tiporeserva);
+                            console.log(horaInicio);
+                            console.log(horaFin);
+
+                            // Limpiar los campos del formulario después de enviar los datos
+                            document.getElementById("fechareserva").value = "";
+                            document.getElementById("horaInicio").value = "";
+                            document.getElementById("horaFin").value = "";
+                            document.getElementById("tiporeserva").value = "";
+                          })
+                          .catch((error) => {
+                            console.error(
+                              "Error al enviar los datos a la hoja de cálculo",
+                              error
+                            );
+                          });
+                      } else {
+                        alert(
+                          "Sin disponibilidad para reservar " +
+                            tiporeserva +
+                            " en la fecha seleccionada."
+                        );
+                      }
+                    })
+                    .catch((error) => {
+                      console.error(
+                        "Error al verificar disponibilidad:",
+                        error
+                      );
+                    });
+                } else {
+                  alert(
+                    "Domicilio tiene adeudo, actualmente no tiene derecho al reservar amenidades"
+                  );
+                  console.log(statusText);
+                }
+                timer = setTimeout(activarBoton, tiempoEspera);
+              }
+
+              function verificarDisponibilidad(fecha, tiporeserva) {
+                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones`;
+
+                // Realizar una consulta para obtener los registros en la misma fecha y amenidad
+                return fetch(url)
+                  .then((response) => response.json())
+                  .then((data) => {
+                    const registrosMismaFecha = data.filter(
+                      (registro) =>
+                        registro.fecha === fecha &&
+                        registro.amenidad === tiporeserva
+                    );
+                    const cantidadRegistros = registrosMismaFecha.length;
+
+                    // Verificar disponibilidad según la cantidad de registros
+                    if (tiporeserva === "Asador") {
+                      return cantidadRegistros < 4; // Devuelve true si hay disponibilidad, de lo contrario, false
+                    } else if (tiporeserva === "Casa Club") {
+                      return cantidadRegistros < 1; // Devuelve true si hay disponibilidad, de lo contrario, false
+                    } else if (tiporeserva === "Alberca") {
+                      // La alberca siempre está disponible
+                      return true;
+                    }
+                  })
+                  .catch((error) => {
+                    console.error("Error al verificar disponibilidad:", error);
+                    throw error;
+                  });
+              }
+
+              function toggleMisReservas() {
+                console.log("actualizándose");
+                const domicilio = domicilioSpan.textContent;
+                const urlmisreservas = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones`;
+                fetch(urlmisreservas)
+                  .then((response) => response.json())
+                  .then((data) => {
+                    console.log(domiciliocod);
+                    // Filtrar los registros que coinciden con domicilioSpan
+                    const registrosFiltrados = data.filter(
+                      (registro) =>
+                        registro.dom && registro.dom.startsWith(domiciliocod)
+                    );
+                    console.log(registrosFiltrados);
+                    // Procesar los datos filtrados y agregarlos a los contenedores de calle
+                    agregarRegistros("divmisreservas", registrosFiltrados);
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+              }
+
+              function confirmacionvyp() {
+                if (boton2.disabled) {
+                  return; // Evitar ejecutar la función si ya está en curso
+                }
+                desactivarBoton(); // Desactivar el botón al inicio de la función
+
+                confirmacion.style.display = "none";
+                divqr.style.display = "block";
+                datoscorrectosvisitas.style.display = "block";
+                //divnuevoregistro.style.display = "block";
+                divregreso.style.display = "block";
+                const domicilio = domicilioSpan.textContent;
+                const propietario = propietarioSpan.textContent;
+                const namevisitaSpan =
+                  document.getElementById("namevisita").value;
+                const fechavisitaSpan =
+                  document.getElementById("fechavisita").value;
+                const fechaHoraActual = new Date();
+                const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+
+                // Formatear la fecha como DDMMAAAA
+                const dia = String(fechaHoraActual.getDate()).padStart(2, "0");
+                const mes = String(fechaHoraActual.getMonth() + 1).padStart(
+                  2,
+                  "0"
+                ); // Los meses empiezan desde 0
+                const año = fechaHoraActual.getFullYear();
+
+                // Formatear la hora como HHMM
+                const horas = String(fechaHoraActual.getHours()).padStart(
+                  2,
+                  "0"
+                );
+                const minutos = String(fechaHoraActual.getMinutes()).padStart(
+                  2,
+                  "0"
+                );
+
+                const propietarioAbreviado = propietario
+                  .slice(0, 2)
+                  .toUpperCase();
+                const domicilioAbreviado = domicilio.slice(0, 2).toUpperCase();
+                const namevisitaAbreviado = namevisitaSpan
+                  .slice(0, 2)
+                  .toUpperCase();
+                const fechaSinEspacios = fechavisitaSpan.replace(/\s/g, ""); // Eliminar espacios de la fecha
+                const fechaHoraRegistroSinEspacios =
+                  fechaHoraFormateada.replace(/\s/g, ""); // Eliminar espacios de la fechaHoraRegistro
+                const idUnico = `${propietarioAbreviado}${domicilioAbreviado}${namevisitaAbreviado}${dia}${mes}${año}${horas}${minutos}`;
+                console.log(idUnico);
+
+                const tipoSpan = document.getElementById("tipo").value;
+                console.log(
+                  domicilio,
+                  propietario,
+                  namevisitaSpan,
+                  tipoSpan,
+                  fechavisitaSpan
+                );
+
+                const datos = {
+                  propietario: clientecod,
+                  domicilio: domiciliocod,
+                  namevisita: namevisitaSpan,
+                  fecha: fechavisitaSpan,
+                  tipo: tipoSpan,
+                  fechaHoraRegistro: fechaHoraFormateada,
+                  idunico: idUnico,
+                };
+
+                const qrData = {
+                  Casa: domicilio,
+                  Nombre: namevisitaSpan,
+                  Fecha: fechavisitaSpan,
+                  Tipo: tipoSpan,
+                  ID: idUnico,
+                };
+
+                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/visitas`;
+
+                const opciones = {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(datos),
+                };
+
+                // Enviar los datos a la hoja de cálculo
+                fetch(url, opciones)
+                  .then((response) => response.json())
+                  .then((data) => {
+                    // Alerta de éxito después de enviar los datos
+                    alert(
+                      "Tu solicitud para el ingreso de " +
+                        namevisitaSpan +
+                        " el " +
+                        fechavisitaSpan +
+                        " fue enviada"
+                    );
+
+                    // Generar el contenido para el QR
+                    const qrContent = JSON.stringify(qrData);
+
+                    // Clonar qrElement para evitar problemas de agregar un elemento ya existente
+                    const qrElementClone = qrElement.cloneNode(true);
+
+                    // Generar el código QR y mostrarlo en la página
+                    new QRCode(qrElementClone, qrContent);
+
+                    // Obtener el contenedor donde se desea agregar el código QR
+                    const contenedorQR = document.getElementById("qrElement");
+
+                    // Limpiar el contenedor antes de agregar el código QR clonado
+                    contenedorQR.innerHTML = "";
+
+                    // Agregar el código QR al contenedor
+                    contenedorQR.appendChild(qrElementClone);
+
+                    // Llamar a las funciones para borrar elementos y regresar
+                    //borrarElementos();
+                    //regresar();
+                  })
+                  .catch((error) => {
+                    console.error(
+                      "Error al enviar los datos a la hoja de cálculo",
+                      error
+                    );
+                  });
+                timer = setTimeout(activarBoton, tiempoEspera);
+              }
+
+              function agregarRegistros(divmisreservas, registros) {
+                const contenedor = document.getElementById(divmisreservas);
+                contenedor.innerHTML = ""; // Limpiar el contenido del contenedor
+
+                const fechaActual = new Date(); // Obtener la fecha y hora actual
+                const fechaAyer = new Date(
+                  fechaActual.getFullYear(),
+                  fechaActual.getMonth(),
+                  fechaActual.getDate() - 1
+                ); // Obtener la fecha de ayer
+
+                registros.forEach((registro, index) => {
+                  // Convertir la fecha de la reserva a un objeto Date
+                  const fechaReserva = new Date(registro.fecha);
+
+                  // Verificar si la fecha de la reserva está entre hoy y ayer (sin hora)
+                  if (fechaReserva >= fechaAyer) {
+                    const registroHTML = `<div id="${registro.amenidad}-${registro.fecha}-${domiciliocod}" class="registro-item">
+                                            <p><strong>Amenidad:</strong>${registro.amenidad}</p>
+                                            <p><strong>Fecha:</strong>${registro.fecha}</p>
+                                            <p><strong>Estatus:</strong>${registro.estatus}</p>
+                                            <button class="boton-eliminar">Eliminar</button>
+                                        </div>`;
+
+                    contenedor.insertAdjacentHTML("beforeend", registroHTML);
+
+                    // Agregar el evento click después de agregar el elemento al DOM
+                    const botonEliminar = document.getElementById(
+                      `${registro.amenidad}-${registro.fecha}-${domiciliocod}`
+                    );
+                    botonEliminar.addEventListener("click", function () {
+                      eliminarreservacion(
+                        registro.amenidad,
+                        registro.fecha,
+                        domiciliocod
+                      );
+                    });
+                  }
+                });
+
+                function eliminarreservacion(amenidad, fecha, domiciliocod) {
+                  // Obtener la URL de la API
+                  const apiURL = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones`;
+                  const mensajeConfirmacion = `¿Estás seguro de que deseas cancelar la reservación de ${amenidad} el ${fecha}?`;
+                  const confirmacion = confirm(mensajeConfirmacion);
+
+                  if (confirmacion) {
+
+                  // Realizar una solicitud GET para obtener los datos de la hoja de cálculo
+                  fetch(apiURL)
+                    .then((response) => response.json())
+                    .then((data) => {
+                      // Encontrar el índice del registro que coincide con los datos proporcionados
+                      const indice = data.findIndex(
+                        (registro) =>
+                          registro.amenidad === amenidad &&
+                          registro.fecha === fecha &&
+                          registro.dom === domiciliocod
+                      );
+                      console.log("Buscando registro de amenidad...");
+                      console.log(amenidad);
+                      console.log(fecha);
+                      console.log(domiciliocod);
+                      console.log(indice);
+
+                      let fechaHoraActual = new Date();
+                      let fechaHoraFormateada = fechaHoraActual.toLocaleString();
+
+                      // Si se encuentra el índice, construir la URL de la solicitud PUT para actualizar la fila
+                      if (indice !== -1) {
+                        const updateURL = `${apiURL}/${indice}`;
+
+                        // Definir los datos que deseas actualizar
+                        const newData = { eliminar: "Cancelada",
+                          fechadecancelacion: fechaHoraFormateada,
+                        }; // Aquí puedes poner la leyenda que quieras
+
+                        // Configurar la solicitud PUT
+                        const requestOptions = {
+                          method: "PATCH",
+                          mode: "cors",
+                          headers: {
+                            "Content-Type": "application/json",
+                          },
+                          body: JSON.stringify(newData),
+                        };
+
+                        // Realizar la solicitud PUT para actualizar la fila
+                        fetch(updateURL, requestOptions)
+                          .then((response) => {
+                            if (response.ok) {
+                              console.log(
+                                "La reserva fue marcada como eliminada en la hoja de cálculo."
+                              );
+                              alert(
+                                "Tu reservación sera eliminada en los siguientes minutos"
+                              );
+                              // Puedes realizar cualquier otra acción que necesites aquí después de que la actualización se haya completado correctamente
+                            } else {
+                              console.error(
+                                "Hubo un error al actualizar la reserva en la hoja de cálculo."
+                              );
+                            }
+                          })
+                          .catch((error) => {
+                            console.error("Hubo un error de red:", error);
+                          });
+                      } else {
+                        console.log("Registro no encontrado");
+                      }
+                    })
+                    .catch((error) => {
+                      console.error(
+                        "Hubo un error al obtener los datos de la hoja de cálculo:",
+                        error
+                      );
+                    });
+                  }
+                }  
+              }
+
+              function calendario() {
+                divingresos.style.display = "none";
+                paymentHistory2024.style.display = "none";
+                tags.style.display = "none";
+                btndcerrarsesion.style.display = "none";
+                divbotonhistorico.style.display = "none";
+                divbotonpago.style.display = "none";
+                divbotonreservar.style.display = "none";
+                divbotonvisitas.style.display = "none";
+                segurichat.style.display = "none";
+                divamenidades.style.display = "block";
+                divreservar.style.display = "block";
+                divregreso.style.display = "block";
+
+                const contenedorCalendario = document.getElementById(
+                  "contenedorCalendario"
+                );
+                const calendarioIframe = document.createElement("iframe");
+
+                calendarioIframe.setAttribute(
+                  "src",
+                  "https://calendar.google.com/calendar/embed?src=37177ba39d333f7ac9edfc4ae9571b75e2562da9e2887771191bab6db82b5aee%40group.calendar.google.com&ctz=America%2FMexico_City"
+                );
+                calendarioIframe.setAttribute("style", "border: 0");
+                calendarioIframe.setAttribute("width", "800");
+                calendarioIframe.setAttribute("height", "600");
+                calendarioIframe.setAttribute("frameborder", "0");
+                calendarioIframe.setAttribute("scrolling", "no");
+                contenedorCalendario.appendChild(calendarioIframe);
+              }
+
+              function nuevoregistro() {
+                divqr.style.display = "none";
+                //divnuevoregistro.style.display = "none";
+                paymentHistory2024.style.display = "none";
+                tags.style.display = "block";
+                btndcerrarsesion.style.display = "block";
+                divbotonhistorico.style.display = "block";
+                divbotonpago.style.display = "block";
+                divbotonreservar.style.display = "block";
+                divbotonvisitas.style.display = "block";
+                divingresos.style.display = "none";
+                segurichat.style.display = "none";
+                //divnuevoregistro.style.display = "none";
+                divamenidades.style.display = "none";
+                borrarElementos();
+              }
+
+              function borrarElementos() {
+                const namevisita2Span = document.getElementById("namevisita2");
+                const fechavisita2Span =
+                  document.getElementById("fechavisita2");
+                const tipo2Span = document.getElementById("tipo2");
+                const namevisitaSpan = document.getElementById("namevisita");
+                const fechavisitaSpan = document.getElementById("fechavisita");
+                const tipoSpan = document.getElementById("tipo");
+                const contenedorQR = document.getElementById("qrElement");
+
+                // Eliminar el contenido de los elementos
+                namevisita2Span.value = "";
+                fechavisita2Span.value = "";
+                tipo2Span.value = 0;
+                namevisitaSpan.value = "";
+                fechavisitaSpan.value = "";
+                tipoSpan.value = 0;
+                contenedorQR.innerHTML = "";
+                namevisita3Span.value = "";
+                fechavisita3Span.value = "";
+                tipo3Span.value = "";
+
+                formulario2.style.display = "block";
+                divingresos.style.display = "block";
+                paymentHistory2024.style.display = "none";
+                tags.style.display = "none";
+                btndcerrarsesion.style.display = "none";
+                divbotonhistorico.style.display = "none";
+                divbotonpago.style.display = "none";
+                divbotonreservar.style.display = "none";
+                divbotonvisitas.style.display = "none";
+                confirmacion.style.display = "none";
+                divregreso.style.display = "block";
+              }
+
+              function enviarsdei() {
+                const namevisitaSpan =
+                  document.getElementById("namevisita").value;
+                const tipoSpan = document.getElementById("tipo").value;
+                const fechavisitaSpan =
+                  document.getElementById("fechavisita").value;
+
+                if (
+                  namevisitaSpan.trim() === "" ||
+                  tipoSpan.trim() === "" ||
+                  fechavisitaSpan.trim() === ""
+                ) {
+                  alert("Por favor, complete todos los campos.");
+                  return; // Detener la ejecución si algún campo está vacío
+                }
+                const namevisita2Span = document.getElementById("namevisita2");
+                const fechavisita2Span =
+                  document.getElementById("fechavisita2");
+                const tipo2Span = document.getElementById("tipo2");
+
+                const domicilio = domicilioSpan.textContent;
+                const correo = correoSpan.textContent;
+                const status = statusSpan.textContent;
+                console.log(status);
+
+                if (statuscod === "Al Corriente") {
+                  console.log(namevisitaSpan);
+                  console.log(fechavisitaSpan); // Mostrar la fecha formateada
+                  console.log(tipoSpan);
+
+                  confirmacion.style.display = "block";
+                  formulario2.style.display = "none";
+                  divregreso.style.display = "block";
+
+                  console.log(domicilioSpan);
+                  namevisita2Span.textContent = namevisitaSpan;
+                  fechavisita2Span.textContent = fechavisitaSpan;
+                  tipo2Span.textContent = tipoSpan;
+
+                  namevisita3Span.textContent = namevisitaSpan;
+                  fechavisita3Span.textContent = fechavisitaSpan;
+                  tipo3Span.textContent = tipoSpan;
+                } else {
+                  alert(
+                    "Domicilio con adeudo, actualmente no tiene derecho al ingreso de visitas o proveedores"
+                  );
+                }
+              }
+              function enviardatospago() {
+                if (boton3.disabled) {
+                  return; // Evitar ejecutar la función si ya está en curso
+                }
+                desactivarBoton(); // Desactivar el botón al inicio de la función
+                let fechaPagoSpan =
+                  document.getElementById("fechaPago").textContent;
+                let montoPagoSpan =
+                  document.getElementById("montoPago").textContent;
+                let beneficiarioPagoSpan =
+                  document.getElementById("beneficiarioPago").textContent;
+                let conceptodelpagoPagoSpan =
+                  document.getElementById("conceptodelpago").textContent;
+                let clavederastreoSpan =
+                  document.getElementById("clavederastreo").textContent;
+                let fechaHoraActual = new Date();
+                let fechaHoraFormateada = fechaHoraActual.toLocaleString();
+                let mesPagoSelect = document.getElementById("mespago").value;
+                const inputArchivo = document.getElementById("archivo");
+
+                // Verificar si el pago ya ha sido aplicado
+
+                const urlVerificacion = `https://sheet.best/api/sheets/${sheetID}/tabs/pagos/clavederastreo/${encodeURIComponent(
+                  clavederastreoSpan
+                )}`;
+                console.log(urlVerificacion);
+
+                if (mesPagoSelect === "") {
+                  alert(
+                    "Debe selecionar el mes al que desea que se aplique su pago"
+                  );
+                  timer = setTimeout(activarBoton, tiempoEspera);
+                } else {
+                  fetch(urlVerificacion)
+                    .then((response) => response.json())
+                    .then((data) => {
+                      console.log(data);
+                      console.log(data.length);
+
+                      if (data.length > 0) {
+                        // Pago ya registrado, mostrar alerta
+                        alert(
+                          "Este comprobante ya no se puede volver a ocupar"
+                        );
+                        timer = setTimeout(activarBoton, tiempoEspera);
+
+                        document.getElementById("fechaPago").value = "";
+                        document.getElementById("montoPago").value = "";
+                        document.getElementById("beneficiarioPago").value = "";
+                        document.getElementById("conceptodelpago").value = "";
+                        document.getElementById("clavederastreo").value = "";
+                        inputArchivo.value = "";
+
+                        divpagocargado.style.display = "none";
+                      } else {
+                        // Pago no registrado, proceder a enviar los datos
+                        grabarpago();
+                        enviarDatos();
+
+                        alert(
+                          "Pago por " +
+                            montoPagoSpan +
+                            " aplicado a " +
+                            mesPagoSelect
+                        );
+
+                        document.getElementById("fechaPago").value = "";
+                        document.getElementById("montoPago").value = "";
+                        document.getElementById("beneficiarioPago").value = "";
+                        document.getElementById("conceptodelpago").value = "";
+                        document.getElementById("clavederastreo").value = "";
+                        divpagocargado.style.display = "none";
+                        timer = setTimeout(activarBoton, tiempoEspera);
+                      }
+                    })
+                    .catch((error) => {
+                      console.error("Error al verificar los datos", error);
+                    });
+
+                  function enviarDatos() {
+                    const datos = {
+                      registro: fechaHoraFormateada,
+                      dom: domiciliocod,
+                      nombre: clientecod,
+                      domds: domicilio,
+                      beneficiario: beneficiarioPagoSpan,
+                      fechapago: fechaPagoSpan,
+                      monto: montoPagoSpan,
+                      concepto: conceptodelpagoPagoSpan,
+                      aplicarpara: mesPagoSelect,
+                      clavederastreo: clavederastreoSpan,
+                    };
+
+                    const url = `https://sheet.best/api/sheets/${sheetID}/tabs/pagos`;
+                    const opciones = {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify(datos),
+                    };
+
+                    fetch(url, opciones)
+                      .then((response) => response.json())
+                      .then((data) => {
+                        // Lógica después de enviar datos
+                      })
+                      .catch((error) => {
+                        console.error(
+                          "Error al enviar los datos a la hoja de cálculo",
+                          error
+                        );
+                      });
+                  }
+
+                  function grabarpago() {
+                    console.log("el indice es");
+                    console.log(indice);
+
+                    const pagoaplicado = {
+                      [mesPagoSelect]: montoPagoSpan,
+                    };
+                    const url = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios/${indice}`;
+                    console.log("URL:", url);
+                    // Realizar la solicitud PATCH para actualizar los datos
+                    fetch(url, {
+                      method: "PATCH",
+                      mode: "cors",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify(pagoaplicado),
+                    })
+                      .then((response) => response.json())
+                      .then((data) => {
+                        console.log("Pago aplicado");
+                      })
+                      .catch((error) => {
+                        console.error("Error al aplicar el pago", error);
+                      });
+                  }
+                }
+              }
+
+              function regresar() {
+                paymentHistory2024.style.display = "none";
+                tags.style.display = "block";
+                btndcerrarsesion.style.display = "block";
+                divbotonhistorico.style.display = "block";
+                divbotonpago.style.display = "block";
+                divbotonreservar.style.display = "block";
+                divbotonvisitas.style.display = "block";
+                divingresos.style.display = "none";
+                segurichat.style.display = "block";
+                //divnuevoregistro.style.display = "none";
+                divamenidades.style.display = "none";
+                divreservar.style.display = "none";
+                divpagos.style.display = "none";
+                divregreso.style.display = "none";
+              }
+
+              function redireccionarPagos() {
+                divingresos.style.display = "none";
+                paymentHistory2024.style.display = "none";
+                tags.style.display = "none";
+                btndcerrarsesion.style.display = "none";
+                divbotonhistorico.style.display = "none";
+                divbotonpago.style.display = "none";
+                divbotonreservar.style.display = "none";
+                divbotonvisitas.style.display = "none";
+                segurichat.style.display = "none";
+                divreservar.style.display = "none";
+                btnenborrar.style.display = "none";
+                divregreso.style.display = "block";
+                divpagos.style.display = "block";
+              }
+
+              function ingresos() {
+                divingresos.style.display = "block";
+                paymentHistory2024.style.display = "none";
+                tags.style.display = "none";
+                btndcerrarsesion.style.display = "none";
+                divbotonhistorico.style.display = "none";
+                divbotonpago.style.display = "none";
+                divbotonreservar.style.display = "none";
+                divbotonvisitas.style.display = "none";
+                segurichat.style.display = "none";
+                divreservar.style.display = "none";
+                btnenborrar.style.display = "block";
+                divregreso.style.display = "block";
+
+                if (!namevisitaSpan || namevisitaSpan === "") {
+                  divnuevoregistro.style.display = "none";
+                } else {
+                  divnuevoregistro.style.display = "block";
+                }
+              }
+            } else {
+              alert("Usuario o contraseña incorrectos");
+            }
+          } else {
+            alert("Usuario o contraseña incorrectos");
+          }
+        });
+    
+
+
+ 
+  
+      } else {
+    console.log("No hay datos de sesión guardados.");
+  }
+});
 
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -132,7 +1275,18 @@ formulario.addEventListener("submit", (e) => {
         );
         const contraseñasCifradas = data.map((fila) => fila.password);
         console.log(indice);
-        const aceptoAvisoPrivacidad2 = checkbox.checked;
+        const aceptoAvisoPrivacidad2 = checkboxadp.checked;
+        const rememberMe = checkboxrememberMe.checked;
+
+        if (rememberMe) {
+            localStorage.setItem('correoCifradoInput', correoCifradoInput);
+            const contraseñaCifrada = contraseñasCifradas[indice];
+            console.log(contraseñaCifrada)
+            localStorage.setItem('contraseñasCifrada', contraseñaCifrada);
+            console.log(correoCifradoInput);                    
+            console.log(contraseñaCifrada);
+            console.log("Usuario y contraseña se guardarán en localStorage");                    
+        }
 
         if (aceptoAvisoPrivacidad2) {
           if (indice !== -1) {
