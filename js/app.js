@@ -136,6 +136,9 @@ document.addEventListener("DOMContentLoaded", () => {
           const contraseñaCifrada = contraseñasCifradas[indice];
           console.log(contraseñaCifrada);
 
+          sesionIniciada = true; // Marcar la sesión como iniciada
+
+
             const contraseñaCifradoInput = contraseñaGuardada;
             console.log(contraseñaCifradoInput);
             if (contraseñaCifrada === contraseñaCifradoInput) {
@@ -1255,11 +1258,16 @@ formulario.addEventListener("submit", (e) => {
 
   if (    (usuarioInput === "CENTINELA" && contraseñaInput === "SANSEBASTIAN") ||    (usuarioInput === "AGCH" && contraseñaInput === "SANSEBASTIAN")  ) {
     // Redirigir a la página deseada
+    sesionIniciada = true; // Marcar la sesión como iniciada
+
     window.location.href = "index2.html";
   } else if ((usuarioInput === "CENTINELA" && contraseñaInput === "CASETAPRINCIPAL") ||    (usuarioInput === "AGCH" && contraseñaInput === "CASETAPRINCIPAL")){
+    sesionIniciada = true; // Marcar la sesión como iniciada
+
     window.location.href = "seguridadcasetaprincipal.html";
 
   } else {
+    
 
     const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
     fetch(urlProp)

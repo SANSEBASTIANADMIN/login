@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-        if (usuarioInput === "CENTINELA") {
+        if (sesionIniciada = true) {
         // Variable para almacenar los idunico ya agregados
         const idunicosAgregados = new Set();
 
