@@ -60,6 +60,9 @@ const btnenborrar = document.getElementById("btnenborrar");
 const divnuevoregistro = document.getElementById("nuevoregistro");
 const divamenidades = document.getElementById("divamenidades");
 const divreservar = document.getElementById("divreservar");
+
+
+
 const confirmarreserca = document.getElementById("confirmarreserca");
 const divmisreservas = document.getElementById("divmisreservas");
 var today = new Date().toISOString().split("T")[0];
@@ -72,6 +75,9 @@ const fechavisita3Span = document.getElementById("fechavisita3");
 const domdvisistaSpan = document.getElementById("domdvisista");
 const divpagocargado = document.getElementById("pagocargado");
 const divseguridad = document.getElementById("seguridad");
+
+const divvotaciones = document.getElementById("divvotaciones");
+const btnvotacion = document.getElementById("btnvotacion");
 const sheetID = "3b310155-123f-4e34-ad83-6b5111ee07f3";
 let sesionIniciada = false;
 
@@ -203,6 +209,11 @@ document.addEventListener("DOMContentLoaded", () => {
               document.getElementById("fechavisita").setAttribute("min", localDateTime);
               document.getElementById("fechareserva").setAttribute("min", localDateTime);
             
+
+              document
+              .getElementById("btnvotacion")
+              .addEventListener("click", mostradivvotos);
+
               document
                 .getElementById("divbotonhistorico")
                 .addEventListener("click", updatePaymentHistory);
@@ -323,6 +334,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 boton.disabled = false;
                 boton2.disabled = false;
                 boton3.disabled = false;
+              }
+
+
+              function mostradivvotos () {
+                btnvotacion.style.display = "none";
+                divvotaciones.style.display = "block";
+                paymentHistory2024.style.display = "none";
+                tags.style.display = "none";
+                btndcerrarsesion.style.display = "none";
+                divbotonhistorico.style.display = "none";
+                divbotonpago.style.display = "none";
+                divbotonreservar.style.display = "none";
+                divbotonvisitas.style.display = "none";
+                segurichat.style.display = "none";
+                divregreso.style.display = "block";
+
               }
 
               function updatePaymentHistory() {
@@ -1178,6 +1205,8 @@ document.addEventListener("DOMContentLoaded", () => {
               }
 
               function regresar() {
+                btnvotacion.style.display = "block";
+                divvotaciones.style.display = "none";
                 paymentHistory2024.style.display = "none";
                 tags.style.display = "block";
                 btndcerrarsesion.style.display = "block";
@@ -1364,7 +1393,12 @@ formulario.addEventListener("submit", (e) => {
 
               document.getElementById("fechavisita").setAttribute("min", localDateTime);
               document.getElementById("fechareserva").setAttribute("min", localDateTime);
-             
+
+
+              document
+              .getElementById("btnvotacion")
+              .addEventListener("click", mostradivvotos);
+
               document
                 .getElementById("divbotonhistorico")
                 .addEventListener("click", updatePaymentHistory);
@@ -1485,6 +1519,21 @@ formulario.addEventListener("submit", (e) => {
                 boton.disabled = false;
                 boton2.disabled = false;
                 boton3.disabled = false;
+              }
+
+              function mostradivvotos () {
+                btnvotacion.style.display = "none";
+                divvotaciones.style.display = "block";
+                paymentHistory2024.style.display = "none";
+                tags.style.display = "none";
+                btndcerrarsesion.style.display = "none";
+                divbotonhistorico.style.display = "none";
+                divbotonpago.style.display = "none";
+                divbotonreservar.style.display = "none";
+                divbotonvisitas.style.display = "none";
+                segurichat.style.display = "none";
+                divregreso.style.display = "block";
+
               }
 
               function updatePaymentHistory() {
@@ -2340,6 +2389,8 @@ formulario.addEventListener("submit", (e) => {
               }
 
               function regresar() {
+                btnvotacion.style.display = "block";
+                divvotaciones.style.display = "none";
                 paymentHistory2024.style.display = "none";
                 tags.style.display = "block";
                 btndcerrarsesion.style.display = "block";
@@ -3434,4 +3485,43 @@ async function shortenUrl(url) {
       console.error("Error al acortar la URL:", error);
       throw error;
   }
+}
+
+
+function enviarvoto (){
+
+  const voto = document.querySelector('input[name="voto"]:checked').value;
+  const fechaHoraActual = new Date();
+  const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+
+  const domicilio = document.getElementById("domicilio").textContent;
+
+
+
+  const datos = {
+    domicilio: domicilio,
+    respuesta: voto,
+    fechaHoraRegistro: fechaHoraFormateada,
+};
+
+  const url = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones`;
+
+  const opciones = {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify(datos),
+  };
+
+  // Enviar los datos a la hoja de cálculo
+  fetch(url, opciones)
+      .then(response => response.json())
+      .then(data => {
+          // Alerta de éxito después de enviar los datos
+          alert('Voto Emitido');
+      })
+      .catch(error => {
+          console.error('Error al enviar los datos:', error);
+      });
 }

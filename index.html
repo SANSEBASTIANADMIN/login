@@ -512,6 +512,27 @@
 				<button type="submit" id="enviarpago" class="btn">Enviar Pago</button>
 			</div>
 		</div>
+
+		<div id="divvotaciones" style="display: none;" class="contenedor">
+			<p>Estimado(a) Residente</p>
+			<p>Queremos informarles sobre un incidente ocurrido el día 2 de mayo del 2024. A las 07:57 a.m., una mascota ingresó a la alberca mediante los barandales, cayendo en ella y luchando por su vida durante varios minutos. Uno de nuestros guardias notó la situación a través de las cámaras de seguridad, y algunos residentes también se dieron cuenta del incidente. Gracias a la rápida acción del guardia y de los residentes, se logró rescatar al perrito y ponerlo bajo resguardo.</p>
+			<p>Afortunadamente, el perro se encuentra bien, pero esta situación requirió la implementación de un protocolo de sanitización por parte del proveedor. El costo total de este protocolo asciende a $1,157, debido al uso de los siguientes materiales y servicios:	</p>
+			<p>Dicloro (3 kilos): $270</p>
+			<p>Clarificador: $132</p>
+			<p>Reductor de pH: $255</p>
+			<p>Mano de obra: $500</p>
+			<p>Es de suma importancia llevar a cabo el protocolo de sanitización para garantizar la seguridad y salud de todos los usuarios de la alberca. La limpieza y desinfección adecuada previenen la proliferación de bacterias y otros contaminantes que podrían afectar la calidad del agua y, en consecuencia, la salud de los residentes.</p>
+			<p>El incidente ocurrió cuando las puertas de la alberca estaban cerradas y el personal de mantenimiento aún no había ingresado y el incidcente donde la mascota esta suelta en la privada ha sido repetitiva.</p>
+			<p></p>
+			<iframe width="300" height="215" src="https://www.youtube.com/embed/2bpINrxjD1A?si=WYgIIy7yUZEM3QcC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+			<p>¿Estas de acuerdo en que el costo que esta sitaución genero sea cubierto por el residente?</p>
+
+			<form id="votacionForm">
+				<label><input type="radio" name="voto" value="Sí" required> Sí</label>
+				<label><input type="radio" name="voto" value="No" required> No</label>
+				<button type="submit" class="btn" onclick="enviarvoto ()">Enviar Voto</button>
+			</form>
+		</div>
 		<div id="botones"  style="display: none;">	
 			<div class="contenedor2 button-container">
 				<div id="divbotonhistorico">	
@@ -531,6 +552,11 @@
 				<div id="divbotonvisitas">	
 					<button type="submit" onclick="" class="btn">
 						Visitas y proveedores
+					</button>
+				</div>
+				<div id="btnvotacion">	
+					<button type="submit" class="btn" onclick="mostradivvotos ()">
+						Votaciones
 					</button>
 				</div>
 				<div id="segurichat">    
