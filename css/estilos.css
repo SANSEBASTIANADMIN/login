@@ -1367,3 +1367,9 @@ summary::before {
 .contenedorescalle{
   margin: 10px;
 }
+
+#divvotaciones{
+  font-size: 10px;
+  text-align: justify;
+
+}
