@@ -3488,6 +3488,8 @@ async function shortenUrl(url) {
 }
 
 
+
+
 function enviarvoto (){
 
   const voto = document.querySelector('input[name="voto"]:checked').value;
@@ -3524,4 +3526,28 @@ function enviarvoto (){
       .catch(error => {
           console.error('Error al enviar los datos:', error);
       });
+}
+
+function verificarVotoExistente() {
+  if (sesionIniciada = true) {
+  const domicilio = document.getElementById("domicilio").textContent;
+
+  // Realiza una consulta a la API o a la hoja de cálculo para verificar si ya existe un voto
+  const urlConsulta = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones?domicilio=${encodeURIComponent(domicilio)}`;
+
+  fetch(urlConsulta)
+      .then(response => response.json())
+      .then(data => {
+          if (data.length > 0) {
+              // Ya existe un voto registrado para hoy
+              alert('Ya has emitido tu voto. No puedes votar nuevamente.');
+          } else {
+              // No existe un voto registrado, permite enviar el voto
+              enviarvoto();
+          }
+      })
+      .catch(error => {
+          console.error('Error al verificar el voto:', error);
+      });
+  }
 }
