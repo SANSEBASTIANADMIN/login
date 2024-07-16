@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,7 +13,7 @@
     <div class="contenedorhome" id="inicio" style="display: block;">
       <div class="contenedorcamaraybotones">
         <div class="col-sm-4 shadow p-3">
-          <div class="camaraqr">
+          <div class="camaraqr" style="display: none;">
             <div>
               <div class="row5">
                 <div class="header">
@@ -37,7 +35,7 @@
             <canvas hidden="" id="qr-canvas" class="img-fluid"></canvas>
           </div>
 
-          <div class="botonescamara">
+          <div class="botonescamara" style="display: none;">
             <button class="btn btn-success btn-sm rounded-3 mb-2" onclick="encenderCamara()">Encender cámara</button>
             <button class="btn btn-danger btn-sm rounded-3" onclick="cerrarCamara()">Detener cámara</button>
             <button id="scan-button" class="btn btn-success btn-sm rounded-3 mb-2" style="display: none;">Start Scanning</button>
@@ -215,3 +213,4 @@
     <script src="assets/js/segundacaseta.js"></script>
   </body>
 </html>
+
