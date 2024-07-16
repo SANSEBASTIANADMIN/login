@@ -9,6 +9,7 @@
     <script src="assets/plugins/qrCode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/estilos.css" />
+    <script src="https://cdn.rawgit.com/LazarSoft/jsqrcode/master/src/qr_packed.js"></script>
   </head>
   <body>
     <div class="contenedorhome" id="inicio" style="display: block;">
@@ -37,19 +38,17 @@
           </div>
 
           <div class="botonescamara">
-            <button
-              class="btn btn-success btn-sm rounded-3 mb-2"
-              onclick="encenderCamara()"
-              >
-              Encender camara
-            </button>
-            <button
-              class="btn btn-danger btn-sm rounded-3"
-              onclick="cerrarCamara()"
-              >
-              Detener camara
-            </button>
+            <button class="btn btn-success btn-sm rounded-3 mb-2" onclick="encenderCamara()">Encender cámara</button>
+            <button class="btn btn-danger btn-sm rounded-3" onclick="cerrarCamara()">Detener cámara</button>
+            <button id="scan-button" class="btn btn-success btn-sm rounded-3 mb-2" style="display: none;">Start Scanning</button>
+            
           </div>
+
+          <div style="display: none;">
+            <input type="text" id="scanner-input" placeholder="Escanea el código QR aquí" />
+          </div>
+
+
           <div class="contenedorescalle">
             <div class="registrospendientes">
                 <h2 class="titulo">Registros pendientes del día</h2>
@@ -107,7 +106,8 @@
                 <div class="calle-registros" id="morosos-registros">
                     <!-- Aquí se mostrarán los registros de los morosos -->
                 </div>
-            </details>            
+            </details>   
+                     
           </div>
         </div>
       </div>
@@ -149,7 +149,6 @@
         </div>
         <div class="columna-izquierda5">
           <img src="Fraccify.png" alt="Descripción de la imagen">
-          <img src="X-Png-13.png" alt="Descripción de la imagen">
         </div>
       </div>
     </div>

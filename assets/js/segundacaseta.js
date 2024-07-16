@@ -249,8 +249,8 @@ const verificarConSheets = async (Casa, Nombre, Fecha, Tipo, id) => {
         await actualizarIngreso(sheetID, registroIndex, fechaHoy, horaHoy);
         
         document.getElementById("dom").innerText = Casa;
-        document.getElementById("nom").innerText = Fecha;
-        document.getElementById("fecha").innerText = Nombre;
+        document.getElementById("nom").innerText = Nombre;
+        document.getElementById("fecha").innerText = Fecha;
         document.getElementById("tipo").innerText = Tipo;
         document.getElementById("idUnico").innerText = id;
 
@@ -421,7 +421,7 @@ document.addEventListener("DOMContentLoaded", function() {
                   const registroHTML = `
                       <div id="${registroId}" class="registro-item">
                           <p><strong>Domicilio:</strong> ${atob(registro.domicilio)}</p>
-                          <p><strong>Nombre:</strong> ${registro.namevisita}</p>
+                          <p><strong>Nombre:</strong> ${registro.fecha}</p>
                           <p><strong>Fecha:</strong> ${registro.fecha}</p>
                           <p><strong>Tipo:</strong> ${registro.tipo}</p>
                           <p><strong>Entrada Caseta Principal:</strong> ${registro.ingresoc1}</p>
@@ -481,3 +481,120 @@ document.addEventListener("DOMContentLoaded", function() {
   // Llamar a las funciones una vez al cargar la página para cargar los registros iniciales
   obtenerYAgregarRegistros2();
 });
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+  
+  let qrCodeBuffer = '';
+  let lastScanTime = Date.now();
+
+  document.addEventListener('keydown', (event) => {
+    console.log("Regresando a pagina principal 1 2 3 4 5 6");
+    divrojoyauqr.style.display = "none";
+    divqrconotrafecha.style.display = "none";
+    divescaner.style.display = "block";
+    divverde.style.display = "none";
+    divrojo.style.display = "none";
+    divazul.style.display = "none";
+    const currentTime = Date.now();
+
+    // Si ha pasado más de 500ms desde la última tecla presionada, reinicia el buffer
+    if (currentTime - lastScanTime > 500) {
+      qrCodeBuffer = '';
+    }
+
+    // Actualiza el tiempo de la última tecla presionada
+    lastScanTime = currentTime;
+
+    // Si se presiona Enter, procesa el código QR
+    if (event.key === 'Enter') {
+      if (qrCodeBuffer.length > 0) {
+        processQRCode(qrCodeBuffer);
+        qrCodeBuffer = ''; // Limpia el buffer
+      }
+    } else {
+      // Agrega la tecla al buffer
+      qrCodeBuffer += event.key;
+    }
+  });
+});
+
+function processQRCode(qrCode) {
+  // Procesa el código QR aquí
+  console.log('QR Code scanned:', qrCode);
+
+  // Limpia el texto del QR code
+  qrCode = qrCode.replace(/Shift|Dead|Enter/g, '');
+
+  // Extrae la información del código QR
+  const datosQR = extractQRCodeData(qrCode);
+
+  if (datosQR && datosQR.Fecha) {
+    datosQR.Fecha = datosQR.Fecha.replace(/'/g, '-');
+  }
+
+  // Desestructura los datos extraídos
+  const { Casa, Nombre, Fecha, Tipo, id } = datosQR || {};
+
+  if (!datosQR) {
+    console.error('Error: Datos no válidos en el QR Code');
+    return;
+  }
+
+  // Muestra la información en la consola (puedes mostrarla en la UI si lo prefieres)
+  console.log(`Casa: ${Casa}`);
+  console.log(`Nombre: ${Nombre}`);
+  console.log(`Fecha: ${Fecha}`);
+  console.log(`Tipo: ${Tipo}`);
+  console.log(`ID: ${id}`);
+
+  const obtenerFechaHoy = () => {
+    const hoy = new Date();
+    return new Intl.DateTimeFormat('es-ES', { timeZone: 'America/Mexico_City', year: 'numeric', month: '2-digit', day: '2-digit' }).format(hoy);
+  };
+  // Formatear la fecha para obtener el formato YYYY-MM-DD
+  const formatearFecha = (fecha) => {
+    const partes = fecha.split('/');
+    return `${partes[2]}-${partes[1]}-${partes[0]}`;
+  };
+
+  const fechaHoy = formatearFecha(obtenerFechaHoy());
+  console.log("Validando fecha")
+  console.log(fechaHoy)
+  console.log(Fecha)
+
+  if (Fecha === fechaHoy) {
+  verificarConSheets(Casa, Nombre, Fecha, Tipo, id);
+  }
+  else {
+    divqrconotrafecha.style.display = "block";
+    divescaner.style.display = "none";
+    activarSonido();
+  }
+}
+
+function extractQRCodeData(qrCode) {
+  // Define una expresión regular para extraer los datos
+  const regex = /\[Casa\[Ñ\[(.*?)\[,\[Nombre\[Ñ\[(.*?)\[,\[Fecha\[Ñ\[(.*?)\[,\[Tipo\[Ñ\[(.*?)\[,\[ID\[Ñ\[(.*?)\[\*/;
+  const match = qrCode.match(regex);
+
+  // Si el código QR no coincide con el formato esperado, devuelve null
+  if (!match) {
+    return null;
+  }
+
+  // Devuelve un objeto con los datos extraídos
+  return {
+    Casa: match[1],
+    Nombre: match[2],
+    Fecha: match[3],
+    Tipo: match[4],
+    id: match[5]
+  };
+}
+
