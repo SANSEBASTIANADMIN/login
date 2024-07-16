@@ -499,7 +499,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                   doc.setTextColor(1, 120, 210); // RGB para el color hexadecimal 0178d2
                   doc.text(
-                    "Atentamente: La Mesa Directiva de Privada Santa Cecilia.",
+                    "Atentamente: La Mesa Directiva de Privada San Sebastian.",
                     10,
                     100
                   );
