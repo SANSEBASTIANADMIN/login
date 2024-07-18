@@ -1205,7 +1205,7 @@ document.addEventListener("DOMContentLoaded", () => {
               }
 
               function regresar() {
-                btnvotacion.style.display = "block";
+                btnvotacion.style.display = "none";
                 divvotaciones.style.display = "none";
                 paymentHistory2024.style.display = "none";
                 tags.style.display = "block";
