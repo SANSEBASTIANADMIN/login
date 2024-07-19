@@ -421,7 +421,7 @@ document.addEventListener("DOMContentLoaded", function() {
                   const registroHTML = `
                       <div id="${registroId}" class="registro-item">
                           <p><strong>Domicilio:</strong> ${atob(registro.domicilio)}</p>
-                          <p><strong>Nombre:</strong> ${registro.fecha}</p>
+                          <p><strong>Nombre:</strong> ${registro.namevisita}</p>
                           <p><strong>Fecha:</strong> ${registro.fecha}</p>
                           <p><strong>Tipo:</strong> ${registro.tipo}</p>
                           <p><strong>Entrada Caseta Principal:</strong> ${registro.ingresoc1}</p>
