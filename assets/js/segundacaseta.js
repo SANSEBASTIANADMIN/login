@@ -218,9 +218,7 @@ qrcode.callback = (respuesta) => {
   }
 };
 
-window.addEventListener("load", (e) => {
-  encenderCamara();
-});
+
 
 const verificarConSheets = async (Casa, Nombre, Fecha, Tipo, id) => {
   // Add id parameter

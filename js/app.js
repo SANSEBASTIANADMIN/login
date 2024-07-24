@@ -362,6 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 divbotonvisitas.style.display = "none";
                 segurichat.style.display = "none";
                 divregreso.style.display = "block";
+                btnvotacion.style.display = "none";
                 console.log(indice);
 
                 const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
@@ -942,6 +943,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 divamenidades.style.display = "block";
                 divreservar.style.display = "block";
                 divregreso.style.display = "block";
+                btnvotacion.style.display = "none";
+
 
                 const contenedorCalendario = document.getElementById(
                   "contenedorCalendario"
@@ -974,6 +977,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 segurichat.style.display = "none";
                 //divnuevoregistro.style.display = "none";
                 divamenidades.style.display = "none";
+                btnvotacion.style.display = "none";
+
                 borrarElementos();
               }
 
@@ -1010,6 +1015,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 divbotonvisitas.style.display = "none";
                 confirmacion.style.display = "none";
                 divregreso.style.display = "block";
+                btnvotacion.style.display = "none";
+
               }
 
               function enviarsdei() {
@@ -1045,6 +1052,8 @@ document.addEventListener("DOMContentLoaded", () => {
                   confirmacion.style.display = "block";
                   formulario2.style.display = "none";
                   divregreso.style.display = "block";
+                  btnvotacion.style.display = "none";
+
 
                   console.log(domicilioSpan);
                   namevisita2Span.textContent = namevisitaSpan;
@@ -1205,7 +1214,7 @@ document.addEventListener("DOMContentLoaded", () => {
               }
 
               function regresar() {
-                btnvotacion.style.display = "none";
+                btnvotacion.style.display = "block";
                 divvotaciones.style.display = "none";
                 paymentHistory2024.style.display = "none";
                 tags.style.display = "block";
@@ -1237,6 +1246,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 btnenborrar.style.display = "none";
                 divregreso.style.display = "block";
                 divpagos.style.display = "block";
+                btnvotacion.style.display = "none";
+
               }
 
               function ingresos() {
@@ -1252,6 +1263,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 divreservar.style.display = "none";
                 btnenborrar.style.display = "block";
                 divregreso.style.display = "block";
+                btnvotacion.style.display = "none";
+
 
                 if (!namevisitaSpan || namevisitaSpan === "") {
                   divnuevoregistro.style.display = "none";
@@ -1533,6 +1546,7 @@ formulario.addEventListener("submit", (e) => {
                 divbotonvisitas.style.display = "none";
                 segurichat.style.display = "none";
                 divregreso.style.display = "block";
+                
 
               }
 
@@ -1546,6 +1560,8 @@ formulario.addEventListener("submit", (e) => {
                 divbotonvisitas.style.display = "none";
                 segurichat.style.display = "none";
                 divregreso.style.display = "block";
+                btnvotacion.style.display = "none";
+
                 console.log(indice);
 
                 const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
@@ -2126,6 +2142,8 @@ formulario.addEventListener("submit", (e) => {
                 divamenidades.style.display = "block";
                 divreservar.style.display = "block";
                 divregreso.style.display = "block";
+                btnvotacion.style.display = "none";
+
 
                 const contenedorCalendario = document.getElementById(
                   "contenedorCalendario"
@@ -2158,6 +2176,8 @@ formulario.addEventListener("submit", (e) => {
                 segurichat.style.display = "none";
                 //divnuevoregistro.style.display = "none";
                 divamenidades.style.display = "none";
+                btnvotacion.style.display = "none";
+
                 borrarElementos();
               }
 
@@ -2194,6 +2214,8 @@ formulario.addEventListener("submit", (e) => {
                 divbotonvisitas.style.display = "none";
                 confirmacion.style.display = "none";
                 divregreso.style.display = "block";
+                btnvotacion.style.display = "none";
+
               }
 
               function enviarsdei() {
@@ -2229,6 +2251,8 @@ formulario.addEventListener("submit", (e) => {
                   confirmacion.style.display = "block";
                   formulario2.style.display = "none";
                   divregreso.style.display = "block";
+                  btnvotacion.style.display = "none";
+
 
                   console.log(domicilioSpan);
                   namevisita2Span.textContent = namevisitaSpan;
@@ -2421,6 +2445,8 @@ formulario.addEventListener("submit", (e) => {
                 btnenborrar.style.display = "none";
                 divregreso.style.display = "block";
                 divpagos.style.display = "block";
+                btnvotacion.style.display = "none";
+
               }
 
               function ingresos() {
@@ -2436,6 +2462,8 @@ formulario.addEventListener("submit", (e) => {
                 divreservar.style.display = "none";
                 btnenborrar.style.display = "block";
                 divregreso.style.display = "block";
+                btnvotacion.style.display = "none";
+
 
                 if (!namevisitaSpan || namevisitaSpan === "") {
                   divnuevoregistro.style.display = "none";
@@ -3528,26 +3556,3 @@ function enviarvoto (){
       });
 }
 
-function verificarVotoExistente() {
-  if (sesionIniciada = true) {
-  const domicilio = document.getElementById("domicilio").textContent;
-
-  // Realiza una consulta a la API o a la hoja de cálculo para verificar si ya existe un voto
-  const urlConsulta = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones?domicilio=${encodeURIComponent(domicilio)}`;
-
-  fetch(urlConsulta)
-      .then(response => response.json())
-      .then(data => {
-          if (data.length > 0) {
-              // Ya existe un voto registrado para hoy
-              alert('Ya has emitido tu voto. No puedes votar nuevamente.');
-          } else {
-              // No existe un voto registrado, permite enviar el voto
-              enviarvoto();
-          }
-      })
-      .catch(error => {
-          console.error('Error al verificar el voto:', error);
-      });
-  }
-}
