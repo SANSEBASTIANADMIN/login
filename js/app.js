@@ -3556,3 +3556,99 @@ function enviarvoto (){
       });
 }
 
+
+
+
+
+
+
+
+
+
+function ocultarfecha() {
+  const tipoInforme = document.getElementById('tipoinforme').value;
+  const datePickerContainer = document.getElementById('datePickerContainer');
+  if (tipoInforme === 'Votaciones') {
+      datePickerContainer.style.display = 'none';
+  } else {
+      datePickerContainer.style.display = 'block';
+  }
+}
+
+function generarInforme() {
+  const tipoInforme = document.getElementById('tipoinforme').value;
+  if (tipoInforme === 'Votaciones') {
+      const url = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones`;
+      fetch(url)
+          .then(response => response.json())
+          .then(data => {
+              const formattedData = formatData(data);
+              const csvData = convertToCSV(formattedData);
+              downloadCSV(csvData, 'votaciones.csv');
+          })
+          .catch(error => console.error('Error fetching data:', error));
+  } else {
+      // Aquí puedes manejar otros tipos de informes
+      console.log('Otro tipo de informe seleccionado');
+  }
+}
+
+function formatData(data) {
+  return data.map(item => {
+      return {
+          domicilio: item.domicilio,
+          respuesta: item.respuesta === "S√≠" ? "Sí" : item.respuesta === "No" ? "No" : item.respuesta,
+          fechaHoraRegistro: formatFechaHora(item.fechaHoraRegistro)
+      };
+  });
+}
+
+function formatFechaHora(fechaHora) {
+  if (!fechaHora) return '';
+
+  const [datePart, timePart] = fechaHora.split(' ');
+  const dateParts = datePart.includes('/') ? datePart.split('/') : datePart.split('-');
+  const isUSFormat = dateParts[0].length === 4;
+
+  if (isUSFormat) {
+      // Date in YYYY/MM/DD or YYYY-MM-DD format
+      const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+      return `${formattedDate} ${timePart}`;
+  } else {
+      // Date in DD/MM/YYYY or DD-MM-YYYY format
+      return fechaHora;
+  }
+}
+
+function convertToCSV(objArray) {
+  const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+  let str = '';
+  let row = '';
+
+  for (let index in array[0]) {
+      row += index + ',';
+  }
+  row = row.slice(0, -1);
+  str += row + '\r\n';
+
+  for (let i = 0; i < array.length; i++) {
+      let line = '';
+      for (let index in array[i]) {
+          if (line !== '') line += ',';
+          line += array[i][index];
+      }
+      str += line + '\r\n';
+  }
+  return str;
+}
+
+function downloadCSV(csv, filename) {
+  const csvFile = new Blob([csv], { type: 'text/csv' });
+  const downloadLink = document.createElement('a');
+  downloadLink.download = filename;
+  downloadLink.href = window.URL.createObjectURL(csvFile);
+  downloadLink.style.display = 'none';
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+}
