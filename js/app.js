@@ -3520,42 +3520,50 @@ async function shortenUrl(url) {
 
 function enviarvoto (){
 
-  const voto = document.querySelector('input[name="voto"]:checked').value;
-  const fechaHoraActual = new Date();
-  const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+  const statuscod = document.getElementById("status").textContent;
 
-  const domicilio = document.getElementById("domicilio").textContent;
+  if (statuscod === "Al Corriente") {
+
+    const voto = document.querySelector('input[name="voto"]:checked').value;
+    const fechaHoraActual = new Date();
+    const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+
+    const domicilio = document.getElementById("domicilio").textContent;
 
 
 
-  const datos = {
-    domicilio: domicilio,
-    respuesta: voto,
-    fechaHoraRegistro: fechaHoraFormateada,
-};
+    const datos = {
+      domicilio: domicilio,
+      respuesta: voto,
+      fechaHoraRegistro: fechaHoraFormateada,
+    };
 
-  const url = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones`;
+    const url = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones`;
 
-  const opciones = {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-    },
-    body: JSON.stringify(datos),
-  };
+    const opciones = {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datos),
+    };
 
-  // Enviar los datos a la hoja de cálculo
-  fetch(url, opciones)
-      .then(response => response.json())
-      .then(data => {
-          // Alerta de éxito después de enviar los datos
-          alert('Voto Emitido');
-      })
-      .catch(error => {
-          console.error('Error al enviar los datos:', error);
-      });
-}
+    // Enviar los datos a la hoja de cálculo
+    fetch(url, opciones)
+        .then(response => response.json())
+        .then(data => {
+            // Alerta de éxito después de enviar los datos
+            alert('Voto Emitido');
+        })
+        .catch(error => {
+            console.error('Error al enviar los datos:', error);
+        });
+    } else {
+      alert("Domicilio con adeudo, no puede votar")
+    }
+  }
 
+  
 
 
 
