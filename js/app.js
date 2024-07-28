@@ -78,7 +78,7 @@ const divseguridad = document.getElementById("seguridad");
 
 const divvotaciones = document.getElementById("divvotaciones");
 const btnvotacion = document.getElementById("btnvotacion");
-const sheetID = "3b310155-123f-4e34-ad83-6b5111ee07f3";
+const sheetID = "a6b0b2f6-4b86-4614-b256-8fc3f603b7da";
 let sesionIniciada = false;
 
 let checkboxadp = document.getElementById("avisoPrivacidad");
