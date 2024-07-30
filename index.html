@@ -108,6 +108,7 @@
 								<button id="" onclick="cerrarAdminPanel()">Soy Residente</button>
 							</div>
 						</div>
+						<div class="contenedor-boton">
 							<button id="" onclick="expandAdminPanel()">Soy administrador</button>
 						</div>
 					</div>                    
@@ -166,8 +167,88 @@
 				</div>
 			</div>
 		</div>
-		<div id="paymentHistory2024" class="contenedorpagos"style="display: none;">
+			
+
+		<div id="paymentHistory2024" class="contenedorpagos" style="display: none;">
 			<div>
+				<details id="2025" class="dropdown">
+					<summary class="dropdown-title">Pagos 2025</summary>					
+					<table id="tablaPagos" class="table-custom table-custom-highlight">
+						<tr>
+							<!-- Enero 2025 -->
+							<tr>
+								<td>Enero</td>
+								<td><span id="ene2025"></span></td>
+								<td><button id="btnreciboene2025" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Febrero 2025 -->
+							<tr>
+								<td>Febrero</td>
+								<td><span id="feb2025"></span></td>
+								<td><button id="btnrecibofeb2025" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Marzo 2025 -->
+							<tr>
+								<td>Marzo</td>
+								<td><span id="mar2025"></span></td>
+								<td><button id="btnrecibomar2025" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Abril 2025 -->
+							<tr>
+								<td>Abril</td>
+								<td><span id="abr2025"></span></td>
+								<td><button id="btnreciboabr2025" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Mayo 2025 -->
+							<tr>
+								<td>Mayo</td>
+								<td><span id="may2025"></span></td>
+								<td><button id="btnrecibomay2025" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Junio 2025 -->
+							<tr>
+								<td>Junio</td>
+								<td><span id="jun2025"></span></td>
+								<td><button id="btnrecibojun2025" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Julio 2025 -->
+							<tr>
+								<td>Julio</td>
+								<td><span id="jul2025"></span></td>
+								<td><button id="btnrecibojul2025" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Agosto 2025 -->
+							<tr>
+								<td>Agosto</td>
+								<td><span id="ago2025"></span></td>
+								<td><button id="btnreciboago2025" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Septiembre 2025 -->
+							<tr>
+								<td>Septiembre</td>
+								<td><span id="sep2025"></span></td>
+								<td><button id="btnrecibosep2025" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Octubre 2025 -->
+							<tr>
+								<td>Octubre</td>
+								<td><span id="oct2025"></span></td>
+								<td><button id="btnrecibooct2025" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Noviembre 2025 -->
+							<tr>
+								<td>Noviembre</td>
+								<td><span id="nov2025"></span></td>
+								<td><button id="btnrecibonov2025" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Diciembre 2025 -->
+							<tr>
+								<td>Diciembre</td>
+								<td><span id="dic2025"></span></td>
+								<td><button id="btnrecibodic2025" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+					</table>
+				</details>
 				<details id="2024" class="dropdown">
 					<summary class="dropdown-title">Pagos 2024</summary>					
 					<table id="tablaPagos" class="table-custom table-custom-highlight">
@@ -343,6 +424,8 @@
 								<option value="">Selecciona el tipo de visita...</option>
 								<option value="familiar-amigo">Familiar o Amigo</option>								
 								<option value="proveedor">Proveedor</option>
+								<option value="paqueteria">Paqueteria</option>
+
 							</select>
 						</div>
 						<div>
@@ -394,7 +477,7 @@
 						<button class="btn" id="downloadQrButton">Descargar QR</button>
 					</div>
 					<div class="copiarqr">
-						<button class="btn" id="compartirQrButton">Compartir por WA</button>
+						<button class="btn" id="compartirQrButton">Enviar por WhatsApp</button>
 					</div>
 					<div id="nuevoregistro" class="copiarqr">	
 						<button type="submit" class="btn" onclick="nuevoregistro()">

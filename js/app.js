@@ -7,6 +7,20 @@ const domicilioSpan = document.getElementById("domicilio");
 const correoSpan = document.getElementById("correo"); // Agregado el span para mostrar el correo
 const statusSpan = document.getElementById("status");
 const adeudoSpan = document.getElementById("adeudo");
+
+const ene2025Span = document.getElementById("ene2025");
+const feb2025Span = document.getElementById("feb2025");
+const mar2025Span = document.getElementById("mar2025");
+const abr2025Span = document.getElementById("abr2025");
+const may2025Span = document.getElementById("may2025");
+const jun2025Span = document.getElementById("jun2025");
+const jul2025Span = document.getElementById("jul2025");
+const ago2025Span = document.getElementById("ago2025");
+const sep2025Span = document.getElementById("sep2025");
+const oct2025Span = document.getElementById("oct2025");
+const nov2025Span = document.getElementById("nov2025");
+const dic2025Span = document.getElementById("dic2025");
+
 const ene2024Span = document.getElementById("ene2024");
 const feb2024Span = document.getElementById("feb2024");
 const mar2024Span = document.getElementById("mar2024");
@@ -19,6 +33,7 @@ const sep2024Span = document.getElementById("sep2024");
 const oct2024Span = document.getElementById("oct2024");
 const nov2024Span = document.getElementById("nov2024");
 const dic2024Span = document.getElementById("dic2024");
+
 const ene2023Span = document.getElementById("ene2023");
 const feb2023Span = document.getElementById("feb2023");
 const mar2023Span = document.getElementById("mar2023");
@@ -31,6 +46,7 @@ const sep2023Span = document.getElementById("sep2023");
 const oct2023Span = document.getElementById("oct2023");
 const nov2023Span = document.getElementById("nov2023");
 const dic2023Span = document.getElementById("dic2023");
+
 const selectYear = document.getElementById("selectYear");
 const tags = document.getElementById("tags");
 const tag1Span = document.getElementById("tag1");
@@ -60,9 +76,6 @@ const btnenborrar = document.getElementById("btnenborrar");
 const divnuevoregistro = document.getElementById("nuevoregistro");
 const divamenidades = document.getElementById("divamenidades");
 const divreservar = document.getElementById("divreservar");
-
-
-
 const confirmarreserca = document.getElementById("confirmarreserca");
 const divmisreservas = document.getElementById("divmisreservas");
 var today = new Date().toISOString().split("T")[0];
@@ -75,12 +88,10 @@ const fechavisita3Span = document.getElementById("fechavisita3");
 const domdvisistaSpan = document.getElementById("domdvisista");
 const divpagocargado = document.getElementById("pagocargado");
 const divseguridad = document.getElementById("seguridad");
-
 const divvotaciones = document.getElementById("divvotaciones");
 const btnvotacion = document.getElementById("btnvotacion");
 const sheetID = "a6b0b2f6-4b86-4614-b256-8fc3f603b7da";
 let sesionIniciada = false;
-
 let checkboxadp = document.getElementById("avisoPrivacidad");
 
 checkboxadp.addEventListener('click', function() {
@@ -186,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
               propietarioSpan.textContent = clientesinComillas;
               domicilioSpan.textContent = domiciliosinComillas;
-              domdvisistaSpan.textContent = domicilio;
+              domdvisistaSpan.textContent = domiciliosinComillas;
               correoSpan.textContent = correoCifradoGuardado; // Muestra el correo ingresado
               statusSpan.textContent = status;
               adeudoSpan.textContent = adeudo;
@@ -287,6 +298,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 .getElementById("btnrecibodic2024")
                 .addEventListener("click", generarrecibopdf);
 
+              document.getElementById("btnreciboene2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibofeb2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibomar2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnreciboabr2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibomay2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibojun2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibojul2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnreciboago2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibosep2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibooct2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibonov2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibodic2025").addEventListener("click", generarrecibopdf);
+
+
+
+
+
               document
                 .getElementById("borrardatos")
                 .addEventListener("click", borrarElementos);
@@ -336,7 +364,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 boton3.disabled = false;
               }
 
-
               function mostradivvotos () {
                 btnvotacion.style.display = "none";
                 divvotaciones.style.display = "block";
@@ -369,6 +396,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 fetch(urlProp)
                   .then((response) => response.json())
                   .then((data) => {
+                    ene2025Span.textContent = data[indice].ene2025;
+                    feb2025Span.textContent = data[indice].feb2025;
+                    mar2025Span.textContent = data[indice].mar2025;
+                    abr2025Span.textContent = data[indice].abr2025;
+                    may2025Span.textContent = data[indice].may2025;
+                    jun2025Span.textContent = data[indice].jun2025;
+                    jul2025Span.textContent = data[indice].jul2025;
+                    ago2025Span.textContent = data[indice].ago2025;
+                    sep2025Span.textContent = data[indice].sep2025;
+                    oct2025Span.textContent = data[indice].oct2025;
+                    nov2025Span.textContent = data[indice].nov2025;
+                    dic2025Span.textContent = data[indice].dic2025;
+
                     ene2024Span.textContent = data[indice].ene2024;
                     feb2024Span.textContent = data[indice].feb2024;
                     mar2024Span.textContent = data[indice].mar2024;
@@ -1384,7 +1424,7 @@ formulario.addEventListener("submit", (e) => {
 
               propietarioSpan.textContent = clientesinComillas;
               domicilioSpan.textContent = domiciliosinComillas;
-              domdvisistaSpan.textContent = domicilio;
+              domdvisistaSpan.textContent = domiciliosinComillas;
               correoSpan.textContent = usuarioInput; // Muestra el correo ingresado
               statusSpan.textContent = status;
               adeudoSpan.textContent = adeudo;
@@ -1485,6 +1525,20 @@ formulario.addEventListener("submit", (e) => {
                 .getElementById("btnrecibodic2024")
                 .addEventListener("click", generarrecibopdf);
 
+              document.getElementById("btnreciboene2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibofeb2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibomar2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnreciboabr2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibomay2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibojun2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibojul2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnreciboago2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibosep2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibooct2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibonov2025").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibodic2025").addEventListener("click", generarrecibopdf);
+  
+
               document
                 .getElementById("borrardatos")
                 .addEventListener("click", borrarElementos);
@@ -1568,6 +1622,19 @@ formulario.addEventListener("submit", (e) => {
                 fetch(urlProp)
                   .then((response) => response.json())
                   .then((data) => {
+                    ene2025Span.textContent = data[indice].ene2025;
+                    feb2025Span.textContent = data[indice].feb2025;
+                    mar2025Span.textContent = data[indice].mar2025;
+                    abr2025Span.textContent = data[indice].abr2025;
+                    may2025Span.textContent = data[indice].may2025;
+                    jun2025Span.textContent = data[indice].jun2025;
+                    jul2025Span.textContent = data[indice].jul2025;
+                    ago2025Span.textContent = data[indice].ago2025;
+                    sep2025Span.textContent = data[indice].sep2025;
+                    oct2025Span.textContent = data[indice].oct2025;
+                    nov2025Span.textContent = data[indice].nov2025;
+                    dic2025Span.textContent = data[indice].dic2025;
+
                     ene2024Span.textContent = data[indice].ene2024;
                     feb2024Span.textContent = data[indice].feb2024;
                     mar2024Span.textContent = data[indice].mar2024;
@@ -2930,6 +2997,20 @@ function generarTabla(contenedorId, data) {
         tablaHTML += `<tr><td>Contraseña</td><td><input class="datostext" type="text" value="${passwordComillas}" onchange="actualizarDato(this.value, 'password', '${domcodificado}')"></td></tr>`;
         tablaHTML += `<tr><td>Estatus</td><td>${fila.status}</td></tr>`;
         tablaHTML += `<tr><td>Adeudo</td><td>${fila.adeudo}</td></tr>`;
+
+        tablaHTML += `<tr><td>Ene 2025</td><td><input class="pago" type="text" value="${fila.ene2025}" onchange="actualizarDato(this.value, 'ene2025', '${domcodificado}')"></td></tr>`;
+        tablaHTML += `<tr><td>Feb 2025</td><td><input class="pago" type="text" value="${fila.feb2025}" onchange="actualizarDato(this.value, 'feb2025', '${domcodificado}')"></td></tr>`;
+        tablaHTML += `<tr><td>Mar 2025</td><td><input class="pago" type="text" value="${fila.mar2025}" onchange="actualizarDato(this.value, 'mar2025', '${domcodificado}')"></td></tr>`;
+        tablaHTML += `<tr><td>Abr 2025</td><td><input class="pago" type="text" value="${fila.abr2025}" onchange="actualizarDato(this.value, 'abr2025', '${domcodificado}')"></td></tr>`;
+        tablaHTML += `<tr><td>May 2025</td><td><input class="pago" type="text" value="${fila.may2025}" onchange="actualizarDato(this.value, 'may2025', '${domcodificado}')"></td></tr>`;
+        tablaHTML += `<tr><td>Jun 2025</td><td><input class="pago" type="text" value="${fila.jun2025}" onchange="actualizarDato(this.value, 'jun2025', '${domcodificado}')"></td></tr>`;
+        tablaHTML += `<tr><td>Jul 2025</td><td><input class="pago" type="text" value="${fila.jul2025}" onchange="actualizarDato(this.value, 'jul2025', '${domcodificado}')"></td></tr>`;
+        tablaHTML += `<tr><td>Ago 2025</td><td><input class="pago" type="text" value="${fila.ago2025}" onchange="actualizarDato(this.value, 'ago2025', '${domcodificado}')"></td></tr>`;
+        tablaHTML += `<tr><td>Sep 2025</td><td><input class="pago" type="text" value="${fila.sep2025}" onchange="actualizarDato(this.value, 'sep2025', '${domcodificado}')"></td></tr>`;
+        tablaHTML += `<tr><td>Oct 2025</td><td><input class="pago" type="text" value="${fila.oct2025}" onchange="actualizarDato(this.value, 'oct2025', '${domcodificado}')"></td></tr>`;
+        tablaHTML += `<tr><td>Nov 2025</td><td><input class="pago" type="text" value="${fila.nov2025}" onchange="actualizarDato(this.value, 'nov2025', '${domcodificado}')"></td></tr>`;
+        tablaHTML += `<tr><td>Dic 2025</td><td><input class="pago" type="text" value="${fila.dic2025}" onchange="actualizarDato(this.value, 'dic2025', '${domcodificado}')"></td></tr>`;
+
         tablaHTML += `<tr><td>Ene 2024</td><td><input class="pago" type="text" value="${fila.ene2024}" onchange="actualizarDato(this.value, 'ene2024', '${domcodificado}')"></td></tr>`;
         tablaHTML += `<tr><td>Feb 2024</td><td><input class="pago" type="text" value="${fila.feb2024}" onchange="actualizarDato(this.value, 'feb2024', '${domcodificado}')"></td></tr>`;
         tablaHTML += `<tr><td>Mar 2024</td><td><input class="pago" type="text" value="${fila.mar2024}" onchange="actualizarDato(this.value, 'mar2024', '${domcodificado}')"></td></tr>`;
@@ -3515,9 +3596,6 @@ async function shortenUrl(url) {
   }
 }
 
-
-
-
 function enviarvoto (){
 
   const statuscod = document.getElementById("status").textContent;
@@ -3561,7 +3639,7 @@ function enviarvoto (){
     } else {
       alert("Domicilio con adeudo, no puede votar")
     }
-  }
+}
 
   
 
