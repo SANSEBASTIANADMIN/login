@@ -694,7 +694,7 @@ td {
   margin-bottom: 0px;
   background: #013e6a22;
   color: #000000;
-  width: 100%;
+  width: 95%;
   border: none;
 }
 
@@ -788,8 +788,9 @@ summary::before {
   height: 0;
   overflow: hidden;
   transition: height 0.5s ease-in-out, padding 0.5s ease-in-out;
-  color: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+
+  color: #fff;
 }
 
 #adminPanel3 {
@@ -816,8 +817,9 @@ summary::before {
 
 #encabezadoadmin {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 15px;
+  flex-wrap: wrap;
 }
 
 .boton-eliminar {
@@ -872,7 +874,6 @@ summary::before {
   min-height: 10vh;
   display: grid;
   margin: 10px; /* Agregar margen */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
   overflow: hidden;
   bottom: 0;
   margin: 1;
@@ -1071,14 +1072,14 @@ summary::before {
 }
 
 .btnadmin {
-  width: 200px; /* Maintains the desired width */
-  height: 30px; /* Maintains the desired height */
+  width: 160px; /* Maintains the desired width */
+  height: 40px; /* Maintains the desired height */
   min-width: 150px; /* Maintains the minimum width */
   margin: 2px; /* Maintains the margin */
   padding: 10px 20px; /* Maintains the padding for button comfort */
   text-align: start; /* Aligns the text to the left */
   border-radius: 5px; /* Maintains the border radius */
-  font-size: 13px; /* Reduces the font size to 12px */
+  font-size: 12px; /* Reduces the font size to 12px */
   font-weight: 500; /* Maintains the font weight */
   transition: all 0.3s ease; /* Maintains the transition effect */
   outline: none; /* Maintains the removal of outline */
@@ -1372,4 +1373,80 @@ summary::before {
   font-size: 10px;
   text-align: justify;
 
+}
+
+/* Estilos para inputs de radio personalizados */
+.votacion-table input[type="radio"] {
+  /* Esconder el radio input original */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #007BFF; /* Bordes en azul */
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  background-color: #fff;
+}
+
+.votacion-table input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #007BFF; /* Color de la selección en azul */
+  transform: translate(-50%, -50%);
+}
+
+/* Estilo para labels */
+.votacion-table label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+/* Estilo para labels cuando el input está deshabilitado */
+.votacion-table input[type="radio"]:disabled + label {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.logoadmin {
+  width: 150px; /* Establece el ancho a 200 píxeles */
+  height: auto; /* Mantiene la proporción de la imagen */
+}
+
+
+.columna-izquierda5 {
+  align-items: center;
+}
+
+.columna-izquierda5,
+.columna-derecha2 {
+  width: 150px; /* Ajusta el ancho según tus necesidades */
+  align-items: center;
+
+}
+.columna-izquierda5 img {
+  max-width: 100%; /* Asegura que la imagen no sobrepase su contenedor */
+  align-items: center;
+}
+
+.agregarpregunta{
+  align-items: center;
+}
+
+
+.fila-par {
+  background-color: #f2f2f2; /* Color de fondo para filas pares */
+}
+
+.fila-impar {
+  background-color: rgba(37, 149, 190, 0.447);
 }

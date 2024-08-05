@@ -219,85 +219,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
               document.getElementById("fechavisita").setAttribute("min", localDateTime);
               document.getElementById("fechareserva").setAttribute("min", localDateTime);
-            
-
-              document
-              .getElementById("btnvotacion")
-              .addEventListener("click", mostradivvotos);
-
-              document
-                .getElementById("divbotonhistorico")
-                .addEventListener("click", updatePaymentHistory);
-              document
-                .getElementById("divbotonpago")
-                .addEventListener("click", redireccionarPagos);
-              document
-                .getElementById("divregreso")
-                .addEventListener("click", regresar);
-              document
-                .getElementById("divbotonvisitas")
-                .addEventListener("click", ingresos);
-              document
-                .getElementById("divbotonvisitas")
-                .addEventListener("click", ingresos);
-              document
-                .getElementById("btnenviaringreso")
-                .addEventListener("click", enviarsdei);
-              document
-                .getElementById("datoscorrectosvisitas")
-                .addEventListener("click", confirmacionvyp);
-              document
-                .getElementById("nuevoregistro")
-                .addEventListener("click", nuevoregistro);
-              document
-                .getElementById("divbotonreservar")
-                .addEventListener("click", calendario);
-              document
-                .getElementById("confirmarreserca")
-                .addEventListener("click", registrarReserva);
-              document
-                .getElementById("misreservsas")
-                .addEventListener("click", toggleMisReservas);
-              document
-                .getElementById("enviarpago")
-                .addEventListener("click", enviardatospago);
-              document
-                .getElementById("btnreciboene2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibofeb2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibomar2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnreciboabr2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibomay2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibojun2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibojul2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnreciboago2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibosep2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibooct2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibonov2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibodic2024")
-                .addEventListener("click", generarrecibopdf);
-
+              document.getElementById("btnvotacion").addEventListener("click", mostradivvotos);
+              document.getElementById("divbotonhistorico").addEventListener("click", updatePaymentHistory);
+              document.getElementById("divbotonpago").addEventListener("click", redireccionarPagos);
+              document.getElementById("divregreso").addEventListener("click", regresar);
+              document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
+              document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
+              document.getElementById("btnenviaringreso").addEventListener("click", enviarsdei);
+              document.getElementById("datoscorrectosvisitas").addEventListener("click", confirmacionvyp);
+              document.getElementById("nuevoregistro").addEventListener("click", nuevoregistro);
+              document.getElementById("divbotonreservar").addEventListener("click", calendario);
+              document.getElementById("confirmarreserca").addEventListener("click", registrarReserva);
+              document.getElementById("misreservsas").addEventListener("click", toggleMisReservas);
+              document.getElementById("enviarpago").addEventListener("click", enviardatospago);
+              document.getElementById("btnreciboene2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibofeb2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibomar2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnreciboabr2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibomay2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibojun2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibojul2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnreciboago2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibosep2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibooct2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibonov2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibodic2024").addEventListener("click", generarrecibopdf);
               document.getElementById("btnreciboene2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibofeb2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibomar2025").addEventListener("click", generarrecibopdf);
@@ -311,14 +257,10 @@ document.addEventListener("DOMContentLoaded", () => {
               document.getElementById("btnrecibonov2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibodic2025").addEventListener("click", generarrecibopdf);
 
+              document.getElementById("borrardatos").addEventListener("click", borrarElementos);
+              document.getElementById("enviarvoto").addEventListener("click", enviarvoto);
 
-
-
-
-              document
-                .getElementById("borrardatos")
-                .addEventListener("click", borrarElementos);
-
+          
               var boton = document.getElementById("btnparaconfirmarreserca");
               var boton2 = document.getElementById("generarvisitayqr");
               var boton3 = document.getElementById("enviarpago");
@@ -364,7 +306,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 boton3.disabled = false;
               }
 
-              function mostradivvotos () {
+
+              function mostradivvotos() {
+                // Ocultar y mostrar elementos según sea necesario
                 btnvotacion.style.display = "none";
                 divvotaciones.style.display = "block";
                 paymentHistory2024.style.display = "none";
@@ -376,9 +320,127 @@ document.addEventListener("DOMContentLoaded", () => {
                 divbotonvisitas.style.display = "none";
                 segurichat.style.display = "none";
                 divregreso.style.display = "block";
-
+            
+                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/avotar`;
+            
+                fetch(url)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        // Limpiar el contenido del div antes de agregar nuevas tablas
+                        divvotaciones.innerHTML = '';
+            
+                        data.forEach((fila, index) => {
+                            let table = document.createElement('table');
+                            table.className = 'votacion-table';
+                            
+                            // Crear fila para la pregunta
+                            let trPregunta = document.createElement('tr');
+                            let tdPregunta = document.createElement('td');
+                            tdPregunta.colSpan = 2;
+                            tdPregunta.textContent = fila.pregunta;
+                            trPregunta.appendChild(tdPregunta);
+                            table.appendChild(trPregunta);
+            
+                            // Crear fila para las opciones de votación
+                            let trOpciones = document.createElement('tr');
+                            let tdOpciones = document.createElement('td');
+                            tdOpciones.colSpan = 2;
+            
+                            // Asignar IDs únicos a los inputs de radio
+                            const idSi = `votoSi_${index}`;
+                            const idNo = `votoNo_${index}`;
+            
+                            tdOpciones.innerHTML = `
+                                <label><input type="radio" id="${idSi}" name="voto${index}" value="Si" required> Si</label>
+                                <label><input type="radio" id="${idNo}" name="voto${index}" value="No" required> No</label>
+                            `;
+                            trOpciones.appendChild(tdOpciones);
+                            table.appendChild(trOpciones);
+            
+                            divvotaciones.appendChild(table);
+            
+                            // Verificar si ya se ha votado antes y deshabilitar los inputs de radio si es ai
+                            verificarVoto(fila.pregunta, idSi, idNo, index);
+                        });
+                    })
+                    .catch((error) => console.error('Error al obtener datos:', error));
               }
-
+              
+              function verificarVoto(pregunta, idSi, idNo, index) {
+                  const url = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones`;
+              
+                  fetch(url)
+                      .then(response => response.json())
+                      .then(votaciones => {
+                          // Comprobar si ya existe un voto para la pregunta específica
+                          const votoExistente = votaciones.find(voto => voto.pregunta === pregunta);
+              
+                          if (votoExistente) {
+                              // Si ya existe un voto, deshabilitar los inputs de radio y marcar el voto correspondiente
+                              document.getElementById(idSi).disabled = true;
+                              document.getElementById(idNo).disabled = true;
+                              if (votoExistente.respuesta === 'Si') {
+                                  document.getElementById(idSi).checked = true;
+                              } else {
+                                  document.getElementById(idNo).checked = true;
+                              }
+                              // Guardar el estado del voto en localStorage
+                              localStorage.setItem(`voto_${index}`, votoExistente.respuesta);
+                          } else {
+                              // Si no existe un voto, agregar eventos change a los inputs de radio
+                              document.getElementById(idSi).addEventListener('change', () => enviarvoto(pregunta, 'Si', idSi, idNo, index));
+                              document.getElementById(idNo).addEventListener('change', () => enviarvoto(pregunta, 'No', idSi, idNo, index));
+                          }
+                      })
+                      .catch(error => console.error('Error al verificar el voto:', error));
+              }
+              
+              function enviarvoto(pregunta, voto, idSi, idNo, index) {
+                  const statuscod = document.getElementById("status").textContent;
+              
+                  if (statuscod === "Al Corriente") {
+                      const fechaHoraActual = new Date();
+                      const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+              
+                      const domicilio = document.getElementById("domicilio").textContent;
+              
+                      const datos = {
+                          domicilio: domicilio,
+                          pregunta: pregunta,
+                          respuesta: voto,
+                          fechaHoraRegistro: fechaHoraFormateada,
+                      };
+              
+                      const url = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones`;
+              
+                      const opciones = {
+                          method: "POST",
+                          headers: {
+                              "Content-Type": "application/json",
+                          },
+                          body: JSON.stringify(datos),
+                      };
+              
+                      // Enviar los datos a la hoja de cálculo
+                      fetch(url, opciones)
+                          .then(response => response.json())
+                          .then(data => {
+                              // Alerta de éxito después de enviar los datos
+                              alert('Voto Emitido');
+                              // Deshabilitar los inputs de radio
+                              document.getElementById(idSi).disabled = true;
+                              document.getElementById(idNo).disabled = true;
+                              // Guardar el estado del voto en localStorage
+                              localStorage.setItem(`voto_${index}`, voto);
+                          })
+                          .catch(error => {
+                              console.error('Error al enviar los datos:', error);
+                          });
+                  } else {
+                      alert("Domicilio con adeudo, no puede votar");
+                  }
+              }            
+            
               function updatePaymentHistory() {
                 paymentHistory2024.style.display = "block";
                 tags.style.display = "none";
@@ -1318,13 +1380,8 @@ document.addEventListener("DOMContentLoaded", () => {
           } else {
             alert("Usuario o contraseña incorrectos");
           }
-        });
-    
-
-
- 
-  
-      } else {
+        });  
+    } else {
     console.log("No hay datos de sesión guardados.");
   }
 });
@@ -1446,85 +1503,31 @@ formulario.addEventListener("submit", (e) => {
 
               document.getElementById("fechavisita").setAttribute("min", localDateTime);
               document.getElementById("fechareserva").setAttribute("min", localDateTime);
-
-
-              document
-              .getElementById("btnvotacion")
-              .addEventListener("click", mostradivvotos);
-
-              document
-                .getElementById("divbotonhistorico")
-                .addEventListener("click", updatePaymentHistory);
-              document
-                .getElementById("divbotonpago")
-                .addEventListener("click", redireccionarPagos);
-              document
-                .getElementById("divregreso")
-                .addEventListener("click", regresar);
-              document
-                .getElementById("divbotonvisitas")
-                .addEventListener("click", ingresos);
-              document
-                .getElementById("divbotonvisitas")
-                .addEventListener("click", ingresos);
-              document
-                .getElementById("btnenviaringreso")
-                .addEventListener("click", enviarsdei);
-              document
-                .getElementById("datoscorrectosvisitas")
-                .addEventListener("click", confirmacionvyp);
-              document
-                .getElementById("nuevoregistro")
-                .addEventListener("click", nuevoregistro);
-              document
-                .getElementById("divbotonreservar")
-                .addEventListener("click", calendario);
-              document
-                .getElementById("confirmarreserca")
-                .addEventListener("click", registrarReserva);
-              document
-                .getElementById("misreservsas")
-                .addEventListener("click", toggleMisReservas);
-              document
-                .getElementById("enviarpago")
-                .addEventListener("click", enviardatospago);
-              document
-                .getElementById("btnreciboene2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibofeb2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibomar2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnreciboabr2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibomay2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibojun2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibojul2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnreciboago2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibosep2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibooct2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibonov2024")
-                .addEventListener("click", generarrecibopdf);
-              document
-                .getElementById("btnrecibodic2024")
-                .addEventListener("click", generarrecibopdf);
-
+              document.getElementById("btnvotacion").addEventListener("click", mostradivvotos);
+              document.getElementById("divbotonhistorico").addEventListener("click", updatePaymentHistory);
+              document.getElementById("divbotonpago").addEventListener("click", redireccionarPagos);
+              document.getElementById("divregreso").addEventListener("click", regresar);
+              document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
+              document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
+              document.getElementById("btnenviaringreso").addEventListener("click", enviarsdei);
+              document.getElementById("datoscorrectosvisitas").addEventListener("click", confirmacionvyp);
+              document.getElementById("nuevoregistro").addEventListener("click", nuevoregistro);
+              document.getElementById("divbotonreservar").addEventListener("click", calendario);
+              document.getElementById("confirmarreserca").addEventListener("click", registrarReserva);
+              document.getElementById("misreservsas").addEventListener("click", toggleMisReservas);
+              document.getElementById("enviarpago").addEventListener("click", enviardatospago);
+              document.getElementById("btnreciboene2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibofeb2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibomar2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnreciboabr2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibomay2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibojun2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibojul2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnreciboago2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibosep2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibooct2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibonov2024").addEventListener("click", generarrecibopdf);
+              document.getElementById("btnrecibodic2024").addEventListener("click", generarrecibopdf);
               document.getElementById("btnreciboene2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibofeb2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibomar2025").addEventListener("click", generarrecibopdf);
@@ -1537,11 +1540,10 @@ formulario.addEventListener("submit", (e) => {
               document.getElementById("btnrecibooct2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibonov2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibodic2025").addEventListener("click", generarrecibopdf);
-  
+              document.getElementById("borrardatos").addEventListener("click", borrarElementos);
+              document.getElementById("enviarvoto").addEventListener("click", enviarvoto);
 
-              document
-                .getElementById("borrardatos")
-                .addEventListener("click", borrarElementos);
+            
 
               var boton = document.getElementById("btnparaconfirmarreserca");
               var boton2 = document.getElementById("generarvisitayqr");
@@ -1588,7 +1590,8 @@ formulario.addEventListener("submit", (e) => {
                 boton3.disabled = false;
               }
 
-              function mostradivvotos () {
+              function mostradivvotos() {
+                // Ocultar y mostrar elementos según sea necesario
                 btnvotacion.style.display = "none";
                 divvotaciones.style.display = "block";
                 paymentHistory2024.style.display = "none";
@@ -1600,9 +1603,126 @@ formulario.addEventListener("submit", (e) => {
                 divbotonvisitas.style.display = "none";
                 segurichat.style.display = "none";
                 divregreso.style.display = "block";
-                
-
+            
+                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/avotar`;
+            
+                fetch(url)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        // Limpiar el contenido del div antes de agregar nuevas tablas
+                        divvotaciones.innerHTML = '';
+            
+                        data.forEach((fila, index) => {
+                            let table = document.createElement('table');
+                            table.className = 'votacion-table';
+                            
+                            // Crear fila para la pregunta
+                            let trPregunta = document.createElement('tr');
+                            let tdPregunta = document.createElement('td');
+                            tdPregunta.colSpan = 2;
+                            tdPregunta.textContent = fila.pregunta;
+                            trPregunta.appendChild(tdPregunta);
+                            table.appendChild(trPregunta);
+            
+                            // Crear fila para las opciones de votación
+                            let trOpciones = document.createElement('tr');
+                            let tdOpciones = document.createElement('td');
+                            tdOpciones.colSpan = 2;
+            
+                            // Asignar IDs únicos a los inputs de radio
+                            const idSi = `votoSi_${index}`;
+                            const idNo = `votoNo_${index}`;
+            
+                            tdOpciones.innerHTML = `
+                                <label><input type="radio" id="${idSi}" name="voto${index}" value="Si" required> Si</label>
+                                <label><input type="radio" id="${idNo}" name="voto${index}" value="No" required> No</label>
+                            `;
+                            trOpciones.appendChild(tdOpciones);
+                            table.appendChild(trOpciones);
+            
+                            divvotaciones.appendChild(table);
+            
+                            // Verificar si ya se ha votado antes y deshabilitar los inputs de radio si es asi
+                            verificarVoto(fila.pregunta, idSi, idNo, index);
+                        });
+                    })
+                    .catch((error) => console.error('Error al obtener datos:', error));
               }
+              
+              function verificarVoto(pregunta, idSi, idNo, index) {
+                  const url = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones`;
+              
+                  fetch(url)
+                      .then(response => response.json())
+                      .then(votaciones => {
+                          // Comprobar si ya existe un voto para la pregunta específica
+                          const votoExistente = votaciones.find(voto => voto.pregunta === pregunta);
+              
+                          if (votoExistente) {
+                              // Si ya existe un voto, deshabilitar los inputs de radio y marcar el voto correspondiente
+                              document.getElementById(idSi).disabled = true;
+                              document.getElementById(idNo).disabled = true;
+                              if (votoExistente.respuesta === 'Si') {
+                                  document.getElementById(idSi).checked = true;
+                              } else {
+                                  document.getElementById(idNo).checked = true;
+                              }
+                              // Guardar el estado del voto en localStorage
+                              localStorage.setItem(`voto_${index}`, votoExistente.respuesta);
+                          } else {
+                              // Si no existe un voto, agregar eventos change a los inputs de radio
+                              document.getElementById(idSi).addEventListener('change', () => enviarvoto(pregunta, 'Si', idSi, idNo, index));
+                              document.getElementById(idNo).addEventListener('change', () => enviarvoto(pregunta, 'No', idSi, idNo, index));
+                          }
+                      })
+                      .catch(error => console.error('Error al verificar el voto:', error));
+              }
+              
+              function enviarvoto(pregunta, voto, idSi, idNo, index) {
+                  const statuscod = document.getElementById("status").textContent;
+              
+                  if (statuscod === "Al Corriente") {
+                      const fechaHoraActual = new Date();
+                      const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+              
+                      const domicilio = document.getElementById("domicilio").textContent;
+              
+                      const datos = {
+                          domicilio: domicilio,
+                          pregunta: pregunta,
+                          respuesta: voto,
+                          fechaHoraRegistro: fechaHoraFormateada,
+                      };
+              
+                      const url = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones`;
+              
+                      const opciones = {
+                          method: "POST",
+                          headers: {
+                              "Content-Type": "application/json",
+                          },
+                          body: JSON.stringify(datos),
+                      };
+              
+                      // Enviar los datos a la hoja de cálculo
+                      fetch(url, opciones)
+                          .then(response => response.json())
+                          .then(data => {
+                              // Alerta de éxito después de enviar los datos
+                              alert('Voto Emitido');
+                              // Deshabilitar los inputs de radio
+                              document.getElementById(idSi).disabled = true;
+                              document.getElementById(idNo).disabled = true;
+                              // Guardar el estado del voto en localStorage
+                              localStorage.setItem(`voto_${index}`, voto);
+                          })
+                          .catch(error => {
+                              console.error('Error al enviar los datos:', error);
+                          });
+                  } else {
+                      alert("Domicilio con adeudo, no puede votar");
+                  }
+              }         
 
               function updatePaymentHistory() {
                 paymentHistory2024.style.display = "block";
@@ -2335,6 +2455,7 @@ formulario.addEventListener("submit", (e) => {
                   );
                 }
               }
+
               function enviardatospago() {
                 if (boton3.disabled) {
                   return; // Evitar ejecutar la función si ya está en curso
@@ -2998,6 +3119,8 @@ function generarTabla(contenedorId, data) {
         tablaHTML += `<tr><td>Estatus</td><td>${fila.status}</td></tr>`;
         tablaHTML += `<tr><td>Adeudo</td><td>${fila.adeudo}</td></tr>`;
 
+        tablaHTML += `<tr><td>Multas</td><td><input class="pago" type="number" value="${fila.multas}" onchange="actualizarDato(this.value, 'multas', '${domcodificado}')"></td></tr>`;
+
         tablaHTML += `<tr><td>Ene 2025</td><td><input class="pago" type="text" value="${fila.ene2025}" onchange="actualizarDato(this.value, 'ene2025', '${domcodificado}')"></td></tr>`;
         tablaHTML += `<tr><td>Feb 2025</td><td><input class="pago" type="text" value="${fila.feb2025}" onchange="actualizarDato(this.value, 'feb2025', '${domcodificado}')"></td></tr>`;
         tablaHTML += `<tr><td>Mar 2025</td><td><input class="pago" type="text" value="${fila.mar2025}" onchange="actualizarDato(this.value, 'mar2025', '${domcodificado}')"></td></tr>`;
@@ -3148,9 +3271,7 @@ function buscarDomicilio(registrosId) {
   });
 }
 
-document
-  .getElementById("grabarnweregistro")
-  .addEventListener("click", agregarresidente);
+document.getElementById("grabarnweregistro").addEventListener("click", agregarresidente);
 let clicActivograbarnweregistro = true;
 
 function agregarresidente() {
@@ -3596,52 +3717,9 @@ async function shortenUrl(url) {
   }
 }
 
-function enviarvoto (){
-
-  const statuscod = document.getElementById("status").textContent;
-
-  if (statuscod === "Al Corriente") {
-
-    const voto = document.querySelector('input[name="voto"]:checked').value;
-    const fechaHoraActual = new Date();
-    const fechaHoraFormateada = fechaHoraActual.toLocaleString();
-
-    const domicilio = document.getElementById("domicilio").textContent;
 
 
 
-    const datos = {
-      domicilio: domicilio,
-      respuesta: voto,
-      fechaHoraRegistro: fechaHoraFormateada,
-    };
-
-    const url = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones`;
-
-    const opciones = {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: JSON.stringify(datos),
-    };
-
-    // Enviar los datos a la hoja de cálculo
-    fetch(url, opciones)
-        .then(response => response.json())
-        .then(data => {
-            // Alerta de éxito después de enviar los datos
-            alert('Voto Emitido');
-        })
-        .catch(error => {
-            console.error('Error al enviar los datos:', error);
-        });
-    } else {
-      alert("Domicilio con adeudo, no puede votar")
-    }
-}
-
-  
 
 
 
@@ -3683,7 +3761,9 @@ function formatData(data) {
   return data.map(item => {
       return {
           domicilio: item.domicilio,
-          respuesta: item.respuesta === "S√≠" ? "Sí" : item.respuesta === "No" ? "No" : item.respuesta,
+          pregunta: item.pregunta,
+
+          respuesta: item.respuesta,
           fechaHoraRegistro: formatFechaHora(item.fechaHoraRegistro)
       };
   });
@@ -3738,3 +3818,103 @@ function downloadCSV(csv, filename) {
   downloadLink.click();
   document.body.removeChild(downloadLink);
 }
+
+
+document.getElementById("agregarvotacion").addEventListener("click", agregarvotacion);
+document.getElementById("regresaradmin").addEventListener("click", regresaradmin);
+
+
+function regresaradmin (){
+  const contenedoradmin = document.getElementById("contenedoradmin");
+  contenedoradmin.style.display = "block";
+
+  const contenedoradminvotos = document.getElementById("contenedoradminvotos");
+  contenedoradminvotos.style.display = "none";
+}
+
+function agregarvotacion() {
+  if (sesionIniciada) {
+      const contenedoradmin = document.getElementById("contenedoradmin");
+      contenedoradmin.style.display = "none";
+
+      const contenedoradminvotos = document.getElementById("contenedoradminvotos");
+      contenedoradminvotos.style.display = "block";
+
+      const tablapreguntasadmin = document.getElementById("tablapreguntasadmin");
+
+      const url = `https://sheet.best/api/sheets/${sheetID}/tabs/avotar`;
+
+      fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+              // Limpiar el contenido del div antes de agregar nuevas tablas
+              tablapreguntasadmin.innerHTML = '';
+
+              // Crear una tabla para contener todas las preguntas
+              let table = document.createElement('table');
+              table.className = 'tablaporcada';
+
+              data.forEach((fila, index) => {
+                  let trPregunta = document.createElement('tr');
+                  let tdPregunta = document.createElement('td');
+                  tdPregunta.colSpan = 2;
+                  tdPregunta.textContent = fila.pregunta;
+
+                  // Aplicar una clase diferente para filas alternadas
+                  if (index % 2 === 0) {
+                      trPregunta.className = 'fila-par';
+                  } else {
+                      trPregunta.className = 'fila-impar';
+                  }
+
+                  trPregunta.appendChild(tdPregunta);
+                  table.appendChild(trPregunta);
+              });
+
+              // Agregar la tabla al contenedor
+              tablapreguntasadmin.appendChild(table);
+          })
+          .catch((error) => {
+              console.error('Error al obtener datos:', error);
+          });
+  }
+}
+
+
+document.getElementById('btnAgregarPregunta').addEventListener('click', () => {
+  const nuevaPregunta = prompt('Ingrese la nueva pregunta:');
+  
+  if (nuevaPregunta) {
+      agregarPregunta(nuevaPregunta);
+  }
+});
+
+function agregarPregunta(pregunta) {
+  if (sesionIniciada){
+  const url = `https://sheet.best/api/sheets/${sheetID}/tabs/avotar`;
+
+  const datos = {
+      pregunta: pregunta
+  };
+
+  const opciones = {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(datos),
+  };
+
+  fetch(url, opciones)
+      .then(response => response.json())
+      .then(data => {
+          alert('Pregunta agregada exitosamente');
+          // Puedes actualizar la vista aquí si es necesario
+          agregarvotacion(); // Opcional: para actualizar la lista de preguntas
+      })
+      .catch(error => {
+          console.error('Error al agregar la pregunta:', error);
+      });
+  }
+}
+
