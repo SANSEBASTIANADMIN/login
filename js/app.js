@@ -94,6 +94,7 @@ const sheetID = "a6b0b2f6-4b86-4614-b256-8fc3f603b7da";
 let sesionIniciada = false;
 let checkboxadp = document.getElementById("avisoPrivacidad");
 
+
 checkboxadp.addEventListener('click', function() {
     let aceptoAvisoPrivacidad = checkboxadp.checked;
     console.log("Valor actual del checkbox Aviso de Privacidad y terminos y condiciones:", aceptoAvisoPrivacidad);
@@ -219,31 +220,86 @@ document.addEventListener("DOMContentLoaded", () => {
 
               document.getElementById("fechavisita").setAttribute("min", localDateTime);
               document.getElementById("fechareserva").setAttribute("min", localDateTime);
-              document.getElementById("btnvotacion").addEventListener("click", mostradivvotos);
-              document.getElementById("divbotonhistorico").addEventListener("click", updatePaymentHistory);
-              document.getElementById("divbotonpago").addEventListener("click", redireccionarPagos);
-              document.getElementById("divregreso").addEventListener("click", regresar);
-              document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
-              document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
-              document.getElementById("btnenviaringreso").addEventListener("click", enviarsdei);
-              document.getElementById("datoscorrectosvisitas").addEventListener("click", confirmacionvyp);
-              document.getElementById("nuevoregistro").addEventListener("click", nuevoregistro);
-              document.getElementById("divbotonreservar").addEventListener("click", calendario);
-              document.getElementById("confirmarreserca").addEventListener("click", registrarReserva);
-              document.getElementById("misreservsas").addEventListener("click", toggleMisReservas);
-              document.getElementById("enviarpago").addEventListener("click", enviardatospago);
-              document.getElementById("btnreciboene2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibofeb2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibomar2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnreciboabr2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibomay2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibojun2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibojul2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnreciboago2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibosep2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibooct2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibonov2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibodic2024").addEventListener("click", generarrecibopdf);
+
+
+              document
+              .getElementById("btnvotacion")
+              .addEventListener("click", mostradivvotos);
+
+              document
+                .getElementById("divbotonhistorico")
+                .addEventListener("click", updatePaymentHistory);
+              document
+                .getElementById("divbotonpago")
+                .addEventListener("click", redireccionarPagos);
+              document
+                .getElementById("divregreso")
+                .addEventListener("click", regresar);
+              document
+                .getElementById("divbotonvisitas")
+                .addEventListener("click", ingresos);
+              document
+                .getElementById("divbotonvisitas")
+                .addEventListener("click", ingresos);
+              document
+                .getElementById("btnenviaringreso")
+                .addEventListener("click", enviarsdei);
+              document
+                .getElementById("datoscorrectosvisitas")
+                .addEventListener("click", confirmacionvyp);
+              document
+                .getElementById("nuevoregistro")
+                .addEventListener("click", nuevoregistro);
+              document
+                .getElementById("divbotonreservar")
+                .addEventListener("click", calendario);
+              document
+                .getElementById("confirmarreserca")
+                .addEventListener("click", registrarReserva);
+              document
+                .getElementById("misreservsas")
+                .addEventListener("click", toggleMisReservas);
+              document
+                .getElementById("enviarpago")
+                .addEventListener("click", enviardatospago);
+              document
+                .getElementById("btnreciboene2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibofeb2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibomar2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnreciboabr2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibomay2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibojun2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibojul2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnreciboago2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibosep2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibooct2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibonov2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibodic2024")
+                .addEventListener("click", generarrecibopdf);
+
+
               document.getElementById("btnreciboene2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibofeb2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibomar2025").addEventListener("click", generarrecibopdf);
@@ -256,14 +312,13 @@ document.addEventListener("DOMContentLoaded", () => {
               document.getElementById("btnrecibooct2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibonov2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibodic2025").addEventListener("click", generarrecibopdf);
-
               document.getElementById("borrardatos").addEventListener("click", borrarElementos);
               document.getElementById("enviarvoto").addEventListener("click", enviarvoto);
-
-          
               var boton = document.getElementById("btnparaconfirmarreserca");
               var boton2 = document.getElementById("generarvisitayqr");
               var boton3 = document.getElementById("enviarpago");
+
+
 
               var tiempoEspera = 5 * 1000; // 5 minutos en milisegundos
               var timer; // variable para almacenar el temporizador
@@ -295,12 +350,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
               function desactivarBoton() {
+                var boton = document.getElementById("btnparaconfirmarreserca");
+                var boton2 = document.getElementById("generarvisitayqr");
+                var boton3 = document.getElementById("enviarpago");
                 boton.disabled = true;
                 boton2.disabled = true;
                 boton3.disabled = true;
               }
 
               function activarBoton() {
+                var boton = document.getElementById("btnparaconfirmarreserca");
+                var boton2 = document.getElementById("generarvisitayqr");
+                var boton3 = document.getElementById("enviarpago");
                 boton.disabled = false;
                 boton2.disabled = false;
                 boton3.disabled = false;
@@ -616,6 +677,8 @@ document.addEventListener("DOMContentLoaded", () => {
               }
 
               function registrarReserva() {
+                var boton = document.getElementById("btnparaconfirmarreserca");
+
                 if (boton.disabled) {
                   return; // Evitar ejecutar la función si ya está en curso
                 }
@@ -780,6 +843,7 @@ document.addEventListener("DOMContentLoaded", () => {
               }
 
               function confirmacionvyp() {
+                var boton2 = document.getElementById("generarvisitayqr");
                 if (boton2.disabled) {
                   return; // Evitar ejecutar la función si ya está en curso
                 }
@@ -1172,10 +1236,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
               }
               function enviardatospago() {
+                var boton3 = document.getElementById("enviarpago");
+
                 if (boton3.disabled) {
                   return; // Evitar ejecutar la función si ya está en curso
                 }
-                desactivarBoton(); // Desactivar el botón al inicio de la función
+                desactivarBoton()
+               // Desactivar el botón al inicio de la función
                 let fechaPagoSpan =
                   document.getElementById("fechaPago").textContent;
                 let montoPagoSpan =
@@ -1503,31 +1570,86 @@ formulario.addEventListener("submit", (e) => {
 
               document.getElementById("fechavisita").setAttribute("min", localDateTime);
               document.getElementById("fechareserva").setAttribute("min", localDateTime);
-              document.getElementById("btnvotacion").addEventListener("click", mostradivvotos);
-              document.getElementById("divbotonhistorico").addEventListener("click", updatePaymentHistory);
-              document.getElementById("divbotonpago").addEventListener("click", redireccionarPagos);
-              document.getElementById("divregreso").addEventListener("click", regresar);
-              document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
-              document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
-              document.getElementById("btnenviaringreso").addEventListener("click", enviarsdei);
-              document.getElementById("datoscorrectosvisitas").addEventListener("click", confirmacionvyp);
-              document.getElementById("nuevoregistro").addEventListener("click", nuevoregistro);
-              document.getElementById("divbotonreservar").addEventListener("click", calendario);
-              document.getElementById("confirmarreserca").addEventListener("click", registrarReserva);
-              document.getElementById("misreservsas").addEventListener("click", toggleMisReservas);
-              document.getElementById("enviarpago").addEventListener("click", enviardatospago);
-              document.getElementById("btnreciboene2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibofeb2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibomar2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnreciboabr2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibomay2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibojun2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibojul2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnreciboago2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibosep2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibooct2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibonov2024").addEventListener("click", generarrecibopdf);
-              document.getElementById("btnrecibodic2024").addEventListener("click", generarrecibopdf);
+
+
+              document
+              .getElementById("btnvotacion")
+              .addEventListener("click", mostradivvotos);
+
+              document
+                .getElementById("divbotonhistorico")
+                .addEventListener("click", updatePaymentHistory);
+              document
+                .getElementById("divbotonpago")
+                .addEventListener("click", redireccionarPagos);
+              document
+                .getElementById("divregreso")
+                .addEventListener("click", regresar);
+              document
+                .getElementById("divbotonvisitas")
+                .addEventListener("click", ingresos);
+              document
+                .getElementById("divbotonvisitas")
+                .addEventListener("click", ingresos);
+              document
+                .getElementById("btnenviaringreso")
+                .addEventListener("click", enviarsdei);
+              document
+                .getElementById("datoscorrectosvisitas")
+                .addEventListener("click", confirmacionvyp);
+              document
+                .getElementById("nuevoregistro")
+                .addEventListener("click", nuevoregistro);
+              document
+                .getElementById("divbotonreservar")
+                .addEventListener("click", calendario);
+              document
+                .getElementById("confirmarreserca")
+                .addEventListener("click", registrarReserva);
+              document
+                .getElementById("misreservsas")
+                .addEventListener("click", toggleMisReservas);
+              document
+                .getElementById("enviarpago")
+                .addEventListener("click", enviardatospago);
+              document
+                .getElementById("btnreciboene2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibofeb2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibomar2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnreciboabr2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibomay2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibojun2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibojul2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnreciboago2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibosep2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibooct2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibonov2024")
+                .addEventListener("click", generarrecibopdf);
+              document
+                .getElementById("btnrecibodic2024")
+                .addEventListener("click", generarrecibopdf);
+
+
               document.getElementById("btnreciboene2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibofeb2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibomar2025").addEventListener("click", generarrecibopdf);
@@ -1541,13 +1663,13 @@ formulario.addEventListener("submit", (e) => {
               document.getElementById("btnrecibonov2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibodic2025").addEventListener("click", generarrecibopdf);
               document.getElementById("borrardatos").addEventListener("click", borrarElementos);
+          
               document.getElementById("enviarvoto").addEventListener("click", enviarvoto);
-
-            
 
               var boton = document.getElementById("btnparaconfirmarreserca");
               var boton2 = document.getElementById("generarvisitayqr");
               var boton3 = document.getElementById("enviarpago");
+
 
               var tiempoEspera = 5 * 1000; // 5 minutos en milisegundos
               var timer; // variable para almacenar el temporizador
@@ -1579,12 +1701,18 @@ formulario.addEventListener("submit", (e) => {
                 });
 
               function desactivarBoton() {
+                var boton = document.getElementById("btnparaconfirmarreserca");
+                var boton2 = document.getElementById("generarvisitayqr");
+                var boton3 = document.getElementById("enviarpago");
                 boton.disabled = true;
                 boton2.disabled = true;
                 boton3.disabled = true;
               }
 
               function activarBoton() {
+                var boton = document.getElementById("btnparaconfirmarreserca");
+                var boton2 = document.getElementById("generarvisitayqr");
+                var boton3 = document.getElementById("enviarpago");
                 boton.disabled = false;
                 boton2.disabled = false;
                 boton3.disabled = false;
@@ -1900,6 +2028,8 @@ formulario.addEventListener("submit", (e) => {
               }
 
               function registrarReserva() {
+                var boton = document.getElementById("btnparaconfirmarreserca");
+
                 if (boton.disabled) {
                   return; // Evitar ejecutar la función si ya está en curso
                 }
@@ -2064,6 +2194,7 @@ formulario.addEventListener("submit", (e) => {
               }
 
               function confirmacionvyp() {
+                var boton2 = document.getElementById("generarvisitayqr");
                 if (boton2.disabled) {
                   return; // Evitar ejecutar la función si ya está en curso
                 }
@@ -2457,10 +2588,12 @@ formulario.addEventListener("submit", (e) => {
               }
 
               function enviardatospago() {
+                var boton3 = document.getElementById("enviarpago");
+
                 if (boton3.disabled) {
                   return; // Evitar ejecutar la función si ya está en curso
                 }
-                desactivarBoton(); // Desactivar el botón al inicio de la función
+                desactivarBoton()
                 let fechaPagoSpan =
                   document.getElementById("fechaPago").textContent;
                 let montoPagoSpan =
