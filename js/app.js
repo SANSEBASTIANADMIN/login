@@ -3919,21 +3919,23 @@ function formatData(data, tipoInforme) {
       }
     } else if (tipoInforme === 'reservas') {
       return {
-        registro: item.registro,
         domds: item.domds,
         amenidad: item.amenidad,
         fecha: item.fecha,
         estatus: item.estatus,
         fechadecancelacion: item.fechadecancelacion,
+        registro: item.registro,
+
       }
     } else if (tipoInforme === 'visitasyproveedores') {
       return {
-        fechaHoraRegistro: item.fechaHoraRegistro,
         domicilio: atob(item.domicilio), // Descodifica el domicilio
         namevisita: item.namevisita,
         fecha: item.fecha,
         ingresoc1: item.ingresoc1,
         ingresoc2: item.ingresoc2,
+        fechaHoraRegistro: item.fechaHoraRegistro,
+
       }
     }      
   });
