@@ -3874,33 +3874,74 @@ function ocultarfecha() {
 
 function generarInforme() {
   const tipoInforme = document.getElementById('tipoinforme').value;
+  let url;
+
   if (tipoInforme === 'Votaciones') {
-      const url = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones`;
-      fetch(url)
-          .then(response => response.json())
-          .then(data => {
-              const formattedData = formatData(data);
-              const csvData = convertToCSV(formattedData);
-              downloadCSV(csvData, 'votaciones.csv');
-          })
-          .catch(error => console.error('Error fetching data:', error));
+      url = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones`;
+  } else if (tipoInforme === 'pagos') {
+      url = `https://sheet.best/api/sheets/${sheetID}/tabs/pagos`;
+  } else if (tipoInforme === 'reservas') {
+      url = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones`;
+  } else if (tipoInforme === 'visitasyproveedores') {
+      url = `https://sheet.best/api/sheets/${sheetID}/tabs/visitas`;
   } else {
-      // Aquí puedes manejar otros tipos de informes
       console.log('Otro tipo de informe seleccionado');
+      return; // Salir de la función si el tipo de informe no es válido
   }
+
+  fetch(url)
+      .then(response => response.json())
+      .then(data => {
+          const formattedData = formatData(data, tipoInforme); // Pasar tipoInforme como parámetro
+          const csvData = convertToCSV(formattedData);
+          downloadCSV(csvData, `${tipoInforme.toLowerCase()}.csv`);
+      })
+      .catch(error => console.error('Error fetching data:', error));
 }
 
-function formatData(data) {
+function formatData(data, tipoInforme) {
   return data.map(item => {
+    if (tipoInforme === 'Votaciones') {
       return {
-          domicilio: item.domicilio,
-          pregunta: item.pregunta,
+        domicilio: item.domicilio,
+        pregunta: item.pregunta.replace(/\n/g, " | "), // Reemplaza los saltos de línea
+        respuesta: item.respuesta,
+        fechaHoraRegistro: formatFechaHora(item.fechaHoraRegistro),
 
-          respuesta: item.respuesta,
-          fechaHoraRegistro: formatFechaHora(item.fechaHoraRegistro)
-      };
+      }
+    } else if (tipoInforme === 'pagos') {
+      return {
+        domds: item.domds,
+        beneficiario: item.beneficiario,
+        fechapago: item.fechapago,
+        monto: item.monto,
+        concepto: item.concepto,
+      }
+    } else if (tipoInforme === 'reservas') {
+      return {
+        registro: item.registro,
+        domds: item.domds,
+        amenidad: item.amenidad,
+        fecha: item.fecha,
+        estatus: item.estatus,
+        fechadecancelacion: item.fechadecancelacion,
+      }
+    } else if (tipoInforme === 'visitasyproveedores') {
+      return {
+        fechaHoraRegistro: item.fechaHoraRegistro,
+        domicilio: atob(item.domicilio), // Descodifica el domicilio
+        namevisita: item.namevisita,
+        fecha: item.fecha,
+        ingresoc1: item.ingresoc1,
+        ingresoc2: item.ingresoc2,
+      }
+    }      
   });
 }
+
+
+
+
 
 function formatFechaHora(fechaHora) {
   if (!fechaHora) return '';
