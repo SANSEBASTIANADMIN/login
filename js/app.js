@@ -133,7 +133,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const contraseñaGuardada = localStorage.getItem('contraseñasCifrada');
 
   if (correoCifradoGuardado && contraseñaGuardada) {
-
+  
+    if ((correoCifradoGuardado === "CENTINELA" && contraseñaGuardada === "SANSEBASTIAN") ||    (correoCifradoGuardado === "AGCH" && contraseñaGuardada === "SANSEBASTIAN")){
+      sesionIniciada = true; // Marcar la sesión como iniciada
+      window.location.href = "index2.html";
+    } else if ((correoCifradoGuardado === "CENTINELA" && contraseñaGuardada === "CASETAPRINCIPAL") ||    (correoCifradoGuardado === "AGCH" && contraseñaGuardada === "CASETAPRINCIPAL")){
+      sesionIniciada = true; // Marcar la sesión como iniciada
+      window.location.href = "seguridadcasetaprincipal.html";
+    } else { 
     console.log("Datos de sesión guardados:");
     console.log("Usuario:", correoCifradoGuardado);
     console.log("Contraseña:", contraseñaGuardada);
@@ -1448,7 +1455,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Usuario o contraseña incorrectos");
           }
         });  
-    } else {
+    }
     console.log("No hay datos de sesión guardados.");
   }
 });
@@ -1465,10 +1472,26 @@ formulario.addEventListener("submit", (e) => {
   if (    (usuarioInput === "CENTINELA" && contraseñaInput === "SANSEBASTIAN") ||    (usuarioInput === "AGCH" && contraseñaInput === "SANSEBASTIAN")  ) {
     // Redirigir a la página deseada
     sesionIniciada = true; // Marcar la sesión como iniciada
+    const rememberMe = checkboxrememberMe.checked;
+    if (rememberMe) {
+      localStorage.setItem('correoCifradoInput', usuarioInput);
+      localStorage.setItem('contraseñasCifrada', contraseñaInput);
+      console.log(usuarioInput);                    
+      console.log(contraseñaInput);
+      console.log("Usuario y contraseña se guardarán en localStorage");                    
+    }
 
     window.location.href = "index2.html";
   } else if ((usuarioInput === "CENTINELA" && contraseñaInput === "CASETAPRINCIPAL") ||    (usuarioInput === "AGCH" && contraseñaInput === "CASETAPRINCIPAL")){
     sesionIniciada = true; // Marcar la sesión como iniciada
+    const rememberMe = checkboxrememberMe.checked;
+    if (rememberMe) {
+      localStorage.setItem('correoCifradoInput', usuarioInput);
+      localStorage.setItem('contraseñasCifrada', contraseñaInput);
+      console.log(usuarioInput);                    
+      console.log(contraseñaInput);
+      console.log("Usuario y contraseña se guardarán en localStorage");                    
+    }
 
     window.location.href = "seguridadcasetaprincipal.html";
 
@@ -3877,13 +3900,13 @@ function generarInforme() {
   let url;
 
   if (tipoInforme === 'Votaciones') {
-      url = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones`;
+      url = `https://sheet.best/api/sheets/${sheetID}/tabs/votaciones${privada}`;
   } else if (tipoInforme === 'pagos') {
-      url = `https://sheet.best/api/sheets/${sheetID}/tabs/pagos`;
+      url = `https://sheet.best/api/sheets/${sheetID}/tabs/pagos${privada}`;
   } else if (tipoInforme === 'reservas') {
-      url = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones`;
+      url = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones${privada}`;
   } else if (tipoInforme === 'visitasyproveedores') {
-      url = `https://sheet.best/api/sheets/${sheetID}/tabs/visitas`;
+      url = `https://sheet.best/api/sheets/${sheetID}/tabs/visitas${privada}`;
   } else {
       console.log('Otro tipo de informe seleccionado');
       return; // Salir de la función si el tipo de informe no es válido
@@ -4094,3 +4117,43 @@ function agregarPregunta(pregunta) {
   }
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+
+  function obtenerdomconmora() {
+    console.log("Obteniendo registros de morosos...");
+    const url = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios`;
+    fetch(url)    
+        .then((response) => response.json())
+        .then((data) => {
+            // Filtrar y agregar los registros con estado "Moroso" (sin importar la fecha)
+            const registrosMorosos = data.filter((registro) => registro.status.startsWith("Moroso"));
+            agregarRegistrosMorosos("morosos-registros", registrosMorosos);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+  }
+    // Función para agregar registros de morosos
+    function agregarRegistrosMorosos(contenedorId, registros) {
+        const contenedor = document.getElementById(contenedorId);
+        // Vaciar el contenedor antes de agregar nuevos registros
+        contenedor.innerHTML = '';
+        registros.forEach(registro => {
+            const registroHTML = `
+                <div id="div${registro.dom}" class="registro-item-mora">
+                    <p><strong>Domicilio:</strong> ${atob(registro.dom)}</p>
+                    <p><strong>Adeudo Total:</strong> ${registro.adeudo}</p>
+                </div>
+            `;
+            contenedor.insertAdjacentHTML('beforeend', registroHTML);
+        });
+    }
+
+
+      // Event listener para el clic en el elemento details
+      document.getElementById("calle-morosos").addEventListener("toggle", function() {
+        if (this.open) {
+            obtenerdomconmora();
+        }
+    });  
+});

@@ -175,3 +175,12 @@ const actualizarIngreso = async (sheetID, rowIndex, fecha, hora) => {
     Swal.fire("Error al actualizar la hoja de cálculo");
   }
 };
+
+document.getElementById("cerrarsesion").addEventListener("click", function() {
+  localStorage.removeItem('correoCifradoInput'); // Elimina el correo cifrado del localStorage
+  console.log("Borrando Usuario");
+  localStorage.removeItem('contraseñasCifrada'); // Elimina la contraseña cifrada del localStorage
+  console.log("Borrando contraseña"); 
+  window.location.href = "index.html";
+});
+

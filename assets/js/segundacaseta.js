@@ -668,6 +668,14 @@ function extractQRCodeData(qrCode) {
   };
 }
 
+document.getElementById("cerrarsesion").addEventListener("click", function() {
+  localStorage.removeItem('correoCifradoInput'); // Elimina el correo cifrado del localStorage
+  console.log("Borrando Usuario");
+  localStorage.removeItem('contraseñasCifrada'); // Elimina la contraseña cifrada del localStorage
+  console.log("Borrando contraseña"); 
+  window.location.href = "index.html";
+});
+
 
 
 
