@@ -443,9 +443,9 @@ select:focus {
 
 .registro-item {
   border: 1px solid #013e6a; /* Marco de 1px de grosor y color gris claro */
-  padding: 10px; /* Espaciado interior de 10px */
+  padding: 5px; /* Espaciado interior de 10px */
   font-size: 12px; /* Tamaño de fuente de 12px */
-  margin-bottom: 10px; /* Margen inferior de 10px */
+  margin-bottom: 5px; /* Margen inferior de 10px */
   border-radius: 8px; /* Esquinas ligeramente ovaladas */
 }
 
@@ -1449,4 +1449,46 @@ summary::before {
 
 .fila-impar {
   background-color: rgba(37, 149, 190, 0.447);
+}
+
+.mercadopago-button {
+  width: 90%; /* Maintains the desired width */
+  height: 40px; /* Maintains the desired height */
+  min-width: 150px; /* Maintains the minimum width */
+  margin: 2px; /* Maintains the margin */
+  padding: 10px 20px; /* Maintains the padding for button comfort */
+  text-align: start; /* Aligns the text to the left */
+  border-radius: 5px; /* Maintains the border radius */
+  font-size: 13px; /* Reduces the font size to 12px */
+  font-weight: 500; /* Maintains the font weight */
+  transition: all 0.3s ease; /* Maintains the transition effect */
+  outline: none; /* Maintains the removal of outline */
+  border-radius: 20px;
+}
+
+.terminar-registro{
+  height: 70px;
+  width: 100%; /* Mantiene el ancho deseado */
+  border-radius: 5px; /* Mantiene el border radius correcto */
+  background: #ff00004d;
+  border: 1px solid red; /* Asegura que el borde sea visible */
+  text-align: center;
+  font-size: 14px; /* Tamaño de fuente ajustado */
+  display: flex; /* Activa flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+
+.header2 {
+  margin-bottom: 10px;
+  text-align: left;
+  width: 60%; /* Ajusta el ancho según tus necesidades */
+
+
+}
+
+.columna-izquierda9 {
+  width: 40%; /* Ajusta el ancho según tus necesidades */
+
 }
