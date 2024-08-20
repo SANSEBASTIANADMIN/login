@@ -176,6 +176,8 @@ const actualizarIngreso = async (sheetID, rowIndex, fecha, hora) => {
   }
 };
 
+
+
 document.getElementById("cerrarsesion").addEventListener("click", function() {
   localStorage.removeItem('correoCifradoInput'); // Elimina el correo cifrado del localStorage
   console.log("Borrando Usuario");
@@ -183,6 +185,7 @@ document.getElementById("cerrarsesion").addEventListener("click", function() {
   console.log("Borrando contraseña"); 
   window.location.href = "index.html";
 });
+
 
 document.addEventListener("DOMContentLoaded", function() {
 
