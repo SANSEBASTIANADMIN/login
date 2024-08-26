@@ -19,8 +19,7 @@
 				<div class="registro activo" id="registro">
 					<div class="row1">
 						<div class="header">
-							<h2 class="titulo">¡Privada San Sebastian!</h2>
-							<p>Inicio de sesión</p>
+							<h2 class="titulo">Inicio de sesión</h2>
 							<p>Residentes</p>
 						</div>
 						<div class="columna-izquierda4">
@@ -53,16 +52,20 @@
 						</div>
 
 						<div class="form-group">
-							<input type="checkbox" id="rememberMe" name="rememberMe">
+							<label class="switch">
+								<input type="checkbox" id="rememberMe" name="rememberMe">
+								<span class="slider round"></span>
+							</label>
 							<label for="rememberMe">Recuérdame</label>
 						</div>
-
-
-						<div class="aviso-privacidad">
-							<input type="checkbox" id="avisoPrivacidad" name="avisoPrivacidad">
-							<label for="avisoPrivacidad">He leído y acepto el <a href="avisodeprivacidad.html">aviso de privacidad</a> y los <a href="terminosycondiciones.html">terminos y condiciones</a></label>
-						</div>
 						
+						<div class="aviso-privacidad">
+							<label class="switch">
+								<input type="checkbox" id="avisoPrivacidad" name="avisoPrivacidad">
+								<span class="slider round"></span>
+							</label>
+							<label for="avisoPrivacidad">He leído y acepto el <a href="avisodeprivacidad.html">aviso de privacidad</a> y los <a href="terminosycondiciones.html">términos y condiciones</a></label>
+						</div>
 						<div class="g-recaptcha" data-sitekey="TU_SITE_KEY"></div>
 						<div class="contenedor-boton">
 							<button id="iniciarresidente" type="submit">Iniciar sesión</button>
@@ -542,6 +545,18 @@
 			</div>	
 		</div>
 		<div id="divpagos" style="display: none;" class="contenedor">
+
+			<p class="titulo">Paga con tarjeta de debito o crédito</p>
+
+			<script src="https://www.mercadopago.com.mx/integrations/v1/web-payment-checkout.js"
+				data-preference-id="1824470973-45e4405e-20d0-4500-8a97-47ce5c198d65" data-source="button">
+			</script>
+
+			<div style="margin-bottom: 50px;"></div>
+
+
+			<p class="titulo">O mediante transferencia interbancaria</p>
+		
 			<p class="titulo">Datos Bancarios</p>
 			<p>Banco: SANTANDER</p>
 			<p>Titular: COLONOS SAN SEBASTIAN, A.C.</p>
@@ -550,6 +565,8 @@
 			<p>Monto: $550.00 M.N.</p>
 			<p> </p>
 			<p> </p>
+			<div style="margin-bottom: 50px;"></div>
+
 			<p class="titulo">Adjunta tu pago<p>
 			<input class="input" type="file" id="archivo" accept="application/pdf,image/*" onchange="procesarArchivo()">
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
@@ -853,7 +870,6 @@
 	<script src="https://www.google.com/recaptcha/enterprise.js?render=6LdCILYpAAAAADl_Sm8WVoZTzGfv8RS_TiLLspJf"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 	<script src="js/app.js"></script>
-	<script src="js/app2.js"></script>
 </body>
 </html>
 

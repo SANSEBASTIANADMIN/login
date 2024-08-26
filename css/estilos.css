@@ -1490,5 +1490,67 @@ summary::before {
 
 .columna-izquierda9 {
   width: 40%; /* Ajusta el ancho según tus necesidades */
-
 }
+
+
+/* Estilo del contenedor del switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+/* Ocultar el checkbox original */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Estilo del slider */
+.slider {
+  width: 50px;
+  height: 25px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+}
+
+/* Estilo del slider cuando está redondeado */
+.slider.round {
+  border-radius: 25px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* Estilo del punto móvil dentro del switch */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 2.5px;
+  background-color: rgb(255, 255, 255);
+  transition: .4s;
+}
+
+/* Cambia el color del switch cuando está seleccionado */
+input:checked + .slider {
+  background-color: rgb(37, 150, 190);
+}
+
+/* Mueve el punto móvil cuando está seleccionado */
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+
