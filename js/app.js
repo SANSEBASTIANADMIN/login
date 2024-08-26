@@ -2919,8 +2919,7 @@ function procesarPDF(datos) {
         const beneficiario = beneficiarioMatch ? beneficiarioMatch[0] : null;
 
         // Buscar el concepto del pago
-        const regexConceptoPago =
-          /(?<=Monto IVA Referencia numérica Clave de rastreo  \d{2} de [a-zA-Z]+\sde\s\d{4}\s)(.+?)\s+\$/; // Coincide con cualquier texto después del texto indicado y seguido del siguiente "$"
+        const regexConceptoPago = /Monto IVA Referencia numérica Clave de rastreo  \d{2} de [a-zA-Z]+\sde\s\d{4}\s(.+?)\s+\$/;
         const conceptoPagoMatch = texto.match(regexConceptoPago);
         const conceptoPago = conceptoPagoMatch ? conceptoPagoMatch[1] : null;
         
