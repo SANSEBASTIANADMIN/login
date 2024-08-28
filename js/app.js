@@ -90,7 +90,7 @@ const divpagocargado = document.getElementById("pagocargado");
 const divseguridad = document.getElementById("seguridad");
 const divvotaciones = document.getElementById("divvotaciones");
 const btnvotacion = document.getElementById("btnvotacion");
-const sheetID = "a6b0b2f6-4b86-4614-b256-8fc3f603b7da";
+const sheetID = "20758fb4-773d-43c9-995b-dcc92cc09071";
 let sesionIniciada = false;
 let checkboxadp = document.getElementById("avisoPrivacidad");
 
