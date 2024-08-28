@@ -129,6 +129,16 @@ label {
   transition: 0.3s ease all;
 }
 
+.datos{
+  color: black;
+  font-weight: bold;
+}
+
+.datosvyp {
+  color: rgb(65, 113, 226);
+  font-weight: bold;
+}
+
 input:focus {
   outline: none;
   border: rgba(23, 158, 221, 0.3);
