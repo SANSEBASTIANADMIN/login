@@ -3829,22 +3829,18 @@ document.getElementById("compartirQrButton").addEventListener("click", async fun
 async function uploadToImgbb(blob) {
   //alert("Subiendo imagen a imgbb...");
   const formData = new FormData();
-  formData.append("image", blob);
+
+  formData.append("file", blob);
+  formData.append("upload_preset", "qrcodes_upload"); // Necesitas configurarlo en Cloudinary
 
   try {
-      const response = await fetch("https://api.imgbb.com/1/upload?key=7d47376285c786ea70e448881a02adf9", {
+      const response = await fetch("https://api.cloudinary.com/v1_1/ddpqkyeqv/image/upload", {
           method: "POST",
           body: formData
       });
 
-      const responseText = await response.text();
-      if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status} - ${responseText}`);
-      }
-
-      const data = JSON.parse(responseText);
-      //alert("Imagen subida!");
-      return data.data.url;
+      const data = await response.json();
+      return data.secure_url; 
   } catch (error) {
       //alert(`Error al subir la imagen: ${error.message}`);
       console.error("Error al subir la imagen:", error);
